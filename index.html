@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>BK3 Octane Booster | Catálogo & Brochure Digital Oficial</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logos/BK3_solo_nombre_transparente.png">
+</head>
+<body>
+
+  <!-- Fondo Ambiental Interactivo: Spotlight Dinámico (Inspirado en Portfolio) -->
+  <div id="spotlightOverlay" class="spotlight-overlay" aria-hidden="true"></div>
+  <div class="ambient-breathing-aura" aria-hidden="true"></div>
+
+  <!-- ========================================================================
+       TOP APP HEADER
+       ======================================================================== -->
+  <header class="app-header">
+    <div class="brand-section">
+      <img src="assets/logos/BK3_solo_nombre_negativo_transparente.png" alt="BK3" class="brand-logo-mini">
+      <div class="brand-title-wrap">
+        <span class="brand-title">BK3 Octane Booster</span>
+        <span class="brand-subtitle">Brochure & Catálogo Oficial</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <button id="btnSound" class="tool-btn" title="Activar / Silenciar sonido de hoja">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <span>Sonido: ON</span>
+      </button>
+
+      <button id="btnThumbs" class="tool-btn" title="Ver páginas en miniatura">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h4v4H4V6zm0 7h4v4H4v-4zm0 7h4v4H4v-4zm7-14h10v4H11V6zm0 7h10v4H11v-4zm0 7h10v4H11v-4z"/></svg>
+        <span>Páginas</span>
+      </button>
+
+      <a href="https://wa.me/584143418703?text=Hola%20BK3,%20deseo%20información%20sobre%20sus%20productos" target="_blank" class="tool-btn btn-accent" title="Pedir por WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+
+      <button id="btnFullscreen" class="tool-btn" title="Pantalla Completa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN FLIPBOOK VIEWPORT (ESTILO HEYZINE)
+       ======================================================================== -->
+  <main class="viewer-viewport">
+    
+    <!-- Flechas laterales de navegación -->
+    <div id="btnPrev" class="nav-arrow prev" title="Página anterior">&#10094;</div>
+    <div id="btnNext" class="nav-arrow next" title="Página siguiente">&#10095;</div>
+
+    <div class="flipbook-container" id="flipbookWrapper">
+      <!-- 3D Page Depth (Bordes de páginas apiladas) -->
+      <div class="page-depth-left"></div>
+      <div class="page-depth-right"></div>
+
+      <div id="flipbook">
+
+        <!-- ==================================================================
+             PÁGINA 1: PORTADA OFICIAL (BROCHURE ORIGINAL)
+             ================================================================== -->
+        <div class="page page-art page-cover" data-density="soft">
+          <img src="assets/pages_webp/page-01.webp" alt="BK3 Octane Booster Portada" class="page-art-img" loading="eager">
+          <button id="btnOpenCatalog" class="cover-open-btn" title="Abrir Revista">
+            <span>ABRIR REVISTA</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          </button>
+          <div class="page-satin-sheen"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
+             ================================================================== -->
+        <div class="page page-index-custom" data-density="soft">
+          <div class="index-scroll-wrapper">
+            <!-- Mitad superior: Textura de asfalto con vitrina de botellas -->
+            <div class="index-top-section">
+              <span class="index-badge">GAMA COMPLETA • CATÁLOGO GENERAL</span>
+              <h2 class="index-main-title">TODOS LOS PRODUCTOS BK3</h2>
+              <p class="index-main-desc">Formulación química de alta pureza con lubricantes poliméricos que elevan el octanaje y blindan su motor.</p>
+
+              <div class="index-packshot-strip">
+                <img src="assets/products/botella_naranja_moto_250ml.png" alt="BK3 Moto" class="packshot-bottle" data-target-page="2">
+                <img src="assets/products/botella_verde_1lt.png" alt="BK3 Clásico" class="packshot-bottle" data-target-page="3">
+                <img src="assets/products/botella_rojo_racing_1lt.png" alt="BK3 Racing" class="packshot-bottle" data-target-page="5">
+                <img src="assets/products/botella_amarillo_cetane_1lt.png" alt="BK3 Cetanium" class="packshot-bottle" data-target-page="7">
+                <img src="assets/products/galon_marine_5lt.png" alt="BK3 Marine" class="packshot-bottle" data-target-page="8">
+              </div>
+            </div>
+
+            <!-- Mitad inferior: Panel blanco satinado con tarjetas de producto -->
+            <div class="index-satin-panel">
+              <div class="catalog-cards-list">
+                <!-- 1. BK3 Moto -> Salta a página 3 (index 2) -->
+                <div class="cat-item-card cat-moto" data-target-page="2" role="button" tabindex="0">
+                  <div class="cat-thumb-box">
+                    <img src="assets/products/botella_naranja_moto_250ml.png" alt="BK3 Moto">
+                  </div>
+                  <div class="cat-details">
+                    <div class="cat-tag-row">
+                      <span class="cat-pill">Motos Baja Cilindrada</span>
+                      <span class="cat-vol-tag">250 ml</span>
+                    </div>
+                    <h3 class="cat-title">BK3 MOTO OCTANE BOOSTER</h3>
+                    <p class="cat-summary">Elimina pistoneo, optimiza respuesta y rinde en tanques de 10 a 15L.</p>
+                  </div>
+                  <div class="cat-action-arrow">&#10148;</div>
+                </div>
+
+                <!-- 2. BK3 Clásico -> Salta a página 4 (index 3) -->
+                <div class="cat-item-card cat-clasico" data-target-page="3" role="button" tabindex="0">
+                  <div class="cat-thumb-box">
+                    <img src="assets/products/botella_verde_1lt.png" alt="BK3 Clásico">
+                  </div>
+                  <div class="cat-details">
+                    <div class="cat-tag-row">
+                      <span class="cat-pill">Uso Diario & Alta Gama</span>
+                      <span class="cat-vol-tag">500ml • 1L • 5L</span>
+                    </div>
+                    <h3 class="cat-title">BK3 OCTANE BOOSTER CLÁSICO</h3>
+                    <p class="cat-summary">+10 a +20 Octanos sin componentes corrosivos. Limpieza de inyectores.</p>
+                  </div>
+                  <div class="cat-action-arrow">&#10148;</div>
+                </div>
+
+                <!-- 3. BK3 Racing -> Salta a página 6 (index 5) -->
+                <div class="cat-item-card cat-racing" data-target-page="5" role="button" tabindex="0">
+                  <div class="cat-thumb-box">
+                    <img src="assets/products/botella_rojo_racing_1lt.png" alt="BK3 Racing">
+                  </div>
+                  <div class="cat-details">
+                    <div class="cat-tag-row">
+                      <span class="cat-pill">Turbo, Competición & Blindados</span>
+                      <span class="cat-vol-tag">1 Litro</span>
+                    </div>
+                    <h3 class="cat-title">BK3 OCTANE BOOSTER RACING</h3>
+                    <p class="cat-summary">+14 a +28 Octanos con N-Propanol líquido. Estabilidad en alta presión.</p>
+                  </div>
+                  <div class="cat-action-arrow">&#10148;</div>
+                </div>
+
+                <!-- 4. BK3 Cetanium -> Salta a página 8 (index 7) -->
+                <div class="cat-item-card cat-cetane" data-target-page="7" role="button" tabindex="0">
+                  <div class="cat-thumb-box">
+                    <img src="assets/products/botella_amarillo_cetane_1lt.png" alt="BK3 Cetanium">
+                  </div>
+                  <div class="cat-details">
+                    <div class="cat-tag-row">
+                      <span class="cat-pill">Motores Diésel & Plantas</span>
+                      <span class="cat-vol-tag">1L • 5L</span>
+                    </div>
+                    <h3 class="cat-title">BK3 CETANIUM BOOSTER</h3>
+                    <p class="cat-summary">+10 Puntos de cetano. Disocia agua y pulveriza lodos y sedimentos.</p>
+                  </div>
+                  <div class="cat-action-arrow">&#10148;</div>
+                </div>
+
+                <!-- 5. BK3 Performance Marine -> Salta a página 9 (index 8) -->
+                <div class="cat-item-card cat-marine" data-target-page="8" role="button" tabindex="0">
+                  <div class="cat-thumb-box">
+                    <img src="assets/products/galon_marine_5lt.png" alt="BK3 Marine">
+                  </div>
+                  <div class="cat-details">
+                    <div class="cat-tag-row">
+                      <span class="cat-pill">Náutica & Fueraborda</span>
+                      <span class="cat-vol-tag">5 Litros</span>
+                    </div>
+                    <h3 class="cat-title">BK3 PERFORMANCE MARINE</h3>
+                    <p class="cat-summary">Protección anticorrosiva extrema frente a salinidad marina constante.</p>
+                  </div>
+                  <div class="cat-action-arrow">&#10148;</div>
+                </div>
+              </div>
+
+              <div class="index-footer-strip">
+                <span>BK3 SOLUTIONS C.A. • CATÁLOGO INTERACTIVO</span>
+                <span>PÁGINA 02</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 3: BK3 MOTO (PÁGINA 2 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-02.webp" alt="BK3 Moto - Potenciador Motos Baja Cilindrada" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 4: BK3 CLÁSICO (PÁGINA 3 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-03.webp" alt="BK3 Clásico - Uso Diario y Alta Cilindrada" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 5: DEMOSTRACIÓN LABORATORIO CLÁSICO (PÁGINA 4 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-04.webp" alt="Pruebas de Laboratorio BK3" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 6: BK3 RACING (PÁGINA 5 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-05.webp" alt="BK3 Racing - Turbo y Blindados" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 7: DEMOSTRACIÓN LABORATORIO RACING (PÁGINA 6 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-06.webp" alt="Demostración de Lubricidad BK3" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 8: BK3 CETANIUM BOOSTER (PÁGINA 7 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-07.webp" alt="BK3 Cetanium Booster Diésel" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 9: BK3 PERFORMANCE MARINE (PÁGINA 8 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-08.webp" alt="BK3 Performance Marine Línea Náutica" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 10: DEMOSTRACIÓN LABORATORIO MARINE (PÁGINA 9 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-09.webp" alt="Pruebas de Calidad Marina" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 11: CONTRAPORTADA OFICIAL (PÁGINA 10 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art page-back-cover" data-density="soft">
+          <img src="assets/pages_webp/page-10.webp" alt="BK3 Contacto y Redes Oficiales" class="page-art-img" loading="lazy">
+          
+          <!-- Hotspots interactivos de contacto -->
+          <a href="https://instagram.com/bk3.oficiall" target="_blank" class="hotspot-link hotspot-ig" title="Abrir Instagram @bk3.oficiall"></a>
+          <a href="https://wa.me/584143418703?text=Hola%20BK3,%20deseo%20hacer%20un%20pedido%20de%20sus%20productos" target="_blank" class="hotspot-link hotspot-wsp" title="Contactar por WhatsApp"></a>
+          
+          <div class="page-satin-sheen"></div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       DRAWER DE MINIATURAS (ESTILO HEYZINE)
+       ======================================================================== -->
+  <div id="thumbsDrawer" class="thumbs-drawer">
+    <div class="thumb-item active" data-page="0">
+      <span class="thumb-label">Portada</span>
+      <span class="thumb-num">01</span>
+    </div>
+    <div class="thumb-item" data-page="1">
+      <span class="thumb-label">Todos</span>
+      <span class="thumb-num">02</span>
+    </div>
+    <div class="thumb-item" data-page="2">
+      <span class="thumb-label" style="color: var(--color-moto);">Moto</span>
+      <span class="thumb-num">03</span>
+    </div>
+    <div class="thumb-item" data-page="3">
+      <span class="thumb-label" style="color: var(--color-clasico);">Clásico</span>
+      <span class="thumb-num">04</span>
+    </div>
+    <div class="thumb-item" data-page="4">
+      <span class="thumb-label">Prueba</span>
+      <span class="thumb-num">05</span>
+    </div>
+    <div class="thumb-item" data-page="5">
+      <span class="thumb-label" style="color: var(--color-racing);">Racing</span>
+      <span class="thumb-num">06</span>
+    </div>
+    <div class="thumb-item" data-page="6">
+      <span class="thumb-label">Prueba R.</span>
+      <span class="thumb-num">07</span>
+    </div>
+    <div class="thumb-item" data-page="7">
+      <span class="thumb-label" style="color: var(--color-cetane);">Cetano</span>
+      <span class="thumb-num">08</span>
+    </div>
+    <div class="thumb-item" data-page="8">
+      <span class="thumb-label" style="color: var(--color-marine);">Marine</span>
+      <span class="thumb-num">09</span>
+    </div>
+    <div class="thumb-item" data-page="9">
+      <span class="thumb-label">Prueba M.</span>
+      <span class="thumb-num">10</span>
+    </div>
+    <div class="thumb-item" data-page="10">
+      <span class="thumb-label">Contacto</span>
+      <span class="thumb-num">11</span>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       BOTTOM STATUS BAR & QUICK JUMP PILLS
+       ======================================================================== -->
+  <footer class="app-footer">
+    <div class="quick-nav-pills">
+      <button class="quick-pill active" data-page="0">Portada</button>
+      <button class="quick-pill" data-page="1">Gama Completa</button>
+      <button class="quick-pill" data-page="2" style="border-left: 3px solid var(--color-moto);">BK3 Moto</button>
+      <button class="quick-pill" data-page="3" style="border-left: 3px solid var(--color-clasico);">BK3 Clásico</button>
+      <button class="quick-pill" data-page="5" style="border-left: 3px solid var(--color-racing);">BK3 Racing</button>
+      <button class="quick-pill" data-page="7" style="border-left: 3px solid var(--color-cetane);">BK3 Cetanium</button>
+      <button class="quick-pill" data-page="8" style="border-left: 3px solid var(--color-marine);">BK3 Marine</button>
+      <button class="quick-pill" data-page="10">Contacto</button>
+    </div>
+
+    <div class="page-counter-box">
+      <span id="pageIndicator">Página 1 de 11</span>
+    </div>
+  </footer>
+
+  <!-- Librerías Externas y Controlador Principal -->
+  <script src="js/gsap.min.js"></script>
+  <script src="js/confetti.browser.js"></script>
+  <script src="js/page-flip.browser.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,951 @@
+/* ==========================================================================
+   BK3 OCTANE BOOSTER - DIGITAL BROCHURE & FLIPBOOK (REVISTA DIGITAL 3D)
+   Estilo: Revista Editorial Automotriz Satinada • Heyzine Magazine Viewer
+   Fiel al Brochure Oficial & Manual de Marca BK3
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap');
+
+:root {
+  /* Paleta Corporativa Oficial */
+  --brand-navy: #17202D;
+  --brand-dark: #0f151e;
+  --brand-card-bg: #141c27;
+  --brand-asphalt: #14171a;
+
+  /* Colores Oficiales de Producto */
+  --color-clasico: #62C331;       /* Pantone 368 C */
+  --color-moto: #F14825;          /* CMYK 0-79-94-0 */
+  --color-racing: #ED1C24;        /* Pantone 485 C */
+  --color-cetane: #FDB913;        /* CMYK 0-30-100-0 */
+  --color-marine: #0E87D2;        /* CMYK 85-40-0-0 */
+
+  /* Textos */
+  --text-white: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Tipografías */
+  --font-display: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Chakra Petch', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viewer-viewport, .flipbook-container, .tool-btn, .quick-pill, .thumb-item {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0c1016;
+  color: #ffffff;
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   AMBIENT INTERACTIVE SPOTLIGHT (INSPIRADO EN PORTFOLIO & HARMONY)
+   ========================================================================== */
+
+.spotlight-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+  will-change: background;
+}
+
+.ambient-breathing-aura {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  filter: blur(140px);
+  background: radial-gradient(circle, rgba(98, 195, 49, 0.12) 0%, rgba(241, 72, 37, 0.05) 50%, transparent 70%);
+  animation: pulseSlow 8s ease-in-out infinite;
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  50% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes buttonShimmer {
+  0%, 75% { left: -100%; }
+  100% { left: 120%; }
+}
+
+@keyframes whatsappSpringIn {
+  0% {
+    transform: translateY(-8px) scale(0.9) rotate(-2deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(2px) scale(1.05) rotate(1deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-1px) scale(0.98);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   APP HEADER SUPERIOR
+   ========================================================================== */
+
+.app-header {
+  height: 48px;
+  background: #0f151e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo-mini {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.brand-subtitle {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: var(--font-mono);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.tool-btn.btn-accent {
+  background: #25D366;
+  border-color: #25D366;
+  color: #000000;
+  font-weight: 700;
+  animation: whatsappSpringIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-btn.btn-accent::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: buttonShimmer 3.5s infinite;
+}
+
+/* ==========================================================================
+   VIEWPORT PRINCIPAL (ESTILO HEYZINE MAGAZINE)
+   ========================================================================== */
+
+.viewer-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 40%, #1e2634 0%, #0d1218 100%);
+  padding: 8px;
+}
+
+/* Flechas de navegación */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background: rgba(15, 21, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 80;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.nav-arrow.prev { left: 18px; }
+.nav-arrow.next { right: 18px; }
+
+/* Contenedor del libro con centrado suave estilo Heyzine */
+.flipbook-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2200px;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+}
+
+/* Sombra de contacto de libro sobre el suelo */
+#flipbook {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 12px 24px -8px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Bordes de profundidad 3D (Hojas apiladas a los lados estilo Heyzine) */
+.page-depth-left, .page-depth-right {
+  position: absolute;
+  top: 3px; bottom: 3px;
+  width: 7px;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.page-depth-left {
+  left: -7px;
+  background: repeating-linear-gradient(to right, #2a3442 0px, #2a3442 1px, #d8dee8 1px, #d8dee8 2px);
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.page-depth-right {
+  right: -7px;
+  background: repeating-linear-gradient(to right, #d8dee8 0px, #d8dee8 1px, #2a3442 1px, #2a3442 2px);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.6);
+}
+
+/* ==========================================================================
+   ESTRUCTURA GENERAL DE PÁGINAS
+   ========================================================================== */
+
+.page {
+  background: #000000;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Páginas basadas en imagen de alta resolución del Brochure */
+.page-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #14171a;
+}
+
+.page-art-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  pointer-events: none;
+}
+
+/* Acabado Satinado: brillo sutil de revista física */
+.page-satin-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, 0.04) 100%);
+  mix-blend-mode: overlay;
+  z-index: 8;
+}
+
+/* Sombra realista de lomo en modo 2 páginas (Spine Crease) */
+.--left .page-satin-spine,
+.stf__item--left .page-satin-spine {
+  position: absolute;
+  top: 0; bottom: 0; right: 0;
+  width: 38px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.12) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.--right .page-satin-spine,
+.stf__item--right .page-satin-spine {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 38px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.12) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Pulso interactivo al seleccionar página en pliego visible */
+@keyframes pulseHighlight {
+  0% { filter: brightness(1); transform: scale(1); }
+  50% { filter: brightness(1.08) contrast(1.05); transform: scale(1.01); }
+  100% { filter: brightness(1); transform: scale(1); }
+}
+
+.pulse-highlight {
+  animation: pulseHighlight 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 25 !important;
+}
+
+/* Botón flotante en portada */
+.cover-open-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-clasico);
+  color: #000000;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 10px 26px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  z-index: 15;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.cover-open-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: buttonShimmer 3s infinite 1.2s;
+}
+
+.cover-open-btn:hover {
+  background: #6edf39;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Hotspots interactivos en contraportada */
+.hotspot-link {
+  position: absolute;
+  z-index: 20;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.hotspot-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.hotspot-wsp {
+  left: 18%; right: 18%;
+  bottom: 23%; height: 50px;
+}
+
+.hotspot-ig {
+  left: 18%; right: 18%;
+  bottom: 30%; height: 50px;
+}
+
+/* ==========================================================================
+   PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
+   Diseño de alta fidelidad: Asfalto texturizado + Papel satinado mineral
+   Ajuste 100% responsive sin cortes en pantallas móviles o escritorio
+   ========================================================================== */
+
+.page-index-custom {
+  background: #14171a url('../assets/asphalt_texture.webp') repeat;
+  background-size: 320px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* Envoltorio con scroll suave vertical para garantizar CERO recortes */
+.index-scroll-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(98, 195, 49, 0.35) transparent;
+}
+
+.index-scroll-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.index-scroll-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.index-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(98, 195, 49, 0.35);
+  border-radius: 4px;
+}
+
+/* Mitad Superior: Vitrina y Encabezado sobre asfalto */
+.index-top-section {
+  padding: 12px 16px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.index-badge {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-clasico);
+  background: rgba(98, 195, 49, 0.12);
+  border: 1px solid rgba(98, 195, 49, 0.3);
+  padding: 2px 9px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.index-main-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.index-main-desc {
+  font-size: 0.66rem;
+  color: #cbd5e1;
+  max-width: 420px;
+  line-height: 1.3;
+  margin-top: 3px;
+}
+
+/* Fila de miniaturas de botellas con micro-interacción hover */
+.index-packshot-strip {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  height: 60px;
+  margin-top: 6px;
+}
+
+.packshot-bottle {
+  height: 100%;
+  max-height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.7));
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.packshot-bottle:hover {
+  transform: translateY(-4px) scale(1.12);
+  filter: drop-shadow(0 10px 14px rgba(98, 195, 49, 0.45));
+}
+
+/* Mitad Inferior: Panel de papel blanco satinado con tarjetas de producto */
+.index-satin-panel {
+  flex: 1;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
+  border-radius: 12px 12px 0 0;
+  padding: 10px 14px 10px 14px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 5;
+}
+
+.index-satin-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.catalog-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Tarjeta de Producto: Micro-bisel táctil inspirado en Harmony (.crystal-facet-edge) */
+.cat-item-card {
+  background: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.9);
+  border-left: 1px solid rgba(226, 232, 240, 0.8);
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.9);
+  border-radius: 6px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.cat-item-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 6px 0 0 6px;
+  transition: width 0.2s ease;
+}
+
+.cat-item-card.cat-moto::before { background: var(--color-moto); }
+.cat-item-card.cat-clasico::before { background: var(--color-clasico); }
+.cat-item-card.cat-racing::before { background: var(--color-racing); }
+.cat-item-card.cat-cetane::before { background: var(--color-cetane); }
+.cat-item-card.cat-marine::before { background: var(--color-marine); }
+
+.cat-item-card:hover {
+  transform: translateX(4px) translateY(-1px);
+  background: #ffffff;
+}
+
+.cat-item-card.cat-moto:hover {
+  border-color: rgba(241, 72, 37, 0.4);
+  box-shadow: 0 6px 16px rgba(241, 72, 37, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+.cat-item-card.cat-clasico:hover {
+  border-color: rgba(98, 195, 49, 0.45);
+  box-shadow: 0 6px 16px rgba(98, 195, 49, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+.cat-item-card.cat-racing:hover {
+  border-color: rgba(237, 28, 36, 0.4);
+  box-shadow: 0 6px 16px rgba(237, 28, 36, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+.cat-item-card.cat-cetane:hover {
+  border-color: rgba(253, 185, 19, 0.45);
+  box-shadow: 0 6px 16px rgba(253, 185, 19, 0.16), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+.cat-item-card.cat-marine:hover {
+  border-color: rgba(14, 135, 210, 0.4);
+  box-shadow: 0 6px 16px rgba(14, 135, 210, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+.cat-thumb-box {
+  width: 28px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cat-thumb-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+}
+
+.cat-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.cat-pill {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cat-vol-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.cat-moto .cat-pill { background: rgba(241, 72, 37, 0.12); color: var(--color-moto); }
+.cat-clasico .cat-pill { background: rgba(98, 195, 49, 0.15); color: #3d8b17; }
+.cat-racing .cat-pill { background: rgba(237, 28, 36, 0.12); color: var(--color-racing); }
+.cat-cetane .cat-pill { background: rgba(253, 185, 19, 0.18); color: #b45309; }
+.cat-marine .cat-pill { background: rgba(14, 135, 210, 0.15); color: var(--color-marine); }
+
+.cat-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0f172a;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cat-summary {
+  font-size: 0.64rem;
+  color: #64748b;
+  line-height: 1.2;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cat-action-arrow {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cat-item-card:hover .cat-action-arrow {
+  color: #0f172a;
+  transform: translateX(3px);
+}
+
+.index-footer-strip {
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  color: #64748b;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   APP FOOTER BAR & QUICK JUMP PILLS
+   ========================================================================== */
+
+.app-footer {
+  height: 48px;
+  background: #0f151e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.quick-nav-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  max-width: 72%;
+  padding: 2px 0;
+}
+
+.quick-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.quick-pill:hover, .quick-pill.active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.page-counter-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   DRAWER DE MINIATURAS
+   ========================================================================== */
+
+.thumbs-drawer {
+  position: absolute;
+  bottom: 48px;
+  left: 0; right: 0;
+  height: 125px;
+  background: #0d121a;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 16px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  z-index: 90;
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.thumbs-drawer.open {
+  transform: translateY(0);
+}
+
+.thumb-item {
+  width: 68px;
+  height: 90px;
+  background: #141c27;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.thumb-item:hover, .thumb-item.active {
+  border-color: var(--color-clasico);
+  background: #1b2635;
+  transform: translateY(-2px);
+}
+
+.thumb-num {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.thumb-label {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.1;
+}
+
+/* ==========================================================================
+   OPTIMIZACIÓN MÓVIL FIRST (PANTALLAS < 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .app-header { padding: 0 10px; }
+  .brand-title { font-size: 0.95rem; }
+  .brand-subtitle { display: none; }
+  .quick-nav-pills { display: none; }
+  .nav-arrow { display: none; } /* En móvil se usa el swipe táctil nativo */
+  .page-depth-left, .page-depth-right { display: none; }
+
+  /* En móvil el libro siempre está centrado y a ancho completo */
+  .flipbook-container {
+    transform: none !important;
+    width: 100%;
+  }
+
+  .cover-open-btn {
+    font-size: 0.92rem;
+    padding: 8px 18px;
+    bottom: 16px;
+  }
+
+  .index-top-section {
+    padding: 8px 10px 4px 10px;
+  }
+
+  .index-badge {
+    font-size: 0.54rem;
+    padding: 1px 7px;
+    margin-bottom: 2px;
+  }
+
+  .index-main-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.2px;
+  }
+
+  .index-main-desc {
+    font-size: 0.58rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .index-packshot-strip {
+    height: 48px;
+    margin-top: 4px;
+    gap: 8px;
+  }
+
+  .packshot-bottle {
+    max-height: 48px;
+  }
+
+  .index-satin-panel {
+    padding: 8px 10px 6px 10px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .catalog-cards-list {
+    gap: 5px;
+  }
+
+  .cat-item-card {
+    padding: 4px 7px;
+    gap: 7px;
+    border-radius: 5px;
+  }
+
+  .cat-thumb-box {
+    width: 24px;
+    height: 34px;
+  }
+
+  .cat-title {
+    font-size: 0.85rem;
+  }
+
+  .cat-pill {
+    font-size: 0.52rem;
+    padding: 1px 4px;
+  }
+
+  .cat-vol-tag {
+    font-size: 0.54rem;
+  }
+
+  .cat-summary {
+    font-size: 0.58rem;
+  }
+
+  .index-footer-strip {
+    font-size: 0.55rem;
+    margin-top: 4px;
+    padding-top: 3px;
+  }
+}
