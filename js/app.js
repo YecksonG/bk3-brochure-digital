@@ -178,13 +178,25 @@ document.addEventListener('DOMContentLoaded', () => {
         { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out', clearProps: 'transform' }
       );
     }
+
+    // Cuando se muestra la Página 10 (BK3 Performance Marine • 7 Beneficios)
+    if (pageIndex === 9 || (window.innerWidth > 768 && (pageIndex === 8 || pageIndex === 9))) {
+      gsap.fromTo('.marine-hero-img',
+        { scale: 0.88, opacity: 0, y: -12 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: 'back.out(1.5)', clearProps: 'transform' }
+      );
+      gsap.fromTo('.marine-benefit-item',
+        { x: 16, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.4, stagger: 0.035, ease: 'power2.out', clearProps: 'transform' }
+      );
+    }
   }
 
   // --------------------------------------------------------------------------
-  // 6. ACTUALIZAR ESTADO DE LA INTERFAZ (PAGINACIÓN & RESALTADO)
+  // 6. ACTUALIZAR ESTADO DE LA INTERFAZ (PAGINACIÓN, PROGRESO & MINIATURAS)
   // --------------------------------------------------------------------------
   const pageCounter = document.getElementById('pageIndicator');
-  const quickPills = document.querySelectorAll('.quick-pill');
+  const readingProgressBar = document.getElementById('readingProgressBar');
   const thumbItems = document.querySelectorAll('.thumb-item');
 
   function updateActiveUI(pageIndex) {
@@ -199,6 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Actualizar barra de progreso de lectura (9% en portada hasta 100%)
+    if (readingProgressBar) {
+      const pct = Math.max(9, Math.round(((pageIndex + 1) / totalPages) * 100));
+      readingProgressBar.style.width = `${pct}%`;
+    }
+
     // Comprobar si una página objetivo está visible en el pliego actual
     function isPageVisible(target) {
       if (isMobile || pageIndex === 0 || pageIndex >= totalPages - 1) {
@@ -208,21 +226,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return target === spreadLeft || target === spreadLeft + 1;
     }
 
-    // Actualizar pills activas en footer
-    quickPills.forEach(pill => {
-      const target = parseInt(pill.getAttribute('data-page'), 10);
-      if (isPageVisible(target)) {
-        pill.classList.add('active');
-      } else {
-        pill.classList.remove('active');
-      }
-    });
-
-    // Actualizar thumbnails activas
+    // Actualizar thumbnails activas y auto-scroll en drawer
     thumbItems.forEach(thumb => {
       const target = parseInt(thumb.getAttribute('data-page'), 10);
       if (isPageVisible(target)) {
         thumb.classList.add('active');
+        // Mantener la miniatura visible en la tira horizontal si el drawer está abierto
+        if (thumb.scrollIntoView && document.getElementById('thumbsDrawer')?.classList.contains('open')) {
+          thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
       } else {
         thumb.classList.remove('active');
       }
@@ -230,8 +242,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // 7. NAVEGACIÓN INTELIGENTE ENTRE PÁGINAS Y PLIEGOS
+  // 7. NAVEGACIÓN SEGURA E INTELIGENTE ENTRE PÁGINAS Y PLIEGOS
   // --------------------------------------------------------------------------
+  function safeFlipNext() {
+    if (!pageFlip) return;
+    if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
+    pageFlip.flipNext();
+  }
+
+  function safeFlipPrev() {
+    if (!pageFlip) return;
+    if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
+    pageFlip.flipPrev();
+  }
+
   function goToPage(targetPage) {
     if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages) return;
     const current = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
@@ -254,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (pageFlip) {
+      if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
       pageFlip.flip(targetPage);
     }
   }
@@ -310,25 +335,120 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   const btnPrev = document.getElementById('btnPrev');
   const btnNext = document.getElementById('btnNext');
+  const btnPrevFooter = document.getElementById('btnPrevFooter');
+  const btnNextFooter = document.getElementById('btnNextFooter');
 
-  if (btnPrev) {
-    btnPrev.addEventListener('click', () => {
-      if (pageFlip) pageFlip.flipPrev();
+  if (btnPrev) btnPrev.addEventListener('click', safeFlipPrev);
+  if (btnNext) btnNext.addEventListener('click', safeFlipNext);
+  if (btnPrevFooter) btnPrevFooter.addEventListener('click', safeFlipPrev);
+  if (btnNextFooter) btnNextFooter.addEventListener('click', safeFlipNext);
+
+  // Zonas de toque lateral invisible para móvil (Edge Tap Navigation)
+  const touchZonePrev = document.getElementById('touchZonePrev');
+  const touchZoneNext = document.getElementById('touchZoneNext');
+  if (touchZonePrev) {
+    touchZonePrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismissGuide();
+      safeFlipPrev();
+    });
+  }
+  if (touchZoneNext) {
+    touchZoneNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismissGuide();
+      safeFlipNext();
     });
   }
 
-  if (btnNext) {
-    btnNext.addEventListener('click', () => {
-      if (pageFlip) pageFlip.flipNext();
+  // --------------------------------------------------------------------------
+  // 10. RECONOCEDOR NATIVO DE GESTOS SWIPE TÁCTIL (SUAVE Y SIN BUG EN MÓVIL)
+  // --------------------------------------------------------------------------
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+
+  const viewport = document.querySelector('.viewer-viewport');
+  if (viewport) {
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      }
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', (e) => {
+      if (!e.changedTouches || !e.changedTouches[0]) return;
+      // No disparar swipe si el usuario está haciendo scroll dentro del catálogo de página 2 o tocando cajones
+      if (e.target && e.target.closest && (
+        e.target.closest('.index-scroll-wrapper') ||
+        e.target.closest('.thumbs-drawer') ||
+        e.target.closest('.app-header') ||
+        e.target.closest('.app-footer') ||
+        e.target.closest('.cover-open-btn') ||
+        e.target.closest('.hotspot-link') ||
+        e.target.closest('.cat-item-card') ||
+        e.target.closest('.packshot-bottle')
+      )) {
+        return;
+      }
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const duration = Date.now() - touchStartTime;
+
+      // Distancia horizontal clara (> 35px) y dominante sobre el movimiento vertical
+      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && duration < 600) {
+        dismissGuide();
+        if (deltaX < 0) {
+          safeFlipNext();
+        } else {
+          safeFlipPrev();
+        }
+      }
+    }, { passive: true });
+  }
+
+  // --------------------------------------------------------------------------
+  // 11. GUÍA INTERACTIVA INICIAL (ONBOARDING TUTORIAL OVERLAY)
+  // --------------------------------------------------------------------------
+  const gestureGuide = document.getElementById('gestureGuideOverlay');
+  const btnDismissGuide = document.getElementById('btnDismissGuide');
+
+  function dismissGuide() {
+    if (gestureGuide && !gestureGuide.classList.contains('hidden')) {
+      gestureGuide.classList.add('hidden');
+      try { sessionStorage.setItem('bk3_guide_seen', 'true'); } catch (e) {}
+    }
+  }
+
+  // Mostrar la guía únicamente en la primera visita a la portada
+  try {
+    if (startPage === 0 && sessionStorage.getItem('bk3_guide_seen') !== 'true' && gestureGuide) {
+      gestureGuide.classList.remove('hidden');
+      setTimeout(dismissGuide, 4500);
+    }
+  } catch (e) {}
+
+  if (btnDismissGuide) {
+    btnDismissGuide.addEventListener('click', dismissGuide);
+  }
+
+  if (gestureGuide) {
+    gestureGuide.addEventListener('click', (e) => {
+      if (e.target === gestureGuide) dismissGuide();
     });
   }
 
   // Teclado (flechas izquierda / derecha)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') {
-      if (pageFlip) pageFlip.flipPrev();
+      safeFlipPrev();
     } else if (e.key === 'ArrowRight') {
-      if (pageFlip) pageFlip.flipNext();
+      safeFlipNext();
     }
   });
 
@@ -336,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnOpenCatalog = document.getElementById('btnOpenCatalog');
   if (btnOpenCatalog) {
     btnOpenCatalog.addEventListener('click', () => {
+      dismissGuide();
       if (typeof confetti === 'function') {
         confetti({
           particleCount: 40,
@@ -378,37 +499,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Quick navigation pills (footer)
-  quickPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const targetPage = parseInt(pill.getAttribute('data-page'), 10);
+  // Thumbnails Slide-Up Drawer
+  const btnThumbs = document.getElementById('btnThumbs');
+  const btnFooterThumbs = document.getElementById('btnFooterThumbs');
+  const btnCloseThumbs = document.getElementById('btnCloseThumbs');
+  const thumbsDrawer = document.getElementById('thumbsDrawer');
+
+  function toggleThumbsDrawer() {
+    if (thumbsDrawer) thumbsDrawer.classList.toggle('open');
+  }
+
+  if (btnThumbs) btnThumbs.addEventListener('click', toggleThumbsDrawer);
+  if (btnFooterThumbs) btnFooterThumbs.addEventListener('click', toggleThumbsDrawer);
+  if (btnCloseThumbs) btnCloseThumbs.addEventListener('click', () => {
+    if (thumbsDrawer) thumbsDrawer.classList.remove('open');
+  });
+
+  thumbItems.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const targetPage = parseInt(thumb.getAttribute('data-page'), 10);
       goToPage(targetPage);
+      if (thumbsDrawer) thumbsDrawer.classList.remove('open');
     });
   });
 
-  // Thumbnails Slide-Up Drawer
-  const btnThumbs = document.getElementById('btnThumbs');
-  const thumbsDrawer = document.getElementById('thumbsDrawer');
-
-  if (btnThumbs && thumbsDrawer) {
-    btnThumbs.addEventListener('click', () => {
-      thumbsDrawer.classList.toggle('open');
-    });
-
-    thumbItems.forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        const targetPage = parseInt(thumb.getAttribute('data-page'), 10);
-        goToPage(targetPage);
-        thumbsDrawer.classList.remove('open');
-      });
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!thumbsDrawer.contains(e.target) && e.target !== btnThumbs && !btnThumbs.contains(e.target)) {
+  document.addEventListener('click', (e) => {
+    if (thumbsDrawer && thumbsDrawer.classList.contains('open')) {
+      if (!thumbsDrawer.contains(e.target) &&
+          e.target !== btnThumbs && !btnThumbs.contains(e.target) &&
+          e.target !== btnFooterThumbs && !btnFooterThumbs.contains(e.target)) {
         thumbsDrawer.classList.remove('open');
       }
-    });
-  }
+    }
+  });
 
   // Toggle Sonido
   const btnSound = document.getElementById('btnSound');
@@ -416,8 +539,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSound.addEventListener('click', () => {
       isSoundEnabled = !isSoundEnabled;
       btnSound.innerHTML = isSoundEnabled
-        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg> <span>Sonido: ON</span>`
-        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg> <span>Sonido: OFF</span>`;
+        ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg><span class="btn-label">Sonido: ON</span>`
+        : `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg><span class="btn-label">Sonido: OFF</span>`;
     });
   }
 

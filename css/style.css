@@ -120,7 +120,7 @@ html, body {
 }
 
 /* ==========================================================================
-   APP HEADER SUPERIOR
+   APP HEADER SUPERIOR (ESTILO HEYZINE PREMIUM)
    ========================================================================== */
 
 .app-header {
@@ -139,17 +139,20 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .brand-logo-mini {
   height: 24px;
   width: auto;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .brand-title-wrap {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .brand-title {
@@ -160,6 +163,7 @@ html, body {
   color: #ffffff;
   line-height: 1.1;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .brand-subtitle {
@@ -168,33 +172,35 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-family: var(--font-mono);
+  white-space: nowrap;
 }
 
 .header-controls {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .tool-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #cbd5e1;
   font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 600;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   transition: all 0.2s ease;
   text-decoration: none;
 }
 
 .tool-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.25);
 }
@@ -215,6 +221,150 @@ html, body {
   top: 0; left: -100%; width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   animation: buttonShimmer 3.5s infinite;
+}
+
+/* ==========================================================================
+   GUÍA INTERACTIVA DE GESTOS (ONBOARDING TUTORIAL)
+   ========================================================================== */
+
+.gesture-guide-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 18, 0.84);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.gesture-guide-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gesture-guide-card {
+  background: linear-gradient(145deg, #161e29 0%, #0d121a 100%);
+  border: 1px solid rgba(98, 195, 49, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(98, 195, 49, 0.15);
+  border-radius: 16px;
+  padding: 24px 20px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: popInModal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popInModal {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.gesture-visual {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gesture-swipe-hand {
+  color: var(--color-clasico);
+  animation: handSwipeAnim 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 8px rgba(98, 195, 49, 0.5));
+}
+
+@keyframes handSwipeAnim {
+  0%, 100% { transform: translateX(-24px); }
+  50% { transform: translateX(24px); }
+}
+
+.gesture-motion-arrows {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.gesture-guide-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.guide-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.guide-desc {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.guide-dismiss-btn {
+  background: var(--color-clasico);
+  color: #0b1118;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+  padding: 9px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(98, 195, 49, 0.3);
+}
+
+.guide-dismiss-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(98, 195, 49, 0.5);
+  background: #73d740;
+}
+
+/* ==========================================================================
+   ZONAS TÁCTILES LATERALES (EDGE TAP NAVIGATION)
+   ========================================================================== */
+
+.touch-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16%;
+  z-index: 35;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.touch-zone-prev {
+  left: 0;
+}
+
+.touch-zone-next {
+  right: 0;
 }
 
 /* ==========================================================================
@@ -731,121 +881,557 @@ html, body {
 }
 
 /* ==========================================================================
-   APP FOOTER BAR & QUICK JUMP PILLS
+   PÁGINA 10: BK3 PERFORMANCE MARINE • 7 BENEFICIOS OFICIALES
    ========================================================================== */
 
-.app-footer {
-  height: 48px;
-  background: #0f151e;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  z-index: 100;
-  flex-shrink: 0;
-}
-
-.quick-nav-pills {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  overflow-x: auto;
-  max-width: 72%;
-  padding: 2px 0;
-}
-
-.quick-pill {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  font-weight: 700;
-  padding: 4px 9px;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.quick-pill:hover, .quick-pill.active {
-  background: rgba(255, 255, 255, 0.16);
+.page-marine-custom {
+  background: #080e18 url('../assets/asphalt_texture.webp') repeat center / 380px auto;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.35);
 }
 
-.page-counter-box {
+.page-marine-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 80% 25%, rgba(14, 135, 210, 0.22) 0%, rgba(9, 14, 22, 0.7) 70%, #060a10 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.marine-scroll-wrapper {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 8px 14px;
+}
+
+.marine-scroll-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.marine-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(14, 135, 210, 0.35);
+  border-radius: 4px;
+}
+
+.marine-header-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.marine-top-badge {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: #0E87D2;
+  background: rgba(14, 135, 210, 0.12);
+  border: 1px solid rgba(14, 135, 210, 0.35);
+  padding: 2px 8px;
+  border-radius: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.marine-logo-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 0;
+}
+
+.marine-brand-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(14, 135, 210, 0.4));
+}
+
+.marine-main-headline {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.marine-slogan-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.marine-slogan-pill {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 800;
+  background: #0E87D2;
+  color: #060a10;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.marine-slogan-text {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  color: #cbd5e1;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Showcase: Galón + Beneficios */
+.marine-content-layout {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.marine-hero-card {
+  position: relative;
+  width: 90px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.marine-glow-aura {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 110px;
+  background: radial-gradient(circle, rgba(14, 135, 210, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(12px);
+}
+
+.marine-hero-img {
+  width: 82px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.8));
+  transition: transform 0.3s ease;
+}
+
+.marine-hero-card:hover .marine-hero-img {
+  transform: scale(1.05) translateY(-2px);
+}
+
+.marine-badge-capsule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(14, 135, 210, 0.12);
+  border: 1px solid rgba(14, 135, 210, 0.3);
+  border-radius: 6px;
+  padding: 4px 6px;
+  width: 100%;
+}
+
+.capsule-title {
+  font-family: var(--font-mono);
+  font-size: 0.54rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.capsule-sub {
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  color: #93c5fd;
+  letter-spacing: 0.3px;
+  margin-top: 1px;
+}
+
+/* Lista de los 7 Beneficios */
+.marine-benefits-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.marine-benefit-item {
+  background: rgba(13, 21, 32, 0.82);
+  border: 1px solid rgba(14, 135, 210, 0.2);
+  border-left: 3px solid #0E87D2;
+  border-radius: 5px;
+  padding: 4px 8px;
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  cursor: default;
+}
+
+.marine-benefit-item:hover, .marine-benefit-item:focus {
+  background: rgba(14, 135, 210, 0.16);
+  border-color: rgba(14, 135, 210, 0.6);
+  border-left-color: #38bdf8;
+  transform: translateX(3px);
+  outline: none;
+}
+
+.benefit-badge-col {
+  flex-shrink: 0;
+}
+
+.benefit-idx {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #cbd5e1;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #0E87D2;
+  background: rgba(14, 135, 210, 0.15);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+.benefit-info-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.benefit-item-title {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+}
+
+.benefit-item-desc {
+  font-size: 0.58rem;
+  color: #94a3b8;
+  margin: 1px 0 0 0;
+  line-height: 1.2;
+}
+
+.benefit-desc-long {
+  font-size: 0.56rem;
+  color: #94a3b8;
+  margin: 1px 0 0 0;
+  line-height: 1.2;
+}
+
+.marine-footer-bar {
+  margin-top: 8px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  color: #64748b;
+  font-family: var(--font-mono);
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
-   DRAWER DE MINIATURAS
+   APP FOOTER BAR (ESTILO EDITORIAL PROFESIONAL)
    ========================================================================== */
 
-.thumbs-drawer {
-  position: absolute;
-  bottom: 48px;
-  left: 0; right: 0;
-  height: 125px;
-  background: #0d121a;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 10px 16px;
+.app-footer {
+  height: 50px;
+  background: #0c1118;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  z-index: 80;
+  flex-shrink: 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 580px;
   gap: 10px;
-  overflow-x: auto;
-  z-index: 90;
-  transform: translateY(100%);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
 }
 
-.thumbs-drawer.open {
-  transform: translateY(0);
-}
-
-.thumb-item {
-  width: 68px;
-  height: 90px;
-  background: #141c27;
+.footer-step-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 4px;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.footer-step-btn:hover {
+  background: rgba(98, 195, 49, 0.2);
+  border-color: #62C331;
+  color: #ffffff;
+}
+
+.footer-progress-box {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
+  gap: 4px;
+  padding: 4px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
 }
 
-.thumb-item:hover, .thumb-item.active {
-  border-color: var(--color-clasico);
-  background: #1b2635;
+.footer-counter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.5px;
+}
+
+.footer-book-icon {
+  color: var(--color-clasico);
+}
+
+.reading-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #62C331 0%, #F14825 100%);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-index-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.footer-index-trigger:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   DRAWER DE MINIATURAS VISUALES (ESTILO HEYZINE)
+   ========================================================================== */
+
+.thumbs-drawer {
+  position: fixed;
+  bottom: 50px;
+  left: 0; right: 0;
+  height: 165px;
+  background: rgba(12, 17, 24, 0.96);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 90;
+  transform: translateY(calc(100% + 80px));
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.65);
+}
+
+.thumbs-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.thumbs-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.thumbs-panel-title {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.thumbs-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.thumbs-close-btn:hover {
+  color: #ffffff;
+}
+
+.thumbs-scroll-strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 6px 8px 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.thumb-item {
+  width: 72px;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-radius: 6px;
+  padding: 4px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  border: 1.5px solid transparent;
+}
+
+.thumb-item:hover {
   transform: translateY(-2px);
 }
 
-.thumb-num {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--text-dim);
-  margin-top: 2px;
+.thumb-item.active {
+  border-color: var(--thumb-accent, #62C331);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
 }
 
-.thumb-label {
+.thumb-img-wrapper {
+  position: relative;
+  width: 66px;
+  height: 86px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #1a222e;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.thumb-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumb-custom-bg {
+  background: #141c27;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb-mini-mosaic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
-  font-size: 0.74rem;
-  font-weight: 700;
+  font-weight: 800;
+  color: var(--color-clasico);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.thumb-mini-mosaic small {
+  font-size: 0.5rem;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+}
+
+.thumb-badge-num {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 800;
+  background: rgba(0, 0, 0, 0.8);
   color: #ffffff;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.thumb-card-title {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #cbd5e1;
   text-align: center;
-  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 68px;
+}
+
+.thumb-item.active .thumb-card-title {
+  color: var(--thumb-accent, #62C331);
+  font-weight: 800;
 }
 
 /* ==========================================================================
@@ -853,12 +1439,49 @@ html, body {
    ========================================================================== */
 
 @media (max-width: 768px) {
-  .app-header { padding: 0 10px; }
-  .brand-title { font-size: 0.95rem; }
-  .brand-subtitle { display: none; }
-  .quick-nav-pills { display: none; }
-  .nav-arrow { display: none; } /* En móvil se usa el swipe táctil nativo */
-  .page-depth-left, .page-depth-right { display: none; }
+  .app-header {
+    padding: 0 12px;
+    height: 48px;
+  }
+
+  .brand-logo-mini {
+    height: 22px;
+  }
+
+  .brand-title-wrap {
+    display: none; /* En móvil dejamos solo el logo limpio como en Heyzine */
+  }
+
+  .header-controls {
+    gap: 6px;
+  }
+
+  .tool-btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .tool-btn .btn-label {
+    display: none; /* Iconos puros y limpios en móvil */
+  }
+
+  .tool-btn.btn-accent {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: 8px;
+  }
+
+  .nav-arrow {
+    display: none; /* En móvil se usa el swipe táctil nativo y los edge tap zones */
+  }
+
+  .page-depth-left, .page-depth-right {
+    display: none;
+  }
 
   /* En móvil el libro siempre está centrado y a ancho completo */
   .flipbook-container {
@@ -945,6 +1568,99 @@ html, body {
 
   .index-footer-strip {
     font-size: 0.55rem;
+    margin-top: 4px;
+    padding-top: 3px;
+  }
+
+  /* Marine Page 10 Mobile Adjustments */
+  .marine-scroll-wrapper {
+    padding: 8px 10px 4px 10px;
+  }
+
+  .marine-top-badge {
+    font-size: 0.5rem;
+    padding: 1px 6px;
+  }
+
+  .marine-brand-logo {
+    height: 28px;
+  }
+
+  .marine-main-headline {
+    font-size: 1.05rem;
+  }
+
+  .marine-slogan-strip {
+    gap: 3px;
+  }
+
+  .marine-slogan-pill {
+    font-size: 0.5rem;
+    padding: 1px 4px;
+  }
+
+  .marine-slogan-text {
+    font-size: 0.5rem;
+  }
+
+  .marine-content-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .marine-hero-card {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 2px 0;
+  }
+
+  .marine-hero-img {
+    width: 48px;
+  }
+
+  .marine-badge-capsule {
+    width: auto;
+    padding: 3px 8px;
+  }
+
+  .capsule-title {
+    font-size: 0.52rem;
+  }
+
+  .capsule-sub {
+    font-size: 0.46rem;
+  }
+
+  .marine-benefits-list {
+    width: 100%;
+    gap: 4px;
+  }
+
+  .marine-benefit-item {
+    padding: 3px 6px;
+    gap: 6px;
+  }
+
+  .benefit-idx {
+    font-size: 0.6rem;
+    padding: 1px 3px;
+  }
+
+  .benefit-item-title {
+    font-size: 0.7rem;
+  }
+
+  .benefit-item-desc, .benefit-desc-long {
+    font-size: 0.52rem;
+    line-height: 1.15;
+  }
+
+  .marine-footer-bar {
+    font-size: 0.52rem;
     margin-top: 4px;
     padding-top: 3px;
   }
