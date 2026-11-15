@@ -622,14 +622,14 @@ html, body {
   box-shadow: 0 0 16px rgba(255, 0, 80, 0.35);
 }
 
-/* Botón de WhatsApp dinámico y animado en la contraportada */
+/* Botón de WhatsApp dinámico y animado en la contraportada (Paleta Oficial BK3) */
 .backcover-whatsapp-wrapper {
   position: absolute;
   left: 50%;
   top: 71.5%;
   transform: translateX(-50%);
-  width: 82%;
-  max-width: 380px;
+  width: 86%;
+  max-width: 420px;
   z-index: 25;
   display: flex;
   justify-content: center;
@@ -641,62 +641,64 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   width: 100%;
-  padding: 12px 18px;
-  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #17202d 0%, #0d131a 100%);
   color: #ffffff;
   text-decoration: none;
   border-radius: 50px;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid #62C331;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(98, 195, 49, 0.45);
   position: relative;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .backcover-wsp-button:hover {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.65), 0 4px 10px rgba(0, 0, 0, 0.4);
+  border-color: #7efc3f;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 35px rgba(98, 195, 49, 0.65);
 }
 
 .backcover-wsp-button svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  fill: #ffffff;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  fill: #62C331;
+  filter: drop-shadow(0 2px 8px rgba(98, 195, 49, 0.6));
 }
 
 .wsp-btn-text-col {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  line-height: 1.15;
   text-align: left;
 }
 
 .wsp-btn-title {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-family: 'Benniter', var(--font-display);
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
 .wsp-btn-sub {
-  font-family: var(--font-body);
-  font-size: 0.64rem;
-  font-weight: 600;
-  opacity: 0.9;
-  letter-spacing: 0.3px;
-  margin-top: 2px;
+  font-family: 'NeueRegrade', var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #62C331;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
 }
 
-/* Anillo de pulso tipo faro/beacon */
+/* Anillo de pulso tipo faro/beacon en color BK3 Green */
 .wsp-beacon-ring {
   position: absolute;
-  inset: -4px;
+  inset: -5px;
   border-radius: 50px;
-  border: 2px solid rgba(37, 211, 102, 0.7);
+  border: 2px solid rgba(98, 195, 49, 0.7);
   animation: wspPulseBeacon 2.2s infinite ease-out;
   pointer-events: none;
 }
@@ -709,7 +711,7 @@ html, body {
 
 /* --------------------------------------------------------------------------
    INTERACCIÓN 3D EN CADA PRODUCTO DE LAS PÁGINAS SIGUIENTES
-   Micro-interacción táctil: el producto brilla con su color y se expande 3D
+   Calibración 100% milimétrica pixel-por-pixel sobre la botella original
    -------------------------------------------------------------------------- */
 .product-3d-spot {
   position: absolute;
@@ -721,10 +723,11 @@ html, body {
 .product-3d-spot .spot-bottle-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
   opacity: 0;
-  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.32s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.35s ease;
   will-change: transform, filter, opacity;
+  transform-origin: center center;
 }
 
 .product-3d-spot:hover .spot-bottle-img,
@@ -801,7 +804,7 @@ html, body {
 
 /* Mitad Superior: Encabezado editorial sobre asfalto */
 .index-top-section {
-  padding: 24px 20px 22px 20px;
+  padding: 30px 24px 22px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -811,45 +814,46 @@ html, body {
 }
 
 .index-badge {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-family: 'NeueRegrade', var(--font-body);
+  font-size: 0.85rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--color-clasico);
   background: rgba(98, 195, 49, 0.15);
   border: 1px solid rgba(98, 195, 49, 0.45);
-  padding: 4px 14px;
+  padding: 5px 16px;
   border-radius: 4px;
   margin-bottom: 8px;
 }
 
 .index-main-title {
-  font-family: var(--font-display);
-  font-size: 2.25rem;
+  font-family: 'Benniter', var(--font-display);
+  font-size: 2.85rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: #ffffff;
   line-height: 1.05;
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+  margin: 6px 0;
 }
 
 .index-main-desc {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-family: 'NeueRegrade', var(--font-body);
+  font-size: 1.05rem;
   color: #e2e8f0;
-  max-width: 480px;
-  line-height: 1.35;
-  margin-top: 8px;
+  max-width: 520px;
+  line-height: 1.4;
+  margin-top: 4px;
 }
 
 /* Mitad Inferior: Panel de papel blanco satinado con tarjetas de producto */
 .index-satin-panel {
   flex: 1;
   background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
-  border-radius: 12px 12px 0 0;
-  padding: 12px 14px 10px 14px;
+  border-radius: 14px 14px 0 0;
+  padding: 18px 20px 14px 20px;
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
@@ -869,22 +873,26 @@ html, body {
 .catalog-cards-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-evenly;
+  height: 100%;
   flex: 1;
+  gap: 12px;
 }
 
 /* Tarjeta de Producto: Legible, amplia y con salto de página claro */
 .cat-item-card {
+  flex: 1;
+  max-height: 110px;
   background: #ffffff;
   border-top: 1px solid rgba(255, 255, 255, 0.9);
   border-left: 1px solid rgba(226, 232, 240, 0.8);
   border-right: 1px solid rgba(226, 232, 240, 0.8);
   border-bottom: 1px solid rgba(203, 213, 225, 0.9);
-  border-radius: 8px;
-  padding: 8px 12px;
+  border-radius: 10px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   cursor: pointer;
   position: relative;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
@@ -895,8 +903,8 @@ html, body {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 4px;
-  border-radius: 8px 0 0 8px;
+  width: 5px;
+  border-radius: 10px 0 0 10px;
   transition: width 0.2s ease;
 }
 
@@ -933,8 +941,8 @@ html, body {
 }
 
 .cat-thumb-box {
-  width: 34px;
-  height: 48px;
+  width: 48px;
+  height: 62px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -961,26 +969,26 @@ html, body {
 }
 
 .cat-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-family: 'Benniter', var(--font-display);
+  font-size: 1.45rem;
   font-weight: 800;
   text-transform: uppercase;
   color: #0f172a;
   line-height: 1.1;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .cat-jump-pill {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-family: 'NeueRegrade', var(--font-mono);
+  font-size: 0.8rem;
   font-weight: 700;
   color: #475569;
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
-  padding: 2px 7px;
+  padding: 4px 10px;
   border-radius: 4px;
   letter-spacing: 0.5px;
   white-space: nowrap;
@@ -998,22 +1006,22 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 3px;
+  margin-top: 5px;
 }
 
 .cat-pill {
-  font-family: var(--font-body);
-  font-size: 0.74rem;
+  font-family: 'NeueRegrade', var(--font-body);
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .cat-vol-tag {
-  font-family: var(--font-body);
-  font-size: 0.74rem;
+  font-family: 'NeueRegrade', var(--font-body);
+  font-size: 0.78rem;
   color: #64748b;
   font-weight: 600;
 }
@@ -1025,15 +1033,15 @@ html, body {
 .cat-marine .cat-pill { background: rgba(14, 135, 210, 0.15); color: var(--color-marine); }
 
 .index-footer-strip {
-  margin-top: 6px;
-  padding-top: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: #64748b;
-  font-family: var(--font-mono);
+  font-family: 'NeueRegrade', var(--font-mono);
   flex-shrink: 0;
 }
 

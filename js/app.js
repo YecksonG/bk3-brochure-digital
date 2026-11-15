@@ -240,27 +240,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Animación interactiva en la contraportada: Salto del botón WhatsApp desde el header
+    // Animación interactiva en la contraportada: Salto / caída elástica del botón WhatsApp (Inspirado en Portfolio Yeckson)
     const backCoverWsp = document.getElementById('backCoverWhatsAppBtn');
-    const headerWsp = document.querySelector('.header-wsp-pill');
+    const headerWsp = document.getElementById('headerWspBtn') || document.querySelector('.header-wsp-pill');
     const isContraportada = isPageVisible(totalPages - 1);
 
     if (isContraportada) {
-      if (headerWsp) {
-        gsap.fromTo(headerWsp, 
-          { scale: 1 }, 
-          { scale: 1.25, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' }
-        );
-      }
-      if (backCoverWsp) {
-        gsap.fromTo(backCoverWsp,
-          { scale: 0.2, opacity: 0, y: -40 },
-          { scale: 1, opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'back.out(2)' }
-        );
+      if (headerWsp && !headerWsp.classList.contains('wsp-fallen')) {
+        headerWsp.classList.add('wsp-fallen');
+
+        // Botón superior realiza vuelo con caída parabólica hacia el centro de la contraportada
+        gsap.to(headerWsp, {
+          y: window.innerHeight * 0.42,
+          x: -window.innerWidth * 0.12,
+          scale: 0.6,
+          opacity: 0,
+          duration: 0.52,
+          ease: 'power2.in',
+          onComplete: () => {
+            headerWsp.style.visibility = 'hidden';
+          }
+        });
+
+        // Botón de la contraportada recibe la caída y emerge con rebote elástico spring
+        if (backCoverWsp) {
+          gsap.fromTo(backCoverWsp,
+            { scale: 0.28, opacity: 0, y: -85 },
+            { scale: 1, opacity: 1, y: 0, duration: 0.75, delay: 0.36, ease: 'back.out(2.4)' }
+          );
+        }
       }
     } else {
+      if (headerWsp && headerWsp.classList.contains('wsp-fallen')) {
+        headerWsp.classList.remove('wsp-fallen');
+        headerWsp.style.visibility = 'visible';
+
+        // Rebound elástico de retorno al header superior
+        gsap.fromTo(headerWsp,
+          { y: 24, x: 0, scale: 0.75, opacity: 0 },
+          { y: 0, x: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(1.7)' }
+        );
+      }
       if (backCoverWsp) {
-        gsap.to(backCoverWsp, { opacity: 0, scale: 0.8, duration: 0.2 });
+        gsap.to(backCoverWsp, { opacity: 0, scale: 0.8, duration: 0.22 });
       }
     }
   }

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Performance Marine - 7 Beneficios Oficiales</title>
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'NeueRegrade', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja superior de asfalto (exactamente el 39.14% = 861px) */
+    .top-asphalt-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 861px;
+      background: url('assets/asphalt_top_header.png') no-repeat center top;
+      background-size: 1700px 862px;
+      z-index: 1;
+    }
+
+    /* Galón náutico de 5L a la izquierda cruzando el corte horizontal exactamente como en la pág 9 */
+    .marine-gallon {
+      position: absolute;
+      left: 99px;
+      top: 77px;
+      width: 518px;
+      height: 1011px;
+      z-index: 10;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.45));
+    }
+
+    /* Encabezado derecho sobre asfalto alineado milimétricamente con Pág 9 */
+    .top-header-content {
+      position: absolute;
+      left: 676px;
+      top: 185px;
+      width: 950px;
+      z-index: 5;
+    }
+
+    .title-green {
+      font-family: 'Benniter', sans-serif;
+      font-size: 118px;
+      line-height: 0.94;
+      color: #6ac52e;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .subtitle-block {
+      margin-top: 24px;
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 38px;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      max-width: 930px;
+    }
+
+    .orange-badge {
+      display: inline-block;
+      background: #f25b19;
+      color: #ffffff;
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 38px;
+      font-weight: bold;
+      padding: 2px 14px;
+      border-radius: 4px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* 2. Sección inferior blanca pura */
+    .bottom-white-section {
+      position: absolute;
+      top: 861px;
+      left: 0;
+      width: 1700px;
+      height: 1339px;
+      background: #ffffff;
+      z-index: 2;
+    }
+
+    /* Columna Izquierda (inicia a 115px de margen, ancho 685px) */
+    .col-left {
+      position: absolute;
+      left: 115px;
+      top: 1120px;
+      width: 685px;
+      z-index: 12;
+    }
+
+    /* Títulos de sección idénticos a Pág 9 */
+    .sec-title-wrap {
+      margin-bottom: 36px;
+      line-height: 1.05;
+    }
+
+    .sec-title-pre {
+      font-family: 'Benniter', sans-serif;
+      font-size: 52px;
+      font-weight: bold;
+      color: #17202d;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+    }
+
+    .sec-title-main {
+      font-family: 'Benniter', sans-serif;
+      font-size: 52px;
+      font-weight: bold;
+      color: #0e86d2;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+    }
+
+    .sub-sec-title {
+      font-family: 'Benniter', sans-serif;
+      font-size: 46px;
+      font-weight: bold;
+      color: #0e86d2;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+      margin-top: 36px;
+      margin-bottom: 22px;
+    }
+
+    /* Filas con viñeta de estrella cian (*) exactamente como en Pág 9 */
+    .bullet-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .bullet-star {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 44px;
+      font-weight: bold;
+      color: #0e86d2;
+      line-height: 0.9;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .bullet-content {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 30px;
+      color: #17202d;
+      line-height: 1.35;
+    }
+
+    .bullet-content strong {
+      font-weight: bold;
+      color: #0e86d2;
+    }
+
+    /* Columna Derecha (inicia a 910px de margen, ancho 685px) */
+    .col-right {
+      position: absolute;
+      left: 910px;
+      top: 960px;
+      width: 685px;
+      z-index: 12;
+    }
+
+    /* Resumen inferior idéntico al pie editorial de Pág 9 */
+    .marine-summary-box {
+      margin-top: 34px;
+      padding-top: 24px;
+      border-top: 2px solid #e2e8f0;
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 29px;
+      font-weight: bold;
+      color: #17202d;
+      line-height: 1.38;
+    }
+
+    .marine-summary-box span {
+      color: #0e86d2;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    <!-- Top Asphalt Section -->
+    <div class="top-asphalt-section"></div>
+
+    <!-- Product 5L Marine Gallon on the Left -->
+    <img src="assets/products/spot_marine.png" alt="BK3 Performance Marine 5L" class="marine-gallon">
+
+    <!-- Top Asphalt Typography on the Right -->
+    <div class="top-header-content">
+      <div class="title-green">POTENCIADOR</div>
+      <div class="title-green">DE OCTANAJE</div>
+      <div class="subtitle-block">
+        ELEVADOR DE ALTA GAMA DISEÑADO EXCLUSIVAMENTE PARA EMBARCACIONES MARINAS DEPORTIVAS, RECREACIONALES Y DE <span class="orange-badge">COMPETENCIA O RACING</span>
+      </div>
+    </div>
+
+    <!-- Bottom White Section -->
+    <div class="bottom-white-section"></div>
+
+    <!-- Left Column (Starting under Gallon) -->
+    <div class="col-left">
+      <div class="sec-title-wrap">
+        <div class="sec-title-pre">CONOCE MÁS SOBRE</div>
+        <div class="sec-title-main">LOS 7 BENEFICIOS</div>
+        <div class="sec-title-main">PERFORMANCE MARINE</div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Más kilómetros:</strong> Su fórmula optimiza la mezcla y combustión, permitiendo alcanzar mayor autonomía náutica en cada travesía.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Más HP:</strong> Incrementa el octanaje eliminando el pistoneo y maximizando el empuje real de motores fueraborda e intraborda.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Menos contaminación:</strong> Combustión completa y eficiente, reduciendo drásticamente las emisiones nocivas y humo negro al medio acuático.
+        </div>
+      </div>
+
+      <div class="sub-sec-title">¿QUÉ LO HACE ÚNICO?</div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Fórmula no corrosiva:</strong> 100% libre de metanol, etanol y thinner; protege bombas de gasolina, tanques y mangueras.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Rendimiento extremo:</strong> Proporciona potencia constante en aguas bravas y navegación de alta salinidad.
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-right">
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Limpieza del sistema:</strong> Limpia y descarboniza inyectores, válvulas, pistones y bujías desde el tanque hasta la cámara de combustión.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Disociar la molécula del agua:</strong> Tecnología molecular avanzada que disocia el agua condensada en el tanque, evitando cavitación y fallas de motor.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Pulverizar el azufre:</strong> Neutraliza y pulveriza el azufre presente en el combustible, previniendo la corrosión ácida interna.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Lubricar todo el sistema:</strong> Aporta una película protectora de alta lubricidad a todo el sistema de inyección y componentes mecánicos.
+        </div>
+      </div>
+
+      <div class="sub-sec-title">MODO DE EMPLEO</div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Dosificación:</strong> Utiliza el equivalente al 2.5% de BK3 Performance Marine según el volumen del tanque de combustible.
+        </div>
+      </div>
+
+      <div class="bullet-row">
+        <span class="bullet-star">*</span>
+        <div class="bullet-content">
+          <strong>Compatibilidad total:</strong> Diseñado para motores fueraborda, intraborda, embarcaciones recreacionales y de competición.
+        </div>
+      </div>
+
+      <div class="marine-summary-box">
+        <span>BK3 Performance Marine</span> no es solo un aditivo. Es una solución integral para quienes exigen potencia, confiabilidad y durabilidad en cada travesía.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
