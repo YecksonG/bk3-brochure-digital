@@ -63,10 +63,13 @@
         <span class="btn-label">Sonido: ON</span>
       </button>
 
-      <a id="headerWspBtn" href="https://wa.me/584143418703?text=Hola%20BK3,%20deseo%20información%20sobre%20sus%20productos" target="_blank" class="tool-btn btn-accent icon-only-mobile header-wsp-pill" title="Pedir por WhatsApp" aria-label="WhatsApp">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg>
-        <span class="btn-label">WhatsApp</span>
-      </a>
+      <!-- Slot colapsable de WhatsApp para unir los iconos laterales al desprenderse el botón -->
+      <div id="headerWspSlot" class="header-wsp-slot">
+        <a id="headerWspBtn" href="https://wa.me/584143418703?text=Hola%20BK3,%20deseo%20información%20sobre%20sus%20productos" target="_blank" class="tool-btn btn-accent icon-only-mobile header-wsp-pill" title="Pedir por WhatsApp" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08s.89 2.41 1.01 2.58c.13.17 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.53.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.17-.48-.29z"/></svg>
+          <span class="btn-label">WhatsApp</span>
+        </a>
+      </div>
 
       <button id="btnFullscreen" class="tool-btn icon-only-mobile" title="Pantalla Completa" aria-label="Pantalla Completa">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
@@ -124,7 +127,7 @@
                 <!-- 1. BK3 Moto -> Salta a página 3 (index 2) -->
                 <div class="cat-item-card cat-moto" data-target-page="2" role="button" tabindex="0">
                   <div class="cat-thumb-box">
-                    <img src="assets/products/botella_naranja_moto_250ml.png" alt="BK3 Moto">
+                    <img src="assets/products/spot_moto.png" alt="BK3 Moto">
                   </div>
                   <div class="cat-details">
                     <div class="cat-header-line">
@@ -141,7 +144,7 @@
                 <!-- 2. BK3 Clásico -> Salta a página 4 (index 3) -->
                 <div class="cat-item-card cat-clasico" data-target-page="3" role="button" tabindex="0">
                   <div class="cat-thumb-box">
-                    <img src="assets/products/botella_verde_1lt.png" alt="BK3 Clásico">
+                    <img src="assets/products/spot_clasico.png" alt="BK3 Clásico">
                   </div>
                   <div class="cat-details">
                     <div class="cat-header-line">
@@ -158,7 +161,7 @@
                 <!-- 3. BK3 Racing -> Salta a página 6 (index 5) -->
                 <div class="cat-item-card cat-racing" data-target-page="5" role="button" tabindex="0">
                   <div class="cat-thumb-box">
-                    <img src="assets/products/botella_rojo_racing_1lt.png" alt="BK3 Racing">
+                    <img src="assets/products/spot_racing.png" alt="BK3 Racing">
                   </div>
                   <div class="cat-details">
                     <div class="cat-header-line">
@@ -175,7 +178,7 @@
                 <!-- 4. BK3 Cetanium -> Salta a página 8 (index 7) -->
                 <div class="cat-item-card cat-cetane" data-target-page="7" role="button" tabindex="0">
                   <div class="cat-thumb-box">
-                    <img src="assets/products/botella_amarillo_cetane_1lt.png" alt="BK3 Cetanium">
+                    <img src="assets/products/spot_cetane.png" alt="BK3 Cetanium">
                   </div>
                   <div class="cat-details">
                     <div class="cat-header-line">
@@ -192,7 +195,7 @@
                 <!-- 5. BK3 Performance Marine -> Salta a página 9 (index 8) -->
                 <div class="cat-item-card cat-marine" data-target-page="8" role="button" tabindex="0">
                   <div class="cat-thumb-box">
-                    <img src="assets/products/galon_marine_5lt.png" alt="BK3 Marine">
+                    <img src="assets/products/spot_marine.png" alt="BK3 Marine">
                   </div>
                   <div class="cat-details">
                     <div class="cat-header-line">
@@ -297,22 +300,20 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 10: BK3 PERFORMANCE MARINE • LOS 7 BENEFICIOS OFICIALES
+             PÁGINA 10: DEMOSTRACIÓN LABORATORIO MARINE (PÁGINA 9 DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-marine-benefits" data-density="soft">
-          <img src="assets/pages_webp/page-08b.webp" alt="BK3 Performance Marine - Los 7 Beneficios Oficiales" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-marine" style="left: 5.84%; top: 3.53%; width: 30.49%; height: 45.96%;" title="Toca o pasa el cursor para ver BK3 Marine 3D">
-            <img src="assets/products/spot_marine.png" alt="BK3 Marine 3D" class="spot-bottle-img">
-          </div>
+        <div class="page page-art" data-density="soft">
+          <img src="assets/pages_webp/page-09.webp" alt="Pruebas de Calidad Marina BK3" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 11: DEMOSTRACIÓN LABORATORIO MARINE (PÁGINA 9 DEL BROCHURE)
+             PÁGINA 11: LOS 7 BENEFICIOS DE LA TECNOLOGÍA BK3 SOLUTIONS
+             Página maestra de tecnología compartida para toda la gama BK3
              ================================================================== -->
-        <div class="page page-art" data-density="soft">
-          <img src="assets/pages_webp/page-09.webp" alt="Pruebas de Calidad Marina" class="page-art-img" loading="lazy">
+        <div class="page page-art page-7-benefits" data-density="soft">
+          <img src="assets/pages_webp/page-beneficios.webp" alt="Los 7 Beneficios Oficiales de la Tecnología BK3 Solutions" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
@@ -431,18 +432,18 @@
 
       <div class="thumb-item" data-page="9" style="--thumb-accent: var(--color-marine);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-08b.webp" alt="Pág 10" loading="lazy">
+          <img src="assets/pages_webp/page-09.webp" alt="Pág 10" loading="lazy">
           <span class="thumb-badge-num">10</span>
         </div>
-        <span class="thumb-card-title">7 Beneficios</span>
+        <span class="thumb-card-title">Pruebas Lab</span>
       </div>
 
-      <div class="thumb-item" data-page="10" style="--thumb-accent: var(--color-marine);">
+      <div class="thumb-item" data-page="10" style="--thumb-accent: #62C331;">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-09.webp" alt="Pág 11" loading="lazy">
+          <img src="assets/pages_webp/page-beneficios.webp" alt="Pág 11" loading="lazy">
           <span class="thumb-badge-num">11</span>
         </div>
-        <span class="thumb-card-title">Pruebas M.</span>
+        <span class="thumb-card-title">7 Beneficios</span>
       </div>
 
       <div class="thumb-item" data-page="11">

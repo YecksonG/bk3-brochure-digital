@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Solutions - Los 7 Beneficios Oficiales</title>
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'NeueRegrade', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja Superior de Asfalto Carbón (y = 0 a 760px) */
+    .top-asphalt-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 760px;
+      background: #14171a url('assets/asphalt_texture.webp') repeat center / 340px;
+      z-index: 1;
+      padding: 60px 100px 0 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .top-asphalt-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #62C331 0%, #0e86d2 50%, #F14825 100%);
+    }
+
+    .slogan-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .slogan-pill {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #62C331;
+      background: rgba(98, 195, 49, 0.15);
+      border: 1.5px solid rgba(98, 195, 49, 0.45);
+      padding: 6px 20px;
+      border-radius: 6px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .slogan-pill.orange {
+      color: #F14825;
+      background: rgba(241, 72, 37, 0.15);
+      border-color: rgba(241, 72, 37, 0.45);
+    }
+
+    .main-title-green {
+      font-family: 'Benniter', sans-serif;
+      font-size: 114px;
+      line-height: 0.95;
+      color: #6ac52e;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .main-title-sub {
+      font-family: 'Benniter', sans-serif;
+      font-size: 72px;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .header-desc {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 32px;
+      color: #e2e8f0;
+      line-height: 1.35;
+      max-width: 1400px;
+      margin-top: 18px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Vitrina de los 5 Productos BK3 alineados al corte horizontal */
+    .products-showcase-strip {
+      position: absolute;
+      top: 600px;
+      left: 100px;
+      right: 100px;
+      height: 280px;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      padding: 0 40px;
+    }
+
+    .showcase-bottle-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .showcase-bottle-item img {
+      max-height: 240px;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.45));
+    }
+
+    .showcase-bottle-label {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      color: #17202d;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* 2. Sección Inferior Blanca (y = 760px a 2200px) */
+    .bottom-white-body {
+      position: absolute;
+      top: 760px;
+      left: 0;
+      width: 1700px;
+      height: 1440px;
+      background: #ffffff;
+      z-index: 2;
+      padding: 160px 100px 60px 100px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+    }
+
+    /* Encabezado de Columna */
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 3px solid #17202d;
+      padding-bottom: 16px;
+      margin-bottom: 34px;
+    }
+
+    .col-header-badge {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffffff;
+      background: #17202d;
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+
+    .col-header-title {
+      font-family: 'Benniter', sans-serif;
+      font-size: 46px;
+      font-weight: bold;
+      color: #17202d;
+      letter-spacing: -0.2px;
+      text-transform: uppercase;
+    }
+
+    .col-header-title.green {
+      color: #3d8b17;
+    }
+
+    .col-header-title.blue {
+      color: #0e86d2;
+    }
+
+    /* Filas de Beneficios */
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .benefit-star {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 46px;
+      font-weight: bold;
+      color: #0e86d2;
+      line-height: 0.85;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .benefit-star.green {
+      color: #3d8b17;
+    }
+
+    .benefit-text-wrap {
+      flex: 1;
+    }
+
+    .benefit-title {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      color: #17202d;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .benefit-desc {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 28px;
+      color: #475569;
+      line-height: 1.35;
+    }
+
+    /* Banner Inferior de Garantía */
+    .footer-guarantee-strip {
+      position: absolute;
+      bottom: 45px;
+      left: 100px;
+      right: 100px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .guarantee-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .guarantee-icon {
+      width: 44px;
+      height: 44px;
+      fill: #62C331;
+      flex-shrink: 0;
+    }
+
+    .guarantee-text {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 24px;
+      font-weight: bold;
+      color: #17202d;
+      line-height: 1.25;
+    }
+
+    .guarantee-text span {
+      color: #F14825;
+    }
+
+    .guarantee-right {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 21px;
+      font-weight: bold;
+      color: #64748b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    <!-- Top Asphalt Header -->
+    <div class="top-asphalt-header">
+      <div class="slogan-badge-row">
+        <span class="slogan-pill">+KM • +HP • -CO</span>
+        <span class="slogan-pill orange">CADA GOTA CUENTA</span>
+      </div>
+      <h1 class="main-title-green">LOS 7 BENEFICIOS</h1>
+      <h2 class="main-title-sub">DE LA TECNOLOGÍA BK3 SOLUTIONS</h2>
+      <p class="header-desc">
+        Formulación química de máxima pureza presente en toda nuestra línea de potenciadores y optimizadores de combustión.
+      </p>
+    </div>
+
+    <!-- Products Showcase Strip (Crossing the divide) -->
+    <div class="products-showcase-strip">
+      <div class="showcase-bottle-item">
+        <img src="assets/products/spot_moto.png" alt="BK3 Moto">
+        <span class="showcase-bottle-label">BK3 Moto</span>
+      </div>
+      <div class="showcase-bottle-item">
+        <img src="assets/products/spot_clasico.png" alt="BK3 Clásico">
+        <span class="showcase-bottle-label">BK3 Clásico</span>
+      </div>
+      <div class="showcase-bottle-item">
+        <img src="assets/products/spot_racing.png" alt="BK3 Racing">
+        <span class="showcase-bottle-label">BK3 Racing</span>
+      </div>
+      <div class="showcase-bottle-item">
+        <img src="assets/products/spot_cetane.png" alt="BK3 Cetanium">
+        <span class="showcase-bottle-label">BK3 Cetanium</span>
+      </div>
+      <div class="showcase-bottle-item">
+        <img src="assets/products/spot_marine.png" alt="BK3 Marine">
+        <span class="showcase-bottle-label">Performance Marine</span>
+      </div>
+    </div>
+
+    <!-- Bottom White Body -->
+    <div class="bottom-white-body">
+      <div class="benefits-grid">
+        
+        <!-- Columna Izquierda: Rendimiento & Potencia Térmica -->
+        <div class="col-benefits">
+          <div class="col-header">
+            <span class="col-header-badge">01</span>
+            <span class="col-header-title green">RENDIMIENTO & POTENCIA</span>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star green">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">1. Más kilómetros (Mayor Autonomía)</div>
+              <div class="benefit-desc">Optimiza la mezcla aire/combustible logrando una combustión altamente eficiente y mayor rendimiento por litro.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star green">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">2. Más HP (Potencia Real Inmediata)</div>
+              <div class="benefit-desc">Eleva el octanaje eliminando el pistoneo y detonaciones prematuras para exprimir el máximo torque del motor.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star green">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">3. Menos contaminación</div>
+              <div class="benefit-desc">Garantiza una quema limpia y completa, reduciendo drásticamente las emisiones nocivas de CO e hidrocarburos no quemados.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Blindaje & Cuidado del Sistema -->
+        <div class="col-benefits">
+          <div class="col-header">
+            <span class="col-header-badge">02</span>
+            <span class="col-header-title blue">BLINDAJE & CUIDADO</span>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">4. Limpieza profunda del sistema</div>
+              <div class="benefit-desc">Descarboniza inyectores, válvulas, pistones y bujías desde el tanque hasta la cámara de combustión.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">5. Disociar la molécula del agua</div>
+              <div class="benefit-desc">Tecnología molecular avanzada que descompone el agua condensada en el tanque, evitando cavitación y fallas mecánicas.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">6. Pulverizar el azufre</div>
+              <div class="benefit-desc">Neutraliza y pulveriza los depósitos de azufre del combustible, impidiendo la corrosión ácida en los conductos.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">7. Lubricar todo el sistema</div>
+              <div class="benefit-desc">Fórmula 100% no corrosiva que actúa como lubricante protector para bombas de inyección, inyectores y mangueras.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Guarantee Strip -->
+      <div class="footer-guarantee-strip">
+        <div class="guarantee-left">
+          <svg class="guarantee-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          <div class="guarantee-text">FÓRMULA SEGURA: <span>LIBRE DE METANOL, ETANOL Y THINNER</span></div>
+        </div>
+        <div class="guarantee-right">BK3 SOLUTIONS C.A. • TECNOLOGÍA CERTIFICADA</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

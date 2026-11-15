@@ -240,33 +240,62 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Animación interactiva en la contraportada: Salto / caída elástica del botón WhatsApp (Inspirado en Portfolio Yeckson)
+    // Animación interactiva en la contraportada: Salto / caída elástica lenta del botón WhatsApp y cierre del hueco en el header
     const backCoverWsp = document.getElementById('backCoverWhatsAppBtn');
     const headerWsp = document.getElementById('headerWspBtn') || document.querySelector('.header-wsp-pill');
+    const headerWspSlot = document.getElementById('headerWspSlot');
     const isContraportada = isPageVisible(totalPages - 1);
 
     if (isContraportada) {
       if (headerWsp && !headerWsp.classList.contains('wsp-fallen')) {
         headerWsp.classList.add('wsp-fallen');
 
-        // Botón superior realiza vuelo con caída parabólica hacia el centro de la contraportada
+        // 1. Calcular trayectoria precisa hacia el botón de la contraportada
+        let deltaX = -window.innerWidth * 0.14;
+        let deltaY = window.innerHeight * 0.45;
+
+        if (backCoverWsp) {
+          const startRect = headerWsp.getBoundingClientRect();
+          const targetRect = backCoverWsp.getBoundingClientRect();
+          if (targetRect.width > 0 && targetRect.height > 0) {
+            deltaX = (targetRect.left + targetRect.width / 2) - (startRect.left + startRect.width / 2);
+            deltaY = (targetRect.top + targetRect.height / 2) - (startRect.top + startRect.height / 2);
+          }
+        }
+
+        // 2. Caída lenta y cinematográfica del botón superior hacia el centro de la contraportada
         gsap.to(headerWsp, {
-          y: window.innerHeight * 0.42,
-          x: -window.innerWidth * 0.12,
-          scale: 0.6,
-          opacity: 0,
-          duration: 0.52,
-          ease: 'power2.in',
+          x: deltaX,
+          y: deltaY,
+          scale: 0.75,
+          opacity: 0.9,
+          duration: 1.1,
+          ease: 'power1.inOut',
           onComplete: () => {
+            gsap.to(headerWsp, { opacity: 0, scale: 0.4, duration: 0.25 });
             headerWsp.style.visibility = 'hidden';
           }
         });
 
-        // Botón de la contraportada recibe la caída y emerge con rebote elástico spring
+        // 3. Los iconos laterales se juntan suavemente cerrando el espacio vacío que dejó el botón
+        if (headerWspSlot) {
+          gsap.to(headerWspSlot, {
+            width: 0,
+            opacity: 0,
+            duration: 0.75,
+            delay: 0.35,
+            ease: 'power2.inOut',
+            onComplete: () => {
+              headerWspSlot.style.display = 'none';
+            }
+          });
+        }
+
+        // 4. El botón de la contraportada recibe la caída y emerge materializándose con rebote elástico
         if (backCoverWsp) {
           gsap.fromTo(backCoverWsp,
-            { scale: 0.28, opacity: 0, y: -85 },
-            { scale: 1, opacity: 1, y: 0, duration: 0.75, delay: 0.36, ease: 'back.out(2.4)' }
+            { scale: 0.25, opacity: 0, y: -60 },
+            { scale: 1, opacity: 1, y: 0, duration: 0.9, delay: 0.95, ease: 'back.out(2.2)' }
           );
         }
       }
@@ -275,14 +304,23 @@ document.addEventListener('DOMContentLoaded', () => {
         headerWsp.classList.remove('wsp-fallen');
         headerWsp.style.visibility = 'visible';
 
+        // Reabrir el slot para dar cabida al botón en el header
+        if (headerWspSlot) {
+          headerWspSlot.style.display = 'inline-flex';
+          gsap.fromTo(headerWspSlot,
+            { width: 0, opacity: 0 },
+            { width: 'auto', opacity: 1, duration: 0.55, ease: 'power2.out' }
+          );
+        }
+
         // Rebound elástico de retorno al header superior
         gsap.fromTo(headerWsp,
-          { y: 24, x: 0, scale: 0.75, opacity: 0 },
-          { y: 0, x: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(1.7)' }
+          { y: 28, x: 0, scale: 0.75, opacity: 0 },
+          { y: 0, x: 0, scale: 1, opacity: 1, duration: 0.65, delay: 0.15, ease: 'back.out(1.8)' }
         );
       }
       if (backCoverWsp) {
-        gsap.to(backCoverWsp, { opacity: 0, scale: 0.8, duration: 0.22 });
+        gsap.to(backCoverWsp, { opacity: 0, scale: 0.8, duration: 0.25 });
       }
     }
   }

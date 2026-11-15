@@ -201,6 +201,15 @@ html, body {
   flex-shrink: 0;
 }
 
+/* Slot colapsable para WhatsApp que permite juntar los botones laterales */
+.header-wsp-slot {
+  display: inline-flex;
+  align-items: center;
+  overflow: visible;
+  transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+  will-change: width, opacity;
+}
+
 .tool-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -941,19 +950,27 @@ html, body {
 }
 
 .cat-thumb-box {
-  width: 48px;
-  height: 62px;
+  width: 68px;
+  height: 78px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background: radial-gradient(circle, rgba(241, 245, 249, 0.8) 0%, rgba(226, 232, 240, 0.4) 70%, transparent 100%);
+  border-radius: 8px;
+  padding: 2px;
 }
 
 .cat-thumb-box img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+  transition: transform 0.25s ease;
+}
+
+.cat-item-card:hover .cat-thumb-box img {
+  transform: scale(1.08) translateY(-2px);
 }
 
 .cat-details {
