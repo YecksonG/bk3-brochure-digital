@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Performance Marine - 7 Beneficios Oficiales (Layout Invertido / Mirrored)</title>
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'NeueRegrade', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja superior de asfalto (exactamente el 39.45% = 868px) */
+    .top-asphalt-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 868px;
+      background: url('assets/asphalt_top_header.png') no-repeat center top;
+      background-size: 1700px 870px;
+      z-index: 1;
+    }
+
+    /* Galón náutico de 5L sobrepasando el corte horizontal en el lado DERECHO (Espejo editorial) */
+    .marine-gallon-right {
+      position: absolute;
+      right: 110px;
+      top: 72px;
+      width: 518px;
+      height: 1011px;
+      z-index: 10;
+      object-fit: contain;
+      filter: drop-shadow(-15px 20px 25px rgba(0, 0, 0, 0.45));
+    }
+
+    /* Encabezado IZQUIERDO sobre asfalto (Dinamismo editorial frente a la pág. 9) */
+    .top-header-left {
+      position: absolute;
+      left: 115px;
+      top: 170px;
+      width: 900px;
+      z-index: 5;
+    }
+
+    .brand-tag {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #0e86d2;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .title-benniter-green {
+      font-family: 'Benniter', sans-serif;
+      font-size: 114px;
+      line-height: 0.92;
+      color: #6ac52e;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .title-benniter-cyan {
+      font-family: 'Benniter', sans-serif;
+      font-size: 114px;
+      line-height: 0.92;
+      color: #0e86d2;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .subtitle-white-desc {
+      margin-top: 24px;
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 36px;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      max-width: 860px;
+    }
+
+    .orange-badge-pill {
+      display: inline-block;
+      margin-top: 18px;
+      background: #f25b19;
+      color: #ffffff;
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      padding: 6px 18px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+    }
+
+    /* 2. Sección inferior blanca pura */
+    .bottom-white-section {
+      position: absolute;
+      top: 868px;
+      left: 0;
+      width: 1700px;
+      height: 1332px;
+      background: #ffffff;
+      z-index: 2;
+    }
+
+    /* Columna Izquierda (inicia a 115px de margen, ancho amplio de 800px) */
+    .col-left-wide {
+      position: absolute;
+      left: 115px;
+      top: 960px; /* Inicia más arriba porque el galón está a la derecha */
+      width: 800px;
+      z-index: 12;
+    }
+
+    /* Título de sección idéntico al catálogo original */
+    .sec-title-wrap {
+      margin-bottom: 46px;
+      line-height: 1.05;
+    }
+
+    .sec-title-pre {
+      font-family: 'Benniter', sans-serif;
+      font-size: 58px;
+      color: #231f20;
+      letter-spacing: -0.3px;
+    }
+
+    .sec-title-main {
+      font-family: 'Benniter', sans-serif;
+      font-size: 58px;
+      color: #0e86d2;
+      letter-spacing: -0.3px;
+    }
+
+    /* Filas de beneficios con escala tipográfica generosa */
+    .benefit-item {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .b-num {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 52px;
+      font-weight: bold;
+      color: #0e86d2;
+      line-height: 1;
+      min-width: 54px;
+      flex-shrink: 0;
+    }
+
+    .b-text {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 38px;
+      font-weight: bold;
+      color: #040606;
+      line-height: 1.25;
+    }
+
+    /* Columna Derecha (inicia a 980px de margen, ancho 600px, ubicada bajo el galón) */
+    .col-right-under {
+      position: absolute;
+      left: 980px;
+      top: 1140px; /* Comienza libre del galón */
+      width: 610px;
+      z-index: 12;
+    }
+
+    /* Bloque Modo de Empleo oficial */
+    .modo-empleo-box {
+      margin-top: 50px;
+      padding-top: 36px;
+      border-top: 2px solid #eaedf0;
+    }
+
+    .modo-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .star-bullet {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 58px;
+      color: #0e86d2;
+      line-height: 0.8;
+      display: inline-block;
+    }
+
+    .modo-title-text {
+      font-family: 'Benniter', sans-serif;
+      font-size: 52px;
+      color: #231f20;
+      letter-spacing: -0.3px;
+    }
+
+    .modo-title-text span {
+      color: #0e86d2;
+    }
+
+    .modo-desc {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 28px;
+      color: #040606;
+      line-height: 1.38;
+      margin-bottom: 14px;
+    }
+
+    .modo-sub {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 24px;
+      color: #555555;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    <!-- Top Asphalt Section -->
+    <div class="top-asphalt-section"></div>
+
+    <!-- Product 5L Marine Gallon on the RIGHT -->
+    <img src="assets/products/galon_marine_5lt.png" alt="BK3 Performance Marine 5L" class="marine-gallon-right">
+
+    <!-- Top Asphalt Typography on the LEFT -->
+    <div class="top-header-left">
+      <div class="brand-tag">BK3 PERFORMANCE MARINE</div>
+      <div class="title-benniter-green">POTENCIADOR</div>
+      <div class="title-benniter-cyan">DE OCTANAJE</div>
+      <div class="subtitle-white-desc">
+        ELEVADOR DE ALTA GAMA DISEÑADO EXCLUSIVAMENTE PARA EMBARCACIONES
+      </div>
+      <div class="orange-badge-pill">7 BENEFICIOS OFICIALES</div>
+    </div>
+
+    <!-- Bottom White Section -->
+    <div class="bottom-white-section"></div>
+
+    <!-- Left Column (Wide): Titular y Beneficios 1 al 4 -->
+    <div class="col-left-wide">
+      <div class="sec-title-wrap">
+        <div class="sec-title-pre">CONOCE MÁS SOBRE</div>
+        <div class="sec-title-main">LOS 7 BENEFICIOS</div>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">1.</span>
+        <span class="b-text">Más kilómetros</span>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">2.</span>
+        <span class="b-text">Más HP</span>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">3.</span>
+        <span class="b-text">Menos contaminación</span>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">4.</span>
+        <span class="b-text">Limpiamos todo el sistema de inyección y combustión</span>
+      </div>
+    </div>
+
+    <!-- Right Column (Under gallon): Beneficios 5 al 7 + Modo de Empleo -->
+    <div class="col-right-under">
+      <div class="benefit-item">
+        <span class="b-num">5.</span>
+        <span class="b-text">Disociar la molécula del agua</span>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">6.</span>
+        <span class="b-text">Pulverizar el azufre</span>
+      </div>
+
+      <div class="benefit-item">
+        <span class="b-num">7.</span>
+        <span class="b-text">Lubricar todo el sistema</span>
+      </div>
+
+      <!-- Modo de Empleo auténtico -->
+      <div class="modo-empleo-box">
+        <div class="modo-header">
+          <span class="star-bullet">*</span>
+          <span class="modo-title-text">MODO <span>DE EMPLEO</span></span>
+        </div>
+        <p class="modo-desc">
+          Utiliza el equivalente al 2.5% de BK3 Performance Marine según el contenido del tanque de gasolina de la embarcación.
+        </p>
+        <p class="modo-sub">
+          Ideal para motores fueraborda, intraborda y embarcaciones deportivas o de recreación.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

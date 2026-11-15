@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Performance Marine - 7 Beneficios Oficiales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800;1,900&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'Montserrat', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* Franja superior de asfalto (exactamente el 39.5% de altura: 868px) */
+    .top-asphalt-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 868px;
+      background: url('assets/asphalt_top_header.png') no-repeat center top;
+      background-size: 1700px 870px;
+      z-index: 1;
+    }
+
+    /* Galón náutico de 5L sobrepasando el corte horizontal */
+    .marine-gallon {
+      position: absolute;
+      left: 127px;
+      top: 110px;
+      width: 457px;
+      height: 1039px;
+      z-index: 10;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5));
+    }
+
+    /* Encabezado derecho sobre asfalto negro */
+    .top-header-content {
+      position: absolute;
+      left: 680px;
+      top: 185px;
+      width: 950px;
+      z-index: 5;
+    }
+
+    .main-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 0.94;
+    }
+
+    .title-green {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 136px;
+      font-weight: 900;
+      font-style: italic;
+      color: #6bc62f;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .subtitle-white {
+      margin-top: 28px;
+      font-size: 32px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      max-width: 860px;
+    }
+
+    .orange-badge {
+      display: inline-block;
+      margin-top: 14px;
+      background: #f35c18;
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: 800;
+      padding: 5px 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Sección inferior blanca pura */
+    .bottom-white-section {
+      position: absolute;
+      top: 868px;
+      left: 0;
+      width: 1700px;
+      height: 1332px;
+      background: #ffffff;
+      z-index: 2;
+    }
+
+    /* Columna Izquierda */
+    .col-left {
+      position: absolute;
+      left: 80px;
+      top: 1085px;
+      width: 720px;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .sec-title-black {
+      font-size: 48px;
+      font-weight: 800;
+      color: #17202d;
+      letter-spacing: -0.5px;
+    }
+
+    .sec-title-cyan {
+      font-size: 48px;
+      font-weight: 800;
+      color: #0d87d2;
+      letter-spacing: -0.5px;
+    }
+
+    /* Columna Derecha */
+    .col-right {
+      position: absolute;
+      left: 860px;
+      top: 1020px;
+      width: 760px;
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .star-bullet {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .benefit-text {
+      font-size: 26px;
+      line-height: 1.34;
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    .benefit-text strong {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .sub-header-cyan {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0d87d2;
+      margin-top: 14px;
+      margin-bottom: -4px;
+      letter-spacing: -0.3px;
+    }
+
+    .closing-summary {
+      font-size: 25px;
+      line-height: 1.4;
+      color: #1a1a1a;
+      margin-top: 16px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    
+    <!-- Franja superior de asfalto -->
+    <div class="top-asphalt-section"></div>
+
+    <!-- Galón Náutico 5L Oficial -->
+    <img src="assets/products/galon_marine_5lt.png" alt="BK3 Performance Marine 5L" class="marine-gallon">
+
+    <!-- Encabezado Derecho -->
+    <div class="top-header-content">
+      <div class="main-title">
+        <span class="title-green">POTENCIADOR</span>
+        <span class="title-green">DE OCTANAJE</span>
+      </div>
+      <div class="subtitle-white">
+        ELEVADOR DE ALTA GAMA DISEÑADO EXCLUSIVAMENTE PARA EMBARCACIONES MARINAS DEPORTIVAS Y DE
+      </div>
+      <div>
+        <span class="orange-badge">LOS 7 BENEFICIOS DE LA MARCA</span>
+      </div>
+    </div>
+
+    <!-- Sección inferior blanca -->
+    <div class="bottom-white-section"></div>
+
+    <!-- Columna Izquierda de Beneficios -->
+    <div class="col-left">
+      <div class="section-title-wrap">
+        <span class="sec-title-black">CONOCE LOS</span>
+        <span class="sec-title-cyan">7 BENEFICIOS DE</span>
+        <span class="sec-title-cyan">PERFORMANCE MARINE</span>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Más kilómetros:</strong> Mayor autonomía náutica y rendimiento optimizado por cada litro en travesía.
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Más HP:</strong> Respuesta inmediata de aceleración y máxima entrega de potencia bajo alta exigencia marina.
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Menos contaminación:</strong> Combustión limpia con drástica reducción de emisiones de monóxido de carbono.
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Limpiamos todo el sistema de inyección y combustión:</strong> Mantiene tanque, mangueras, inyectores, bujías y pistones libres de depósitos de carbón.
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna Derecha de Beneficios & Dosis -->
+    <div class="col-right">
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Disociar la molécula del agua:</strong> Neutraliza y pulveriza la condensación de agua en tanques y líneas de combustible de la embarcación.
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Pulverizar el azufre:</strong> Desintegra sedimentos pesados y azufre impidiendo taponamientos y corrosión en el motor.
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Lubricar todo el sistema:</strong> Su fórmula actúa como un lubricante protector no corrosivo libre de metanol, etanol y thinner que blinda bombas y retenes contra el salitre.
+        </div>
+      </div>
+
+      <div class="sub-header-cyan">PRESENTACIÓN & DOSIFICACIÓN</div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Formato:</strong> Envase de 5 Lts (Galón Náutico).
+        </div>
+      </div>
+
+      <div class="benefit-item">
+        <img src="assets/logos/star_marine_bullet.png" class="star-bullet" alt="*">
+        <div class="benefit-text">
+          <strong>Modo de empleo:</strong> Utiliza el equivalente al <strong>2.5%</strong> de BK3 Performance Marine según el tanque de la embarcación.
+        </div>
+      </div>
+
+      <p class="closing-summary">
+        <strong>BK3 Performance Marine</strong> no es solo un aditivo. Es una solución integral para quienes exigen potencia, confiabilidad y durabilidad en cada travesía.
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>

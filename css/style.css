@@ -6,6 +6,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Benniter';
+  src: url('../assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NeueRegrade';
+  src: url('../assets/fonts/NeueRegrade_102.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NeueRegrade';
+  src: url('../assets/fonts/NeueRegrade_106.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 :root {
   /* Paleta Corporativa Oficial */
   --brand-navy: #17202D;
@@ -27,9 +46,9 @@
   --text-muted: #94a3b8;
   --text-dim: #64748b;
 
-  /* Tipografías */
-  --font-display: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Tipografías Oficiales de Agencia */
+  --font-display: 'Benniter', 'Barlow Condensed', -apple-system, sans-serif;
+  --font-body: 'NeueRegrade', 'Montserrat', -apple-system, sans-serif;
   --font-mono: 'Chakra Petch', monospace;
 }
 
@@ -586,6 +605,159 @@ html, body {
   bottom: 30%; height: 50px;
 }
 
+.hotspot-tiktok {
+  left: 18%;
+  right: 18%;
+  top: 63%;
+  height: 5.5%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.hotspot-tiktok:hover {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 16px rgba(255, 0, 80, 0.35);
+}
+
+/* Botón de WhatsApp dinámico y animado en la contraportada */
+.backcover-whatsapp-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 71.5%;
+  transform: translateX(-50%);
+  width: 82%;
+  max-width: 380px;
+  z-index: 25;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  opacity: 0; /* Animado dinámicamente con GSAP al llegar a la contraportada */
+}
+
+.backcover-wsp-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.backcover-wsp-button:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.65), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.backcover-wsp-button svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  fill: #ffffff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.wsp-btn-text-col {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.wsp-btn-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.wsp-btn-sub {
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 600;
+  opacity: 0.9;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+}
+
+/* Anillo de pulso tipo faro/beacon */
+.wsp-beacon-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50px;
+  border: 2px solid rgba(37, 211, 102, 0.7);
+  animation: wspPulseBeacon 2.2s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes wspPulseBeacon {
+  0% { transform: scale(0.96); opacity: 1; }
+  60% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   INTERACCIÓN 3D EN CADA PRODUCTO DE LAS PÁGINAS SIGUIENTES
+   Micro-interacción táctil: el producto brilla con su color y se expande 3D
+   -------------------------------------------------------------------------- */
+.product-3d-spot {
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.product-3d-spot .spot-bottle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.32s ease;
+  will-change: transform, filter, opacity;
+}
+
+.product-3d-spot:hover .spot-bottle-img,
+.product-3d-spot.touch-active .spot-bottle-img {
+  opacity: 1;
+  transform: translateY(-8px) scale(1.06);
+}
+
+.spot-moto:hover .spot-bottle-img,
+.spot-moto.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 16px 26px rgba(241, 72, 37, 0.75));
+}
+
+.spot-clasico:hover .spot-bottle-img,
+.spot-clasico.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 16px 26px rgba(98, 195, 49, 0.75));
+}
+
+.spot-racing:hover .spot-bottle-img,
+.spot-racing.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 16px 26px rgba(237, 28, 36, 0.75));
+}
+
+.spot-cetane:hover .spot-bottle-img,
+.spot-cetane.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 16px 26px rgba(253, 185, 19, 0.75));
+}
+
+.spot-marine:hover .spot-bottle-img,
+.spot-marine.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 16px 26px rgba(14, 135, 210, 0.75));
+}
+
 /* ==========================================================================
    PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
    Diseño de alta fidelidad: Asfalto texturizado + Papel satinado mineral
@@ -627,9 +799,9 @@ html, body {
   border-radius: 4px;
 }
 
-/* Mitad Superior: Vitrina y Encabezado sobre asfalto */
+/* Mitad Superior: Encabezado editorial sobre asfalto */
 .index-top-section {
-  padding: 12px 16px 8px 16px;
+  padding: 24px 20px 22px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -639,60 +811,37 @@ html, body {
 }
 
 .index-badge {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 1.2px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--color-clasico);
-  background: rgba(98, 195, 49, 0.12);
-  border: 1px solid rgba(98, 195, 49, 0.3);
-  padding: 2px 9px;
+  background: rgba(98, 195, 49, 0.15);
+  border: 1px solid rgba(98, 195, 49, 0.45);
+  padding: 4px 14px;
   border-radius: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .index-main-title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 2.25rem;
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   color: #ffffff;
-  line-height: 1.1;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  line-height: 1.05;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
 }
 
 .index-main-desc {
-  font-size: 0.66rem;
-  color: #cbd5e1;
-  max-width: 420px;
-  line-height: 1.3;
-  margin-top: 3px;
-}
-
-/* Fila de miniaturas de botellas con micro-interacción hover */
-.index-packshot-strip {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 10px;
-  height: 60px;
-  margin-top: 6px;
-}
-
-.packshot-bottle {
-  height: 100%;
-  max-height: 60px;
-  object-fit: contain;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.7));
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
-}
-
-.packshot-bottle:hover {
-  transform: translateY(-4px) scale(1.12);
-  filter: drop-shadow(0 10px 14px rgba(98, 195, 49, 0.45));
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  max-width: 480px;
+  line-height: 1.35;
+  margin-top: 8px;
 }
 
 /* Mitad Inferior: Panel de papel blanco satinado con tarjetas de producto */
@@ -700,7 +849,7 @@ html, body {
   flex: 1;
   background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
   border-radius: 12px 12px 0 0;
-  padding: 10px 14px 10px 14px;
+  padding: 12px 14px 10px 14px;
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
@@ -720,22 +869,22 @@ html, body {
 .catalog-cards-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   flex: 1;
 }
 
-/* Tarjeta de Producto: Micro-bisel táctil inspirado en Harmony (.crystal-facet-edge) */
+/* Tarjeta de Producto: Legible, amplia y con salto de página claro */
 .cat-item-card {
   background: #ffffff;
   border-top: 1px solid rgba(255, 255, 255, 0.9);
   border-left: 1px solid rgba(226, 232, 240, 0.8);
   border-right: 1px solid rgba(226, 232, 240, 0.8);
   border-bottom: 1px solid rgba(203, 213, 225, 0.9);
-  border-radius: 6px;
-  padding: 5px 10px;
+  border-radius: 8px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
   position: relative;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
@@ -747,7 +896,7 @@ html, body {
   position: absolute;
   left: 0; top: 0; bottom: 0;
   width: 4px;
-  border-radius: 6px 0 0 6px;
+  border-radius: 8px 0 0 8px;
   transition: width 0.2s ease;
 }
 
@@ -784,8 +933,8 @@ html, body {
 }
 
 .cat-thumb-box {
-  width: 28px;
-  height: 40px;
+  width: 34px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -804,26 +953,67 @@ html, body {
   min-width: 0;
 }
 
-.cat-tag-row {
+.cat-header-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2px;
+  gap: 8px;
+}
+
+.cat-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cat-jump-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.cat-item-card:hover .cat-jump-pill {
+  background: var(--brand-navy);
+  color: #ffffff;
+  border-color: var(--brand-navy);
+}
+
+.cat-spec-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3px;
 }
 
 .cat-pill {
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
   font-weight: 700;
-  padding: 1px 5px;
-  border-radius: 3px;
+  padding: 2px 7px;
+  border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
 
 .cat-vol-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.74rem;
   color: #64748b;
   font-weight: 600;
 }
@@ -833,39 +1023,6 @@ html, body {
 .cat-racing .cat-pill { background: rgba(237, 28, 36, 0.12); color: var(--color-racing); }
 .cat-cetane .cat-pill { background: rgba(253, 185, 19, 0.18); color: #b45309; }
 .cat-marine .cat-pill { background: rgba(14, 135, 210, 0.15); color: var(--color-marine); }
-
-.cat-title {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #0f172a;
-  line-height: 1.1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.cat-summary {
-  font-size: 0.64rem;
-  color: #64748b;
-  line-height: 1.2;
-  margin-top: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.cat-action-arrow {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.cat-item-card:hover .cat-action-arrow {
-  color: #0f172a;
-  transform: translateX(3px);
-}
 
 .index-footer-strip {
   margin-top: 6px;

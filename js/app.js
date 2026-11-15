@@ -239,7 +239,43 @@ document.addEventListener('DOMContentLoaded', () => {
         thumb.classList.remove('active');
       }
     });
+
+    // Animación interactiva en la contraportada: Salto del botón WhatsApp desde el header
+    const backCoverWsp = document.getElementById('backCoverWhatsAppBtn');
+    const headerWsp = document.querySelector('.header-wsp-pill');
+    const isContraportada = isPageVisible(totalPages - 1);
+
+    if (isContraportada) {
+      if (headerWsp) {
+        gsap.fromTo(headerWsp, 
+          { scale: 1 }, 
+          { scale: 1.25, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' }
+        );
+      }
+      if (backCoverWsp) {
+        gsap.fromTo(backCoverWsp,
+          { scale: 0.2, opacity: 0, y: -40 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'back.out(2)' }
+        );
+      }
+    } else {
+      if (backCoverWsp) {
+        gsap.to(backCoverWsp, { opacity: 0, scale: 0.8, duration: 0.2 });
+      }
+    }
   }
+
+  // Interactividad táctil en las botellas 3D
+  const spots = document.querySelectorAll('.product-3d-spot');
+  spots.forEach(spot => {
+    spot.addEventListener('touchstart', () => {
+      spot.classList.add('touch-active');
+      playPaperTurnSound();
+    }, { passive: true });
+    spot.addEventListener('touchend', () => {
+      setTimeout(() => spot.classList.remove('touch-active'), 800);
+    }, { passive: true });
+  });
 
   // --------------------------------------------------------------------------
   // 7. NAVEGACIÓN SEGURA E INTELIGENTE ENTRE PÁGINAS Y PLIEGOS
@@ -288,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   let currentDims = calculatePageDimensions();
   const urlParams = new URLSearchParams(window.location.search);
-  const paramPage = parseInt(urlParams.get('page') || '0', 10);
-  const startPage = (!isNaN(paramPage) && paramPage >= 0 && paramPage < totalPages) ? paramPage : 0;
+  const hashMatch = window.location.hash.match(/page=(\d+)/);
+  const rawPage = hashMatch ? parseInt(hashMatch[1], 10) : parseInt(urlParams.get('page') || '0', 10);
+  const startPage = (!isNaN(rawPage) && rawPage >= 0 && rawPage < totalPages) ? rawPage : 0;
 
   function initPageFlip(startAt) {
     pageFlip = new St.PageFlip(flipContainer, {
@@ -452,23 +489,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Botón "ABRIR REVISTA" en Portada con Confetti Dinámico
+  // Botón "ABRIR REVISTA" en Portada
   const btnOpenCatalog = document.getElementById('btnOpenCatalog');
   if (btnOpenCatalog) {
     btnOpenCatalog.addEventListener('click', () => {
       dismissGuide();
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 40,
-          spread: 65,
-          origin: { y: 0.8 },
-          colors: ['#62C331', '#F14825', '#FDB913', '#ED1C24', '#ffffff']
-        });
-      }
-
-      setTimeout(() => {
-        goToPage(1); // Abre la revista hacia el catálogo de productos
-      }, 100);
+      goToPage(1); // Abre la revista hacia el catálogo de productos
     });
   }
 
