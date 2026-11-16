@@ -410,10 +410,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageFlip) return;
     dismissGuide();
 
-    try {
-      pageFlip.flip(targetPage);
-    } catch (err) {
-      pageFlip.turnToPage(targetPage);
+    const pageCol = pageFlip.getPageCollection();
+    const curSpread = pageCol.getCurrentSpreadIndex();
+    const targetSpread = pageCol.getSpreadIndexByPage(targetPage);
+    const spreadDiff = Math.abs(targetSpread - curSpread);
+
+    if (spreadDiff <= 1) {
+      // Pliegos contiguos (diferencia de 1): animación 3D de volteo de hoja natural
+      try {
+        pageFlip.flip(targetPage);
+      } catch (err) {
+        pageFlip.turnToPage(targetPage);
+      }
+    } else {
+      // Salto a pliego distante (ej. Índice a Cetanium o Marine):
+      // Transición cinemática rápida de revista que posiciona el pliego de forma instantánea
+      // y 100% limpia sin desincronizar la memoria interna de StPageFlip
+      const flipWrap = document.querySelector('.flipbook-container');
+      if (flipWrap) {
+        flipWrap.style.transition = 'opacity 0.22s ease';
+        flipWrap.style.opacity = '0.3';
+      }
+      setTimeout(() => {
+        pageFlip.turnToPage(targetPage);
+        if (flipWrap) {
+          flipWrap.style.opacity = '1';
+        }
+      }, 200);
     }
 
     // Efecto sutil de resaltado una vez posicionados en la página
