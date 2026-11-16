@@ -386,10 +386,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  let isFastFlipping = false;
-
   function goToPage(targetPage) {
-    if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages || isFastFlipping) return;
+    if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages) return;
     const current = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
     const isMobile = window.innerWidth <= 768;
 
@@ -412,55 +410,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageFlip) return;
     dismissGuide();
 
-    const pageCol = pageFlip.getPageCollection();
-    const currentSpread = pageCol.getCurrentSpreadIndex();
-    const targetSpread = pageCol.getSpreadIndexByPage(targetPage);
-    const spreadDiff = targetSpread - currentSpread;
-
-    if (Math.abs(spreadDiff) <= 1) {
-      // Salto directo de 1 pliego: animación suave normal
-      try {
-        pageFlip.flip(targetPage);
-      } catch (err) {
-        pageFlip.turnToPage(targetPage);
-      }
-      return;
+    try {
+      pageFlip.flip(targetPage);
+    } catch (err) {
+      pageFlip.turnToPage(targetPage);
     }
 
-    // Salto de más de 1 pliego: EFECTO HOJEO RÁPIDO DE PÁGINAS (RAPID FLIP-THROUGH)
-    isFastFlipping = true;
-    const origFlippingTime = pageFlip.setting.flippingTime || 650;
-    const fastTime = isMobile ? 140 : 170;
-    pageFlip.setting.flippingTime = fastTime;
-
-    function step() {
-      const curSpread = pageCol.getCurrentSpreadIndex();
-      if (curSpread === targetSpread) {
-        finishFastFlip();
-        return;
-      }
-
-      const onStateChange = (e) => {
-        if (e.data === 'read') {
-          pageFlip.off('changeState', onStateChange);
-          setTimeout(step, 10);
-        }
-      };
-
-      pageFlip.on('changeState', onStateChange);
-
-      if (targetSpread > curSpread) {
-        pageFlip.flipNext();
-      } else {
-        pageFlip.flipPrev();
-      }
-    }
-
-    function finishFastFlip() {
-      isFastFlipping = false;
-      if (pageFlip && pageFlip.setting) {
-        pageFlip.setting.flippingTime = origFlippingTime;
-      }
+    // Efecto sutil de resaltado una vez posicionados en la página
+    setTimeout(() => {
       const targetEl = pageElements[targetPage];
       if (targetEl) {
         targetEl.classList.remove('pulse-highlight');
@@ -468,18 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         targetEl.classList.add('pulse-highlight');
       }
       updateActiveUI(targetPage);
-    }
-
-    // Temporizador de seguridad
-    const maxDuration = Math.abs(spreadDiff) * (fastTime + 60) + 700;
-    setTimeout(() => {
-      if (isFastFlipping) {
-        pageFlip.turnToPage(targetPage);
-        finishFastFlip();
-      }
-    }, maxDuration);
-
-    step();
+    }, 450);
   }
 
   // --------------------------------------------------------------------------
