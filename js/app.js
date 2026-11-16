@@ -230,19 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return target === spreadLeft || target === spreadLeft + 1;
     }
 
-    // En móvil, desactivar zonas táctiles laterales en la página 2 (Índice interactivo)
-    // para garantizar que los toques en las tarjetas de productos no sean interceptados.
-    // En escritorio, las zonas táctiles se ocultan siempre para priorizar clics en páginas y flechas.
-    const isMobilePortraitIndex = isMobile && pageIndex === 1;
+    // Zonas táctiles laterales en móvil activas siempre para permitir cambio fluido hacia adelante y atrás
     const touchZonePrevEl = document.getElementById('touchZonePrev');
     const touchZoneNextEl = document.getElementById('touchZoneNext');
     if (touchZonePrevEl) {
-      touchZonePrevEl.style.pointerEvents = isMobilePortraitIndex ? 'none' : 'auto';
-      touchZonePrevEl.style.display = (isMobile && !isMobilePortraitIndex) ? 'block' : 'none';
+      touchZonePrevEl.style.pointerEvents = 'auto';
+      touchZonePrevEl.style.display = isMobile ? 'block' : 'none';
     }
     if (touchZoneNextEl) {
-      touchZoneNextEl.style.pointerEvents = isMobilePortraitIndex ? 'none' : 'auto';
-      touchZoneNextEl.style.display = (isMobile && !isMobilePortraitIndex) ? 'block' : 'none';
+      touchZoneNextEl.style.pointerEvents = 'auto';
+      touchZoneNextEl.style.display = isMobile ? 'block' : 'none';
     }
 
     // Actualizar thumbnails activas y auto-scroll en drawer
@@ -396,12 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const spreadLeft = current % 2 === 1 ? current : current - 1;
       const spreadRight = spreadLeft + 1;
       if (targetPage === spreadLeft || targetPage === spreadRight) {
-        const targetEl = pageElements[targetPage];
-        if (targetEl) {
-          targetEl.classList.remove('pulse-highlight');
-          void targetEl.offsetWidth; // Reflow para reiniciar la animación
-          targetEl.classList.add('pulse-highlight');
-        }
         updateActiveUI(current);
         return;
       }
@@ -424,29 +415,38 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } else {
       // Salto a pliego distante (ej. Índice a Cetanium o Marine):
-      // Transición cinemática rápida de revista que posiciona el pliego de forma instantánea
-      // y 100% limpia sin desincronizar la memoria interna de StPageFlip
+      // 1. Limpiar cualquier pliegue o estado residual en el flipController
+      if (pageFlip.getFlipController()) {
+        try {
+          pageFlip.getFlipController().stopMove();
+          pageFlip.getFlipController().reset();
+        } catch (e) {}
+      }
+
       const flipWrap = document.querySelector('.flipbook-container');
       if (flipWrap) {
-        flipWrap.style.transition = 'opacity 0.22s ease';
-        flipWrap.style.opacity = '0.3';
+        flipWrap.style.transition = 'opacity 0.18s ease';
+        flipWrap.style.opacity = '0.35';
       }
       setTimeout(() => {
         pageFlip.turnToPage(targetPage);
+        try {
+          if (pageFlip.getRender()) {
+            pageFlip.getRender().finishAnimation();
+          }
+          if (pageFlip.getFlipController()) {
+            pageFlip.getFlipController().reset();
+            pageFlip.getFlipController().setState('read');
+          }
+        } catch (e) {}
         if (flipWrap) {
           flipWrap.style.opacity = '1';
         }
-      }, 200);
+      }, 180);
     }
 
-    // Efecto sutil de resaltado una vez posicionados en la página
+    // Actualizar UI del footer
     setTimeout(() => {
-      const targetEl = pageElements[targetPage];
-      if (targetEl) {
-        targetEl.classList.remove('pulse-highlight');
-        void targetEl.offsetWidth;
-        targetEl.classList.add('pulse-highlight');
-      }
       updateActiveUI(targetPage);
     }, 450);
   }
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showPageCorners: false,
       mobileScrollSupport: true,
       usePortrait: currentDims.isMobile,
-      startPage: startAt,
+            startPage: startAt,
       flippingTime: 650,
     });
 
@@ -492,11 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     pageFlip.on('init', (e) => {
-      // Estilo de papel de revista flexible (soft)
-      pageFlip.getPageCollection().getPages().forEach((p, idx) => {
-        const isCover = (idx === 0 || idx === totalPages - 1);
-        p.setDensity(isCover ? 'hard' : 'soft');
-        p.setDrawingDensity(isCover ? 'hard' : 'soft');
+      // Estilo de papel de revista flexible (soft) continuo para evitar roturas de rotateY en modo móvil
+      pageFlip.getPageCollection().getPages().forEach((p) => {
+        p.setDensity('soft');
+        p.setDrawingDensity('soft');
       });
       updateActiveUI(startAt);
       updateSpreadCentering(startAt);
@@ -538,55 +537,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // 10. RECONOCEDOR NATIVO DE GESTOS SWIPE TÁCTIL (SUAVE Y SIN BUG EN MÓVIL)
+  // 10. GESTIÓN LIMPIA DE GESTOS TÁCTILES
+  // StPageFlip gestiona internamente los toques y deslizamientos de pliegue.
+  // Evitamos escuchadores duplicados en el viewport para prevenir doble disparo de flipNext/flipPrev.
   // --------------------------------------------------------------------------
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchStartTime = 0;
-
-  const viewport = document.querySelector('.viewer-viewport');
-  if (viewport) {
-    viewport.addEventListener('touchstart', (e) => {
-      if (e.touches && e.touches[0]) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        touchStartTime = Date.now();
-      }
-    }, { passive: true });
-
-    viewport.addEventListener('touchend', (e) => {
-      if (!e.changedTouches || !e.changedTouches[0]) return;
-      // No disparar swipe si el usuario está haciendo scroll dentro del catálogo de página 2 o tocando cajones
-      if (e.target && e.target.closest && (
-        e.target.closest('.index-scroll-wrapper') ||
-        e.target.closest('.thumbs-drawer') ||
-        e.target.closest('.app-header') ||
-        e.target.closest('.app-footer') ||
-        e.target.closest('.cover-open-btn') ||
-        e.target.closest('.hotspot-link') ||
-        e.target.closest('.cat-item-card') ||
-        e.target.closest('.packshot-bottle')
-      )) {
-        return;
-      }
-
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      const duration = Date.now() - touchStartTime;
-
-      // Distancia horizontal clara (> 35px) y dominante sobre el movimiento vertical
-      if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2 && duration < 600) {
-        dismissGuide();
-        if (deltaX < 0) {
-          safeFlipNext();
-        } else {
-          safeFlipPrev();
-        }
-      }
-    }, { passive: true });
-  }
 
   // --------------------------------------------------------------------------
   // 11. GUÍA INTERACTIVA INICIAL (ONBOARDING TUTORIAL OVERLAY)
@@ -649,14 +603,32 @@ document.addEventListener('DOMContentLoaded', () => {
       goToPage(targetPage);
     };
 
-    // Detener la propagación en eventos de puntero y táctiles para que PageFlip no intercepte el toque
-    ['pointerdown', 'mousedown', 'touchstart'].forEach(evt => {
-      card.addEventListener(evt, (e) => {
-        e.stopPropagation();
-      }, { passive: true });
+    // Permitir gestos de paso de página: solo activar navegación si fue un tap limpio (no swipe)
+    let cardTouchStartX = 0;
+    let cardTouchStartY = 0;
+    card.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        cardTouchStartX = e.touches[0].clientX;
+        cardTouchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    card.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches[0]) {
+        const deltaX = Math.abs(e.changedTouches[0].clientX - cardTouchStartX);
+        const deltaY = Math.abs(e.changedTouches[0].clientY - cardTouchStartY);
+        // Si el usuario deslizó el dedo para cambiar de página, no navegar
+        if (deltaX > 15 || deltaY > 15) {
+          return;
+        }
+      }
+      handleCardNav(e);
     });
 
-    card.addEventListener('click', handleCardNav);
+    card.addEventListener('click', (e) => {
+      // En desktop o mouse click limpio
+      handleCardNav(e);
+    });
 
     // Accesibilidad teclado (Enter / Espacio)
     card.addEventListener('keydown', (e) => {
