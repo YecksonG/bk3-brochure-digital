@@ -789,6 +789,108 @@ html, body {
   filter: drop-shadow(0 16px 26px rgba(14, 135, 210, 0.75));
 }
 
+/* --------------------------------------------------------------------------
+   INTERACCIÓN Y ANIMACIÓN DE ILUMINACIÓN EN LOS 5 PRODUCTOS DE PÁGINA 11
+   -------------------------------------------------------------------------- */
+.benefit-product-spot {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.benefit-spot-img {
+  max-height: 82%;
+  width: auto;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateY(0) scale(1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.3s ease;
+  will-change: transform, filter, opacity;
+  transform-origin: bottom center;
+}
+
+.benefit-spot-label {
+  opacity: 0;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+  transition: opacity 0.25s ease, transform 0.3s ease, color 0.25s ease, text-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.benefit-product-spot:hover .benefit-spot-img,
+.benefit-product-spot.touch-active .benefit-spot-img {
+  opacity: 1;
+  transform: translateY(-8px) scale(1.08);
+}
+
+.benefit-product-spot:hover .benefit-spot-label,
+.benefit-product-spot.touch-active .benefit-spot-label {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.benefit-product-spot.spot-moto:hover .benefit-spot-img,
+.benefit-product-spot.spot-moto.touch-active .benefit-spot-img {
+  filter: drop-shadow(0 16px 26px rgba(241, 72, 37, 0.85));
+}
+.benefit-product-spot.spot-moto:hover .benefit-spot-label,
+.benefit-product-spot.spot-moto.touch-active .benefit-spot-label {
+  color: var(--color-moto);
+  text-shadow: 0 0 10px rgba(241, 72, 37, 0.8);
+}
+
+.benefit-product-spot.spot-clasico:hover .benefit-spot-img,
+.benefit-product-spot.spot-clasico.touch-active .benefit-spot-img {
+  filter: drop-shadow(0 16px 26px rgba(98, 195, 49, 0.85));
+}
+.benefit-product-spot.spot-clasico:hover .benefit-spot-label,
+.benefit-product-spot.spot-clasico.touch-active .benefit-spot-label {
+  color: var(--color-clasico);
+  text-shadow: 0 0 10px rgba(98, 195, 49, 0.8);
+}
+
+.benefit-product-spot.spot-racing:hover .benefit-spot-img,
+.benefit-product-spot.spot-racing.touch-active .benefit-spot-img {
+  filter: drop-shadow(0 16px 26px rgba(237, 28, 36, 0.85));
+}
+.benefit-product-spot.spot-racing:hover .benefit-spot-label,
+.benefit-product-spot.spot-racing.touch-active .benefit-spot-label {
+  color: var(--color-racing);
+  text-shadow: 0 0 10px rgba(237, 28, 36, 0.8);
+}
+
+.benefit-product-spot.spot-cetane:hover .benefit-spot-img,
+.benefit-product-spot.spot-cetane.touch-active .benefit-spot-img {
+  filter: drop-shadow(0 16px 26px rgba(253, 185, 19, 0.85));
+}
+.benefit-product-spot.spot-cetane:hover .benefit-spot-label,
+.benefit-product-spot.spot-cetane.touch-active .benefit-spot-label {
+  color: var(--color-cetane);
+  text-shadow: 0 0 10px rgba(253, 185, 19, 0.8);
+}
+
+.benefit-product-spot.spot-marine:hover .benefit-spot-img,
+.benefit-product-spot.spot-marine.touch-active .benefit-spot-img {
+  filter: drop-shadow(0 16px 26px rgba(14, 135, 210, 0.85));
+}
+.benefit-product-spot.spot-marine:hover .benefit-spot-label,
+.benefit-product-spot.spot-marine.touch-active .benefit-spot-label {
+  color: var(--color-marine);
+  text-shadow: 0 0 10px rgba(14, 135, 210, 0.8);
+}
+
 /* ==========================================================================
    PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
    Diseño de alta fidelidad: Asfalto texturizado + Papel satinado mineral
@@ -1739,18 +1841,21 @@ html, body {
   }
 
   .index-satin-panel {
-    padding: 8px 10px 6px 10px;
-    border-radius: 10px 10px 0 0;
+    padding: 8px 12px 16px 12px;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 6px;
   }
 
   .catalog-cards-list {
-    gap: 5px;
+    gap: 6px;
   }
 
   .cat-item-card {
-    padding: 4px 7px;
-    gap: 7px;
-    border-radius: 5px;
+    padding: 5px 8px;
+    gap: 8px;
+    border-radius: 6px;
+    margin-left: 1px;
+    margin-right: 1px;
   }
 
   .cat-thumb-box {

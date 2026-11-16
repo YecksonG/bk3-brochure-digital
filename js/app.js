@@ -385,8 +385,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  let isFastFlipping = false;
+
   function goToPage(targetPage) {
-    if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages) return;
+    if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages || isFastFlipping) return;
     const current = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
     const isMobile = window.innerWidth <= 768;
 
@@ -406,21 +408,77 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    if (pageFlip) {
-      dismissGuide();
-      if (pageFlip.getState && pageFlip.getState() === 'flipping') {
-        try {
-          if (pageFlip.getRender()?.finishAnimation) {
-            pageFlip.getRender().finishAnimation();
-          }
-        } catch (e) {}
-      }
+    if (!pageFlip) return;
+    dismissGuide();
+
+    const pageCol = pageFlip.getPageCollection();
+    const currentSpread = pageCol.getCurrentSpreadIndex();
+    const targetSpread = pageCol.getSpreadIndexByPage(targetPage);
+    const spreadDiff = targetSpread - currentSpread;
+
+    if (Math.abs(spreadDiff) <= 1) {
+      // Salto directo de 1 pliego: animación suave normal
       try {
         pageFlip.flip(targetPage);
       } catch (err) {
         pageFlip.turnToPage(targetPage);
       }
+      return;
     }
+
+    // Salto de más de 1 pliego: EFECTO HOJEO RÁPIDO DE PÁGINAS (RAPID FLIP-THROUGH)
+    isFastFlipping = true;
+    const origFlippingTime = pageFlip.setting.flippingTime || 650;
+    const fastTime = isMobile ? 140 : 170;
+    pageFlip.setting.flippingTime = fastTime;
+
+    function step() {
+      const curSpread = pageCol.getCurrentSpreadIndex();
+      if (curSpread === targetSpread) {
+        finishFastFlip();
+        return;
+      }
+
+      const onStateChange = (e) => {
+        if (e.data === 'read') {
+          pageFlip.off('changeState', onStateChange);
+          setTimeout(step, 10);
+        }
+      };
+
+      pageFlip.on('changeState', onStateChange);
+
+      if (targetSpread > curSpread) {
+        pageFlip.flipNext();
+      } else {
+        pageFlip.flipPrev();
+      }
+    }
+
+    function finishFastFlip() {
+      isFastFlipping = false;
+      if (pageFlip && pageFlip.setting) {
+        pageFlip.setting.flippingTime = origFlippingTime;
+      }
+      const targetEl = pageElements[targetPage];
+      if (targetEl) {
+        targetEl.classList.remove('pulse-highlight');
+        void targetEl.offsetWidth;
+        targetEl.classList.add('pulse-highlight');
+      }
+      updateActiveUI(targetPage);
+    }
+
+    // Temporizador de seguridad
+    const maxDuration = Math.abs(spreadDiff) * (fastTime + 60) + 700;
+    setTimeout(() => {
+      if (isFastFlipping) {
+        pageFlip.turnToPage(targetPage);
+        finishFastFlip();
+      }
+    }, maxDuration);
+
+    step();
   }
 
   // --------------------------------------------------------------------------
@@ -638,6 +696,41 @@ document.addEventListener('DOMContentLoaded', () => {
     bottle.addEventListener('click', () => {
       const targetPage = parseInt(bottle.getAttribute('data-target-page'), 10);
       goToPage(targetPage);
+    });
+  });
+
+  // Hotspots interactivos de productos en Página 11 (Los 7 Beneficios)
+  const benefitSpots = document.querySelectorAll('.benefit-product-spot');
+  benefitSpots.forEach(spot => {
+    const handleSpotNav = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      dismissGuide();
+      const targetPage = parseInt(spot.getAttribute('data-target-page'), 10);
+      goToPage(targetPage);
+    };
+
+    ['pointerdown', 'mousedown', 'touchstart'].forEach(evt => {
+      spot.addEventListener(evt, (e) => {
+        e.stopPropagation();
+        spot.classList.add('touch-active');
+      }, { passive: true });
+    });
+
+    ['pointerup', 'mouseup', 'touchend', 'touchcancel'].forEach(evt => {
+      spot.addEventListener(evt, () => {
+        setTimeout(() => spot.classList.remove('touch-active'), 400);
+      }, { passive: true });
+    });
+
+    spot.addEventListener('click', handleSpotNav);
+
+    spot.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handleSpotNav(e);
+      }
     });
   });
 
