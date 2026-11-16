@@ -522,6 +522,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     pageFlip.on('init', (e) => {
+      // En modo móvil (página individual vertical), la densidad 'hard' garantiza giros 3D fluidos y previene cortes diagonales
+      if (currentDims.isMobile) {
+        pageFlip.getPageCollection().getPages().forEach(p => {
+          p.setDensity('hard');
+          p.setDrawingDensity('hard');
+        });
+      }
       updateActiveUI(startAt);
       updateSpreadCentering(startAt);
       triggerPageAnimations(startAt);
@@ -814,6 +821,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (flipContainer) {
           flipContainer.style.minWidth = (newDims.width * multiplier) + 'px';
           flipContainer.style.minHeight = newDims.height + 'px';
+        }
+
+        if (newDims.isMobile) {
+          pageFlip.getPageCollection().getPages().forEach(p => {
+            p.setDensity('hard');
+            p.setDrawingDensity('hard');
+          });
+        } else {
+          pageFlip.getPageCollection().getPages().forEach((p, idx) => {
+            const isCover = (idx === 0 || idx === totalPages - 1);
+            p.setDensity(isCover ? 'hard' : 'soft');
+            p.setDrawingDensity(isCover ? 'hard' : 'soft');
+          });
         }
 
         pageFlip.update();

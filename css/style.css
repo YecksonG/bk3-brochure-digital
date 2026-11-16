@@ -528,13 +528,12 @@ html, body {
   pointer-events: none;
 }
 
-/* Acabado Satinado: brillo sutil de revista física */
+/* Acabado Satinado: brillo sutil de revista física sin compositing overhead */
 .page-satin-sheen {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(115deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, 0.04) 100%);
-  mix-blend-mode: overlay;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0) 35%, rgba(0, 0, 0, 0.04) 100%);
   z-index: 8;
 }
 
@@ -754,7 +753,6 @@ html, body {
   object-fit: fill;
   opacity: 0;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.35s ease;
-  will-change: transform, filter, opacity;
   transform-origin: center center;
 }
 
@@ -762,6 +760,7 @@ html, body {
 .product-3d-spot.touch-active .spot-bottle-img {
   opacity: 1;
   transform: translateY(-8px) scale(1.06);
+  will-change: transform, filter, opacity;
 }
 
 .spot-moto:hover .spot-bottle-img,
@@ -807,25 +806,28 @@ html, body {
 }
 
 .benefit-spot-img {
-  max-height: 82%;
+  height: 78%;
+  max-height: 78%;
   width: auto;
   object-fit: contain;
   opacity: 0;
   transform: translateY(0) scale(1);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.3s ease;
-  will-change: transform, filter, opacity;
   transform-origin: bottom center;
 }
 
 .benefit-spot-label {
-  opacity: 0;
-  font-family: var(--font-body);
-  font-size: 0.65rem;
+  opacity: 1;
+  color: #17202d;
+  font-family: 'Montserrat', var(--font-body), sans-serif;
+  font-size: 0.52rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: 0.3px;
   margin-top: 3px;
-  transition: opacity 0.25s ease, transform 0.3s ease, color 0.25s ease, text-shadow 0.25s ease;
+  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
   white-space: nowrap;
 }
 
@@ -837,7 +839,6 @@ html, body {
 
 .benefit-product-spot:hover .benefit-spot-label,
 .benefit-product-spot.touch-active .benefit-spot-label {
-  opacity: 1;
   transform: translateY(-2px);
 }
 
@@ -1841,17 +1842,18 @@ html, body {
   }
 
   .index-satin-panel {
-    padding: 8px 12px 16px 12px;
+    padding: 6px 10px 10px 10px;
     border-radius: 12px 12px 0 0;
-    margin-bottom: 6px;
+    margin-bottom: 40px; /* Generous clearance at bottom to avoid misclicking Marine on page turn */
   }
 
   .catalog-cards-list {
-    gap: 6px;
+    gap: 4px;
   }
 
   .cat-item-card {
-    padding: 5px 8px;
+    max-height: 48px;
+    padding: 4px 8px;
     gap: 8px;
     border-radius: 6px;
     margin-left: 1px;
@@ -1859,21 +1861,30 @@ html, body {
   }
 
   .cat-thumb-box {
-    width: 24px;
-    height: 34px;
+    width: 20px;
+    height: 30px;
   }
 
   .cat-title {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .cat-jump-pill {
+    font-size: 0.62rem;
+    padding: 1px 6px;
+  }
+
+  .cat-spec-line {
+    margin-top: 2px;
   }
 
   .cat-pill {
-    font-size: 0.52rem;
+    font-size: 0.50rem;
     padding: 1px 4px;
   }
 
   .cat-vol-tag {
-    font-size: 0.54rem;
+    font-size: 0.52rem;
   }
 
   .cat-summary {
@@ -1881,9 +1892,9 @@ html, body {
   }
 
   .index-footer-strip {
-    font-size: 0.55rem;
-    margin-top: 4px;
-    padding-top: 3px;
+    font-size: 0.54rem;
+    margin-top: 3px;
+    padding-top: 2px;
   }
 
   /* Marine Page 10 Mobile Adjustments */
@@ -1977,5 +1988,11 @@ html, body {
     font-size: 0.52rem;
     margin-top: 4px;
     padding-top: 3px;
+  }
+
+  /* Page 11 Benefits Hotspot Labels on Mobile */
+  .benefit-spot-label {
+    font-size: 0.44rem;
+    letter-spacing: 0.2px;
   }
 }
