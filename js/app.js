@@ -344,14 +344,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Interactividad táctil en las botellas 3D
+  // Interactividad táctil en las botellas 3D (iluminación y zoom sin mover la página)
   const spots = document.querySelectorAll('.product-3d-spot');
   spots.forEach(spot => {
-    spot.addEventListener('touchstart', () => {
+    spot.addEventListener('touchstart', (e) => {
+      e.stopPropagation();
       spot.classList.add('touch-active');
-      playPaperTurnSound();
     }, { passive: true });
-    spot.addEventListener('touchend', () => {
+    spot.addEventListener('touchend', (e) => {
+      e.stopPropagation();
       setTimeout(() => spot.classList.remove('touch-active'), 800);
     }, { passive: true });
   });
@@ -522,13 +523,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     pageFlip.on('init', (e) => {
-      // En modo móvil (página individual vertical), la densidad 'hard' garantiza giros 3D fluidos y previene cortes diagonales
-      if (currentDims.isMobile) {
-        pageFlip.getPageCollection().getPages().forEach(p => {
-          p.setDensity('hard');
-          p.setDrawingDensity('hard');
-        });
-      }
+      // Estilo de papel de revista flexible (soft)
+      pageFlip.getPageCollection().getPages().forEach((p, idx) => {
+        const isCover = (idx === 0 || idx === totalPages - 1);
+        p.setDensity(isCover ? 'hard' : 'soft');
+        p.setDrawingDensity(isCover ? 'hard' : 'soft');
+      });
       updateActiveUI(startAt);
       updateSpreadCentering(startAt);
       triggerPageAnimations(startAt);
@@ -823,18 +823,11 @@ document.addEventListener('DOMContentLoaded', () => {
           flipContainer.style.minHeight = newDims.height + 'px';
         }
 
-        if (newDims.isMobile) {
-          pageFlip.getPageCollection().getPages().forEach(p => {
-            p.setDensity('hard');
-            p.setDrawingDensity('hard');
-          });
-        } else {
-          pageFlip.getPageCollection().getPages().forEach((p, idx) => {
-            const isCover = (idx === 0 || idx === totalPages - 1);
-            p.setDensity(isCover ? 'hard' : 'soft');
-            p.setDrawingDensity(isCover ? 'hard' : 'soft');
-          });
-        }
+        pageFlip.getPageCollection().getPages().forEach((p, idx) => {
+          const isCover = (idx === 0 || idx === totalPages - 1);
+          p.setDensity(isCover ? 'hard' : 'soft');
+          p.setDrawingDensity(isCover ? 'hard' : 'soft');
+        });
 
         pageFlip.update();
         updateSpreadCentering(pageFlip.getCurrentPageIndex());
