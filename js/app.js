@@ -363,9 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageFlip) return;
     dismissGuide();
     if (pageFlip.getState && pageFlip.getState() === 'flipping') {
-      try {
-        if (pageFlip.getRender()?.finishAnimation) pageFlip.getRender().finishAnimation();
-      } catch (e) {}
+      return; // Prevenir saltos múltiples o aceleración de pliegos al pulsar repetidamente
     }
     try {
       pageFlip.flipNext();
@@ -378,9 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageFlip) return;
     dismissGuide();
     if (pageFlip.getState && pageFlip.getState() === 'flipping') {
-      try {
-        if (pageFlip.getRender()?.finishAnimation) pageFlip.getRender().finishAnimation();
-      } catch (e) {}
+      return; // Prevenir saltos múltiples o aceleración de pliegos al pulsar repetidamente
     }
     try {
       pageFlip.flipPrev();
@@ -447,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
       maxHeight: currentDims.height,
       maxShadowOpacity: 0.6,
       showCover: true,
-      showPageCorners: true,
+      showPageCorners: false,
       mobileScrollSupport: true,
       usePortrait: currentDims.isMobile,
       startPage: startAt,
@@ -460,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento al pasar de página
     pageFlip.on('flip', (e) => {
+      dismissGuide();
       updateActiveUI(e.data);
       updateSpreadCentering(e.data);
       playPaperTurnSound();
@@ -583,9 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (gestureGuide) {
-    gestureGuide.addEventListener('click', () => {
-      dismissGuide();
-    });
+    gestureGuide.addEventListener('touchstart', dismissGuide, { passive: true });
+    gestureGuide.addEventListener('click', dismissGuide);
   }
 
   // Teclado (flechas izquierda / derecha)
