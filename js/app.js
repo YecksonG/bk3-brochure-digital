@@ -747,6 +747,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnCloseThumbs = document.getElementById('btnCloseThumbs');
   const thumbsDrawer = document.getElementById('thumbsDrawer');
 
+  // Detener propagación de toques táctiles y clicks para aislar completamente el drawer del libro
+  if (thumbsDrawer) {
+    ['touchstart', 'touchmove', 'touchend', 'touchcancel', 'mousedown', 'mousemove', 'mouseup', 'pointerdown', 'pointermove', 'pointerup'].forEach(evt => {
+      thumbsDrawer.addEventListener(evt, (e) => {
+        e.stopPropagation();
+      }, { passive: evt.includes('touch') || evt.includes('pointer') });
+    });
+  }
+
   function toggleThumbsDrawer() {
     if (thumbsDrawer) thumbsDrawer.classList.toggle('open');
   }
