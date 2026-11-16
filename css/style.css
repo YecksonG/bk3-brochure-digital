@@ -406,13 +406,11 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #090d12;
-  background-image: 
-    radial-gradient(ellipse at 50% 50%, rgba(15, 21, 30, 0.35) 0%, rgba(6, 9, 13, 0.85) 100%),
-    url('../assets/bk3_pattern_bg.webp');
-  background-size: cover, cover;
-  background-position: center center, center center;
-  background-repeat: no-repeat, no-repeat;
+  background-color: #12161c;
+  background-image: url('../assets/bk3_pattern_bg.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   padding: 8px;
 }
 
