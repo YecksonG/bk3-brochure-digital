@@ -267,6 +267,12 @@ html, body {
   transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
+@media (min-width: 769px) {
+  .gesture-guide-overlay {
+    display: none !important;
+  }
+}
+
 .gesture-guide-overlay.hidden {
   opacity: 0;
   visibility: hidden;
@@ -378,10 +384,16 @@ html, body {
   top: 0;
   bottom: 0;
   width: 16%;
-  z-index: 10;
+  z-index: 35;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 769px) {
+  .touch-zone {
+    display: none !important;
+  }
 }
 
 .touch-zone-prev {

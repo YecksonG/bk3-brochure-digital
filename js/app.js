@@ -230,18 +230,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return target === spreadLeft || target === spreadLeft + 1;
     }
 
-    // Desactivar zonas táctiles laterales en la página 2 (Índice interactivo)
-    // para evitar que los toques laterales en las tarjetas de productos activen safeFlipPrev/safeFlipNext
-    const isIndexVisible = isPageVisible(1);
+    // En móvil, desactivar zonas táctiles laterales en la página 2 (Índice interactivo)
+    // para garantizar que los toques en las tarjetas de productos no sean interceptados.
+    // En escritorio, las zonas táctiles se ocultan siempre para priorizar clics en páginas y flechas.
+    const isMobilePortraitIndex = isMobile && pageIndex === 1;
     const touchZonePrevEl = document.getElementById('touchZonePrev');
     const touchZoneNextEl = document.getElementById('touchZoneNext');
     if (touchZonePrevEl) {
-      touchZonePrevEl.style.pointerEvents = isIndexVisible ? 'none' : 'auto';
-      touchZonePrevEl.style.display = isIndexVisible ? 'none' : 'block';
+      touchZonePrevEl.style.pointerEvents = isMobilePortraitIndex ? 'none' : 'auto';
+      touchZonePrevEl.style.display = (isMobile && !isMobilePortraitIndex) ? 'block' : 'none';
     }
     if (touchZoneNextEl) {
-      touchZoneNextEl.style.pointerEvents = isIndexVisible ? 'none' : 'auto';
-      touchZoneNextEl.style.display = isIndexVisible ? 'none' : 'block';
+      touchZoneNextEl.style.pointerEvents = isMobilePortraitIndex ? 'none' : 'auto';
+      touchZoneNextEl.style.display = (isMobile && !isMobilePortraitIndex) ? 'block' : 'none';
     }
 
     // Actualizar thumbnails activas y auto-scroll en drawer
@@ -360,14 +361,32 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   function safeFlipNext() {
     if (!pageFlip) return;
-    if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
-    pageFlip.flipNext();
+    dismissGuide();
+    if (pageFlip.getState && pageFlip.getState() === 'flipping') {
+      try {
+        if (pageFlip.getRender()?.finishAnimation) pageFlip.getRender().finishAnimation();
+      } catch (e) {}
+    }
+    try {
+      pageFlip.flipNext();
+    } catch (e) {
+      pageFlip.turnToNextPage();
+    }
   }
 
   function safeFlipPrev() {
     if (!pageFlip) return;
-    if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
-    pageFlip.flipPrev();
+    dismissGuide();
+    if (pageFlip.getState && pageFlip.getState() === 'flipping') {
+      try {
+        if (pageFlip.getRender()?.finishAnimation) pageFlip.getRender().finishAnimation();
+      } catch (e) {}
+    }
+    try {
+      pageFlip.flipPrev();
+    } catch (e) {
+      pageFlip.turnToPrevPage();
+    }
   }
 
   function goToPage(targetPage) {
@@ -433,7 +452,6 @@ document.addEventListener('DOMContentLoaded', () => {
       usePortrait: currentDims.isMobile,
       startPage: startAt,
       flippingTime: 650,
-      disableFlipByClick: true,
     });
 
     window.pageFlip = pageFlip;
@@ -552,11 +570,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Mostrar la guía únicamente en la primera visita a la portada
+  // Mostrar la guía únicamente en la primera visita a la portada en dispositivos móviles
   try {
-    if (startPage === 0 && sessionStorage.getItem('bk3_guide_seen') !== 'true' && gestureGuide) {
+    if (window.innerWidth <= 768 && startPage === 0 && sessionStorage.getItem('bk3_guide_seen') !== 'true' && gestureGuide) {
       gestureGuide.classList.remove('hidden');
-      setTimeout(dismissGuide, 4500);
+      setTimeout(dismissGuide, 3500);
     }
   } catch (e) {}
 
@@ -565,8 +583,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (gestureGuide) {
-    gestureGuide.addEventListener('click', (e) => {
-      if (e.target === gestureGuide) dismissGuide();
+    gestureGuide.addEventListener('click', () => {
+      dismissGuide();
     });
   }
 
