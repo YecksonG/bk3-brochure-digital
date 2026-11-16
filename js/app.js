@@ -166,17 +166,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cuando se muestra la Página 2 (Índice de Todos los Productos)
     if (pageIndex === 1) {
-      // Revelación escalonada (stagger) de botellas de vitrina
-      gsap.fromTo('.packshot-bottle',
-        { y: -12, opacity: 0, scale: 0.88 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.04, ease: 'back.out(1.6)', clearProps: 'transform' }
-      );
+      // Revelación escalonada (stagger) de botellas de vitrina (si existen)
+      if (document.querySelector('.packshot-bottle')) {
+        gsap.fromTo('.packshot-bottle',
+          { y: -12, opacity: 0, scale: 0.88 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.04, ease: 'back.out(1.6)', clearProps: 'transform' }
+        );
+      }
 
       // Revelación escalonada táctil de tarjetas de producto
-      gsap.fromTo('.cat-item-card',
-        { y: 16, opacity: 0, scale: 0.98 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out', clearProps: 'transform' }
-      );
+      if (document.querySelector('.cat-item-card')) {
+        gsap.fromTo('.cat-item-card',
+          { y: 16, opacity: 0, scale: 0.98 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out', clearProps: 'transform' }
+        );
+      }
     }
 
     // Cuando se muestra la Página 10 (BK3 Performance Marine • 7 Beneficios)
@@ -224,6 +228,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const spreadLeft = pageIndex % 2 === 1 ? pageIndex : pageIndex - 1;
       return target === spreadLeft || target === spreadLeft + 1;
+    }
+
+    // Desactivar zonas táctiles laterales en la página 2 (Índice interactivo)
+    // para evitar que los toques laterales en las tarjetas de productos activen safeFlipPrev/safeFlipNext
+    const isIndexVisible = isPageVisible(1);
+    const touchZonePrevEl = document.getElementById('touchZonePrev');
+    const touchZoneNextEl = document.getElementById('touchZoneNext');
+    if (touchZonePrevEl) {
+      touchZonePrevEl.style.pointerEvents = isIndexVisible ? 'none' : 'auto';
+      touchZonePrevEl.style.display = isIndexVisible ? 'none' : 'block';
+    }
+    if (touchZoneNextEl) {
+      touchZoneNextEl.style.pointerEvents = isIndexVisible ? 'none' : 'auto';
+      touchZoneNextEl.style.display = isIndexVisible ? 'none' : 'block';
     }
 
     // Actualizar thumbnails activas y auto-scroll en drawer
@@ -374,8 +392,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (pageFlip) {
-      if (pageFlip.getState && pageFlip.getState() === 'flipping') return;
-      pageFlip.flip(targetPage);
+      dismissGuide();
+      if (pageFlip.getState && pageFlip.getState() === 'flipping') {
+        try {
+          if (pageFlip.getRender()?.finishAnimation) {
+            pageFlip.getRender().finishAnimation();
+          }
+        } catch (e) {}
+      }
+      try {
+        pageFlip.flip(targetPage);
+      } catch (err) {
+        pageFlip.turnToPage(targetPage);
+      }
     }
   }
 
@@ -404,6 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
       usePortrait: currentDims.isMobile,
       startPage: startAt,
       flippingTime: 650,
+      disableFlipByClick: true,
     });
 
     window.pageFlip = pageFlip;
@@ -561,17 +591,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // Tarjetas de producto en Página 2 (Todos los productos)
   const productCards = document.querySelectorAll('.cat-item-card');
   productCards.forEach(card => {
-    card.addEventListener('click', () => {
+    const handleCardNav = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      dismissGuide();
       const targetPage = parseInt(card.getAttribute('data-target-page'), 10);
       goToPage(targetPage);
+    };
+
+    // Detener la propagación en eventos de puntero y táctiles para que PageFlip no intercepte el toque
+    ['pointerdown', 'mousedown', 'touchstart'].forEach(evt => {
+      card.addEventListener(evt, (e) => {
+        e.stopPropagation();
+      }, { passive: true });
     });
+
+    card.addEventListener('click', handleCardNav);
 
     // Accesibilidad teclado (Enter / Espacio)
     card.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const targetPage = parseInt(card.getAttribute('data-target-page'), 10);
-        goToPage(targetPage);
+        handleCardNav(e);
       }
     });
   });
