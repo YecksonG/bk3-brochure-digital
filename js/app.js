@@ -376,10 +376,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pageFlip.getState && pageFlip.getState() === 'flipping') {
       return; // Prevenir saltos múltiples o aceleración de pliegos al pulsar repetidamente
     }
-    try {
-      pageFlip.flipPrev();
-    } catch (e) {
-      pageFlip.turnToPrevPage();
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      // En móvil (portrait): transición fluida y limpia de revista sin remanente
+      const flipWrap = document.querySelector('.flipbook-container');
+      if (flipWrap) {
+        flipWrap.style.transition = 'opacity 0.12s ease, transform 0.12s ease';
+        flipWrap.style.opacity = '0.35';
+        flipWrap.style.transform = 'translateX(12px)';
+      }
+      setTimeout(() => {
+        pageFlip.turnToPrevPage();
+        if (flipWrap) {
+          flipWrap.style.opacity = '1';
+          flipWrap.style.transform = 'none';
+        }
+      }, 100);
+    } else {
+      try {
+        pageFlip.flipPrev();
+      } catch (e) {
+        pageFlip.turnToPrevPage();
+      }
     }
   }
 
@@ -406,16 +424,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetSpread = pageCol.getSpreadIndexByPage(targetPage);
     const spreadDiff = Math.abs(targetSpread - curSpread);
 
-    if (spreadDiff <= 1) {
-      // Pliegos contiguos (diferencia de 1): animación 3D de volteo de hoja natural
+    if (spreadDiff <= 1 && (!isMobile || targetPage >= current)) {
+      // Pliegos contiguos hacia adelante (o pliegos en escritorio): animación 3D de volteo de hoja natural
       try {
         pageFlip.flip(targetPage);
       } catch (err) {
         pageFlip.turnToPage(targetPage);
       }
     } else {
-      // Salto a pliego distante (ej. Índice a Cetanium o Marine):
-      // 1. Limpiar cualquier pliegue o estado residual en el flipController
+      // Salto a pliego distante o retroceso en móvil (cero remanente y cero glitch):
       if (pageFlip.getFlipController()) {
         try {
           pageFlip.getFlipController().stopMove();
@@ -425,8 +442,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const flipWrap = document.querySelector('.flipbook-container');
       if (flipWrap) {
-        flipWrap.style.transition = 'opacity 0.18s ease';
+        flipWrap.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
         flipWrap.style.opacity = '0.35';
+        if (isMobile && targetPage < current) {
+          flipWrap.style.transform = 'translateX(12px)';
+        }
       }
       setTimeout(() => {
         pageFlip.turnToPage(targetPage);
@@ -441,8 +461,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {}
         if (flipWrap) {
           flipWrap.style.opacity = '1';
+          flipWrap.style.transform = 'none';
         }
-      }, 180);
+      }, 110);
     }
 
     // Actualizar UI del footer
