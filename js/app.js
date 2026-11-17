@@ -230,15 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return target === spreadLeft || target === spreadLeft + 1;
     }
 
-    // Zonas táctiles laterales en móvil activas siempre para permitir cambio fluido hacia adelante y atrás
+    // Zonas táctiles laterales en móvil: desactivar pointer-events en el Índice (pág 2) y Contraportada para no tapar tarjetas ni botón WhatsApp
+    const isMobileInteractivePage = isMobile && (pageIndex === 1 || pageIndex === totalPages - 1);
     const touchZonePrevEl = document.getElementById('touchZonePrev');
     const touchZoneNextEl = document.getElementById('touchZoneNext');
     if (touchZonePrevEl) {
-      touchZonePrevEl.style.pointerEvents = 'auto';
+      touchZonePrevEl.style.pointerEvents = isMobileInteractivePage ? 'none' : 'auto';
       touchZonePrevEl.style.display = isMobile ? 'block' : 'none';
     }
     if (touchZoneNextEl) {
-      touchZoneNextEl.style.pointerEvents = 'auto';
+      touchZoneNextEl.style.pointerEvents = isMobileInteractivePage ? 'none' : 'auto';
       touchZoneNextEl.style.display = isMobile ? 'block' : 'none';
     }
 
@@ -357,9 +358,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // --------------------------------------------------------------------------
   // 7. NAVEGACIÓN SEGURA E INTELIGENTE ENTRE PÁGINAS Y PLIEGOS
   // --------------------------------------------------------------------------
+  let navUITimeout = null;
+
   function safeFlipNext() {
     if (!pageFlip) return;
     dismissGuide();
+    if (pageFlip.getCurrentPageIndex && pageFlip.getCurrentPageIndex() >= totalPages - 1) {
+      return; // Ya en la última página
+    }
     if (pageFlip.getState && pageFlip.getState() === 'flipping') {
       return; // Prevenir saltos múltiples o aceleración de pliegos al pulsar repetidamente
     }
@@ -373,31 +379,16 @@ document.addEventListener('DOMContentLoaded', () => {
   function safeFlipPrev() {
     if (!pageFlip) return;
     dismissGuide();
+    if (pageFlip.getCurrentPageIndex && pageFlip.getCurrentPageIndex() <= 0) {
+      return; // Ya en la primera página
+    }
     if (pageFlip.getState && pageFlip.getState() === 'flipping') {
       return; // Prevenir saltos múltiples o aceleración de pliegos al pulsar repetidamente
     }
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      // En móvil (portrait): transición fluida y limpia de revista sin remanente
-      const flipWrap = document.querySelector('.flipbook-container');
-      if (flipWrap) {
-        flipWrap.style.transition = 'opacity 0.12s ease, transform 0.12s ease';
-        flipWrap.style.opacity = '0.35';
-        flipWrap.style.transform = 'translateX(12px)';
-      }
-      setTimeout(() => {
-        pageFlip.turnToPrevPage();
-        if (flipWrap) {
-          flipWrap.style.opacity = '1';
-          flipWrap.style.transform = 'none';
-        }
-      }, 100);
-    } else {
-      try {
-        pageFlip.flipPrev();
-      } catch (e) {
-        pageFlip.turnToPrevPage();
-      }
+    try {
+      pageFlip.flipPrev();
+    } catch (e) {
+      pageFlip.turnToPrevPage();
     }
   }
 
@@ -424,52 +415,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetSpread = pageCol.getSpreadIndexByPage(targetPage);
     const spreadDiff = Math.abs(targetSpread - curSpread);
 
-    if (spreadDiff <= 1 && (!isMobile || targetPage >= current)) {
-      // Pliegos contiguos hacia adelante (o pliegos en escritorio): animación 3D de volteo de hoja natural
+    if (spreadDiff <= 1) {
+      // Pliegos contiguos: animación 3D de volteo de hoja natural
       try {
         pageFlip.flip(targetPage);
       } catch (err) {
         pageFlip.turnToPage(targetPage);
       }
     } else {
-      // Salto a pliego distante o retroceso en móvil (cero remanente y cero glitch):
-      if (pageFlip.getFlipController()) {
-        try {
+      // Salto a pliego distante: reposicionar limpiamente
+      try {
+        if (pageFlip.getFlipController()) {
           pageFlip.getFlipController().stopMove();
           pageFlip.getFlipController().reset();
-        } catch (e) {}
-      }
-
-      const flipWrap = document.querySelector('.flipbook-container');
-      if (flipWrap) {
-        flipWrap.style.transition = 'opacity 0.14s ease, transform 0.14s ease';
-        flipWrap.style.opacity = '0.35';
-        if (isMobile && targetPage < current) {
-          flipWrap.style.transform = 'translateX(12px)';
+          pageFlip.getFlipController().setState('read');
         }
-      }
-      setTimeout(() => {
-        pageFlip.turnToPage(targetPage);
-        try {
-          if (pageFlip.getRender()) {
-            pageFlip.getRender().finishAnimation();
-          }
-          if (pageFlip.getFlipController()) {
-            pageFlip.getFlipController().reset();
-            pageFlip.getFlipController().setState('read');
-          }
-        } catch (e) {}
-        if (flipWrap) {
-          flipWrap.style.opacity = '1';
-          flipWrap.style.transform = 'none';
+        if (pageFlip.getRender()) {
+          pageFlip.getRender().finishAnimation();
         }
-      }, 110);
+      } catch (e) {}
+      pageFlip.turnToPage(targetPage);
     }
 
     // Actualizar UI del footer
-    setTimeout(() => {
+    if (navUITimeout) clearTimeout(navUITimeout);
+    navUITimeout = setTimeout(() => {
       updateActiveUI(targetPage);
-    }, 450);
+    }, 400);
   }
 
   // --------------------------------------------------------------------------
@@ -495,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showPageCorners: false,
       mobileScrollSupport: true,
       usePortrait: currentDims.isMobile,
-            startPage: startAt,
+      startPage: startAt,
       flippingTime: 650,
     });
 
@@ -514,9 +486,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pageFlip.on('init', (e) => {
       // Estilo de papel de revista flexible (soft) continuo para evitar roturas de rotateY en modo móvil
-      pageFlip.getPageCollection().getPages().forEach((p) => {
-        p.setDensity('soft');
-        p.setDrawingDensity('soft');
+      pageFlip.getPageCollection().getPages().forEach((p, idx) => {
+        const isCover = (idx === 0 || idx === totalPages - 1);
+        const density = (currentDims.isMobile || !isCover) ? 'soft' : 'hard';
+        p.setDensity(density);
+        p.setDrawingDensity(density);
       });
       updateActiveUI(startAt);
       updateSpreadCentering(startAt);
@@ -613,12 +587,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Tarjetas de producto en Página 2 (Todos los productos)
   const productCards = document.querySelectorAll('.cat-item-card');
+  let lastCardNavTime = 0;
   productCards.forEach(card => {
     const handleCardNav = (e) => {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
+      const now = Date.now();
+      if (now - lastCardNavTime < 350) return; // Dedupe entre touchend y click sintético
+      lastCardNavTime = now;
       dismissGuide();
       const targetPage = parseInt(card.getAttribute('data-target-page'), 10);
       goToPage(targetPage);
@@ -796,8 +774,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         pageFlip.getPageCollection().getPages().forEach((p, idx) => {
           const isCover = (idx === 0 || idx === totalPages - 1);
-          p.setDensity(isCover ? 'hard' : 'soft');
-          p.setDrawingDensity(isCover ? 'hard' : 'soft');
+          const density = (newDims.isMobile || !isCover) ? 'soft' : 'hard';
+          p.setDensity(density);
+          p.setDrawingDensity(density);
         });
 
         pageFlip.update();

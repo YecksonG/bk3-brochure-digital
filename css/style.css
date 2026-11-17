@@ -388,8 +388,8 @@ html, body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 16%;
-  z-index: 35;
+  width: 10%;
+  z-index: 25;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
