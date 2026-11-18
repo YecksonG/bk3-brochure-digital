@@ -471,8 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
       flippingTime: 650,
     });
 
-    window.pageFlip = pageFlip;
-
     pageFlip.loadFromHTML(pageElements);
 
     // Evento al pasar de página

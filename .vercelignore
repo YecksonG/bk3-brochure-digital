@@ -1,6 +1,10 @@
 node_modules
 .git
 .vercel
+.env*
+package.json
+package-lock.json
+js/confetti.browser.js
 assets/pages/
 assets/extracted_sources/
 assets/productos_bk3_raw/
