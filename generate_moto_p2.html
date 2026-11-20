@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Moto - Potenciador de Octanaje (Parte 2: Modo de Empleo)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja Superior de Asfalto (560px - Continuidad Visual) */
+    .top-asphalt-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 560px;
+      background: radial-gradient(circle at 50% 30%, rgba(20, 23, 26, 0.4) 0%, rgba(10, 12, 14, 0.88) 100%),
+                  url('assets/asphalt_texture.webp') repeat center center;
+      background-size: auto, 400px 400px;
+      z-index: 1;
+      padding: 60px 110px 0 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .slogan-pill {
+      align-self: flex-start;
+      background: #17202d;
+      border: 2px solid #F14825;
+      color: #ffffff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      padding: 6px 24px;
+      border-radius: 20px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .slogan-pill span {
+      color: #F14825;
+    }
+
+    .main-title-wrap {
+      line-height: 0.95;
+    }
+
+    .main-title-green {
+      font-family: 'Benniter', 'Montserrat', sans-serif;
+      font-size: 96px;
+      color: #6ac230;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+    }
+
+    .main-title-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 54px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
+    .header-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      color: #e2e8f0;
+      line-height: 1.4;
+      max-width: 1480px;
+      margin-top: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    /* 2. Sección Inferior Blanca Satinada (1640px) */
+    .bottom-white-body {
+      position: absolute;
+      top: 560px;
+      left: 0;
+      width: 1700px;
+      height: 1640px;
+      background: #ffffff;
+      z-index: 2;
+      padding: 60px 110px 50px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Encabezado de Columna en Naranja Oficial var(--color-moto) #F14825 */
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 4px solid #F14825;
+      padding-bottom: 18px;
+      margin-bottom: 36px;
+    }
+
+    .col-header-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      background: #F14825;
+      padding: 6px 20px;
+      border-radius: 6px;
+    }
+
+    .col-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 60px;
+      font-weight: 900;
+      color: #F14825;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .col-header-title .highlight-dark {
+      color: #17202d;
+    }
+
+    /* Lista de Beneficios Técnicos (Puntos 4 y 5) */
+    .benefits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 38px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-left: 10px solid #F14825; /* Acento naranja */
+      border-radius: 14px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .benefit-star {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: #F14825;
+      line-height: 0.85;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .benefit-text-wrap {
+      flex: 1;
+    }
+
+    .benefit-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 42px;
+      font-weight: 900;
+      color: #17202d; /* Texto interior en carbón oscuro de alto contraste */
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .benefit-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      color: #334155;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* =========================================================================
+       BLOQUE DESTACADO DE MODO DE EMPLEO
+       ========================================================================= */
+    .modo-empleo-box {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      border-radius: 18px;
+      padding: 38px 44px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      margin-bottom: 20px;
+    }
+
+    .modo-header-strip {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 30px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #F14825;
+    }
+
+    .modo-header-icon {
+      background: #F14825;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      padding: 6px 18px;
+      border-radius: 6px;
+    }
+
+    .modo-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: #17202d;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .modo-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .modo-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-top: 6px solid #6ac230; /* Verde moto */
+      border-radius: 14px;
+      padding: 30px 32px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .modo-card-icon {
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    }
+
+    .modo-card-text {
+      flex: 1;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #17202d;
+      line-height: 1.4;
+    }
+
+    .modo-card-tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #ea5b1b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* Banner Inferior de Garantía Oficial */
+    .footer-guarantee-strip {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      margin-top: 10px;
+    }
+
+    .guarantee-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #17202d;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .guarantee-badge {
+      background: #17202d;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 22px;
+    }
+
+    .guarantee-right {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #F14825;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    
+    <!-- 1. Top Asphalt Header (560px) -->
+    <div class="top-asphalt-header">
+      <div class="slogan-pill">+KM • +HP • <span>-CO</span> • MÁXIMA SUAVIDAD</div>
+      <div class="main-title-wrap">
+        <div class="main-title-green">BK3 MOTO</div>
+        <div class="main-title-sub">RESPUESTA DINÁMICA & MODO DE EMPLEO</div>
+      </div>
+      <p class="header-desc">
+        Tecnología química de vanguardia diseñada para maximizar la aceleración, proteger la inyección y optimizar el rendimiento por litro en motos de uso diario.
+      </p>
+    </div>
+
+    <!-- 2. Bottom White Body (1640px) -->
+    <div class="bottom-white-body">
+      <div>
+        <div class="col-header">
+          <span class="col-header-badge">02</span>
+          <span class="col-header-title">RESPUESTA DINÁMICA & <span class="highlight-dark">MODO DE EMPLEO</span></span>
+        </div>
+
+        <div class="benefits-list">
+          <!-- Beneficio 4 (Texto 100% íntegro) -->
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">4. El uso de un combustible de mayor octanaje</div>
+              <div class="benefit-desc">El uso de un combustible de mayor octanaje proporciona una mejor respuesta al acelerar. Notarás una aceleración más rápida y una sensación de mayor suavidad.</div>
+            </div>
+          </div>
+
+          <!-- Beneficio 5 (Texto 100% íntegro) -->
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">5. Al usar BK3 Moto optimizas el rendimiento</div>
+              <div class="benefit-desc">Al usar BK3 Moto optimizas el rendimiento del combustible. Esto se traduce en un mayor kilometraje por litro, lo que te permite ahorrar significativamente en el consumo de gasolina.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bloque Destacado de Modo de Empleo (Con los 2 Íconos de Tanque Oficiales) -->
+        <div class="modo-empleo-box">
+          <div class="modo-header-strip">
+            <span class="modo-header-icon">DOSIFICACIÓN</span>
+            <span class="modo-header-title">MODO DE EMPLEO</span>
+          </div>
+
+          <div class="modo-cards-grid">
+            <!-- Dosis 1: Tanques 10 a 15 Litros (Texto 100% íntegro) -->
+            <div class="modo-card">
+              <img src="assets/moto_tank_icon1.png" alt="Tanque 10 a 15L" class="modo-card-icon">
+              <div>
+                <div class="modo-card-tag">DOSIS COMPLETA (250 ML)</div>
+                <div class="modo-card-text">250ml medida para motos con tanques de 10 a 15lt</div>
+              </div>
+            </div>
+
+            <!-- Dosis 2: Tanques menores a 10 Litros (Texto 100% íntegro) -->
+            <div class="modo-card">
+              <img src="assets/moto_tank_icon2.png" alt="Tanque menor a 10L" class="modo-card-icon">
+              <div>
+                <div class="modo-card-tag">MEDIA DOSIS (125 ML)</div>
+                <div class="modo-card-text">Para motos con tanques menor a 10lt usar mitad del producto.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Banner de Garantía Oficial -->
+      <div class="footer-guarantee-strip">
+        <div class="guarantee-left">
+          <span class="guarantee-badge">GARANTÍA</span>
+          <span>FÓRMULA SEGURA: LIBRE DE METANOL, ETANOL Y THINNER</span>
+        </div>
+        <div class="guarantee-right">
+          BK3 SOLUTIONS C.A. • TECNOLOGÍA CERTIFICADA
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

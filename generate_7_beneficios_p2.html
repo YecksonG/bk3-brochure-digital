@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Solutions - Los 7 Beneficios Oficiales (Parte 2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'Montserrat', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja Superior de Asfalto Carbón Compacta y Elegante */
+    .top-asphalt-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 560px;
+      background: #14171a url('assets/asphalt_texture.webp') repeat center / 340px;
+      z-index: 1;
+      padding: 65px 100px 0 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .top-asphalt-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #62C331 0%, #0e86d2 50%, #F14825 100%);
+    }
+
+    .slogan-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .slogan-pill {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #62C331;
+      background: rgba(98, 195, 49, 0.15);
+      border: 1.5px solid rgba(98, 195, 49, 0.45);
+      padding: 6px 20px;
+      border-radius: 6px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .slogan-pill.orange {
+      color: #F14825;
+      background: rgba(241, 72, 37, 0.15);
+      border-color: rgba(241, 72, 37, 0.45);
+    }
+
+    .main-title-green {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 114px;
+      font-weight: 900;
+      line-height: 0.95;
+      color: #6ac52e;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .main-title-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 74px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .header-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      color: #e2e8f0;
+      line-height: 1.35;
+      max-width: 1400px;
+      margin-top: 16px;
+      letter-spacing: 0.3px;
+    }
+
+    /* 2. Sección Inferior Blanca (y = 560px a 2200px) */
+    .bottom-white-body {
+      position: absolute;
+      top: 560px;
+      left: 0;
+      width: 1700px;
+      height: 1640px;
+      background: #ffffff;
+      z-index: 2;
+      padding: 65px 110px 45px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Encabezado de Columna en Naranja Oficial var(--color-moto) #F14825 */
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 4px solid #F14825;
+      padding-bottom: 16px;
+      margin-bottom: 34px;
+    }
+
+    .col-header-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: #ffffff;
+      background: #F14825;
+      padding: 6px 18px;
+      border-radius: 6px;
+    }
+
+    .col-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 58px;
+      font-weight: 900;
+      color: #F14825; /* Subtítulo en naranja oficial var(--color-moto) */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Filas de Beneficios con fuente ampliada */
+    .benefits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-left: 8px solid #F14825; /* Acento naranja */
+      border-radius: 12px;
+      padding: 28px 36px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .benefit-star {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: #F14825; /* Estrella en naranja */
+      line-height: 0.85;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .benefit-text-wrap {
+      flex: 1;
+    }
+
+    .benefit-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: #17202d; /* Texto interior en color carbón oscuro de alto contraste */
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .benefit-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      color: #334155;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    /* Banner Inferior de Garantía Oficial */
+    .footer-guarantee-strip {
+      background: #f8fafc;
+      border: 2.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 22px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 25px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .guarantee-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .guarantee-icon {
+      width: 48px;
+      height: 48px;
+      fill: #62C331;
+      flex-shrink: 0;
+    }
+
+    .guarantee-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #17202d;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .guarantee-text span {
+      color: #F14825;
+    }
+
+    .guarantee-right {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    <!-- Top Asphalt Header -->
+    <div class="top-asphalt-header">
+      <div class="slogan-badge-row">
+        <span class="slogan-pill">+KM • +HP • -CO</span>
+        <span class="slogan-pill orange">PROTECCIÓN MOLECULAR</span>
+      </div>
+      <h1 class="main-title-green">LOS 7 BENEFICIOS</h1>
+      <h2 class="main-title-sub">BLINDAJE Y LUBRICACIÓN DEL MOTOR</h2>
+      <p class="header-desc">
+        Ingeniería molecular que disocia el agua, pulveriza el azufre y lubrica todos los componentes internos del sistema.
+      </p>
+    </div>
+
+    <!-- Bottom White Body (Parte 2: Blindaje & Cuidado) -->
+    <div class="bottom-white-body">
+      <div>
+        <div class="col-header">
+          <span class="col-header-badge">02</span>
+          <span class="col-header-title">BLINDAJE & CUIDADO</span>
+        </div>
+
+        <div class="benefits-list">
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">4. Limpieza profunda del sistema</div>
+              <div class="benefit-desc">Descarboniza inyectores, válvulas, pistones y bujías desde el tanque hasta la cámara de combustión.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">5. Disociar la molécula del agua</div>
+              <div class="benefit-desc">Tecnología molecular avanzada que descompone el agua condensada en el tanque, evitando cavitación y fallas mecánicas.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">6. Pulverizar el azufre</div>
+              <div class="benefit-desc">Neutraliza y pulveriza los depósitos de azufre del combustible, impidiendo la corrosión ácida en los conductos.</div>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">7. Lubricar todo el sistema</div>
+              <div class="benefit-desc">Fórmula 100% no corrosiva que actúa como lubricante protector para bombas de inyección, inyectores y mangueras.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Guarantee Strip -->
+      <div class="footer-guarantee-strip">
+        <div class="guarantee-left">
+          <svg class="guarantee-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          <div class="guarantee-text">FÓRMULA SEGURA: <span>LIBRE DE METANOL, ETANOL Y THINNER</span></div>
+        </div>
+        <div class="guarantee-right">BK3 SOLUTIONS C.A. • TECNOLOGÍA CERTIFICADA</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

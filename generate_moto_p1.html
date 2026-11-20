@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Moto - Potenciador de Octanaje (Parte 1)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Franja Superior de Asfalto (Exactamente 861px como en la pág 2 original) */
+    .top-asphalt-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 861px;
+      background: url('assets/asphalt_top_header.png') no-repeat center top;
+      background-size: 1700px 862px;
+      z-index: 1;
+    }
+
+    /* Botella BK3 Moto 250ml cruzando el corte horizontal con sombra realista */
+    .bottle-moto-hero {
+      position: absolute;
+      left: 110px;
+      top: 70px;
+      width: 510px;
+      height: 900px;
+      z-index: 10;
+      object-fit: contain;
+      filter: drop-shadow(0 26px 36px rgba(0, 0, 0, 0.65));
+    }
+
+    /* Badge de Volumen sobre la Botella */
+    .bottle-vol-badge {
+      position: absolute;
+      left: 170px;
+      top: 890px;
+      z-index: 12;
+      background: #17202d;
+      border: 2px solid #ea5b1b;
+      color: #ffffff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      padding: 6px 20px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .bottle-vol-badge span {
+      color: #ea5b1b;
+    }
+
+    /* Encabezado Derecho sobre Asfalto (Alineación milimétrica oficial) */
+    .top-header-content {
+      position: absolute;
+      left: 670px;
+      top: 154px;
+      width: 960px;
+      z-index: 5;
+    }
+
+    .title-green {
+      font-family: 'Benniter', 'Montserrat', sans-serif;
+      font-size: 112px;
+      line-height: 0.94;
+      color: #6ac230;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+    }
+
+    .subtitle-block {
+      margin-top: 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .subtitle-line1 {
+      letter-spacing: 0.6px;
+    }
+
+    .subtitle-line2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .orange-badge {
+      display: inline-block;
+      background: #ea5b1b; /* Naranja corporativo oficial */
+      color: #000000;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      padding: 3px 16px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    /* 2. Sección Inferior Blanca Satinada (1339px) */
+    .bottom-white-section {
+      position: absolute;
+      top: 861px;
+      left: 0;
+      width: 1700px;
+      height: 1339px;
+      background: #ffffff;
+      z-index: 2;
+      padding: 70px 110px 60px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Encabezado de Columna / Sección en Naranja Oficial */
+    .col-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 4px solid #F14825;
+      padding-bottom: 18px;
+      margin-bottom: 40px;
+    }
+
+    .col-header-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #ffffff;
+      background: #F14825;
+      padding: 6px 20px;
+      border-radius: 6px;
+    }
+
+    .col-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 60px;
+      font-weight: 900;
+      color: #F14825;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .col-header-title .highlight-dark {
+      color: #17202d;
+    }
+
+    /* Lista de Beneficios Técnicos (Puntos 1, 2 y 3) */
+    .benefits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-left: 10px solid #F14825; /* Acento naranja corporativo */
+      border-radius: 14px;
+      padding: 34px 40px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    .benefit-star {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 58px;
+      font-weight: 900;
+      color: #F14825;
+      line-height: 0.85;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .benefit-text-wrap {
+      flex: 1;
+    }
+
+    .benefit-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: #17202d; /* Texto interior en carbón oscuro de alto contraste */
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .benefit-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      color: #334155;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Franja Inferior Institucional de Continuidad */
+    .footer-continuity-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 22px;
+      margin-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .continuity-left {
+      color: #17202d;
+    }
+
+    .continuity-right {
+      color: #F14825;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    
+    <!-- 1. Top Asphalt Header (861px) -->
+    <div class="top-asphalt-section"></div>
+
+    <!-- Botella BK3 Moto 3D (250ml) cruzando el corte horizontal -->
+    <img src="assets/products/spot_moto.png" alt="BK3 Moto 250ml" class="bottle-moto-hero">
+    <div class="bottle-vol-badge">CONTENIDO NETO: <span>250 ML</span></div>
+
+    <!-- Encabezado Oficial Derecho (Fiel a la Referencia) -->
+    <div class="top-header-content">
+      <div class="title-green">
+        POTENCIADOR<br>
+        DE OCTANAJE
+      </div>
+      <div class="subtitle-block">
+        <div class="subtitle-line1">EXCLUSIVO PARA MOTOS</div>
+        <div class="subtitle-line2">
+          <span>DE</span>
+          <span class="orange-badge">BAJA CILINDRADA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Bottom White Section (1339px) -->
+    <div class="bottom-white-section">
+      <div>
+        <div class="col-header">
+          <span class="col-header-badge">01</span>
+          <span class="col-header-title">CONOCE MÁS SOBRE <span class="highlight-dark">BK3 MOTOS</span></span>
+        </div>
+
+        <div class="benefits-list">
+          <!-- Beneficio 1 (Texto 100% íntegro) -->
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">1. Mejor rendimiento del motor</div>
+              <div class="benefit-desc">Usar un combustible con mayor octanaje hace que el motor funcione de manera más eficiente, lo que se traduce en un mejor rendimiento en general.</div>
+            </div>
+          </div>
+
+          <!-- Beneficio 2 (Texto 100% íntegro) -->
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">2. Elimina la detonación</div>
+              <div class="benefit-desc">Los combustibles de alto octanaje son menos propensos a la detonación prematura, lo que ayuda a proteger el motor y prolonga su vida útil.</div>
+            </div>
+          </div>
+
+          <!-- Beneficio 3 (Texto 100% íntegro) -->
+          <div class="benefit-item">
+            <span class="benefit-star">*</span>
+            <div class="benefit-text-wrap">
+              <div class="benefit-title">3. Proporciona mayor potencia</div>
+              <div class="benefit-desc">Al permitir que el motor opere a su máxima capacidad. Esto se traduce en un notable aumento de la potencia y la aceleración, sin problemas de combustión.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer de Continuidad -->
+      <div class="footer-continuity-strip">
+        <div class="continuity-left">BK3 SOLUTIONS C.A. • CATÁLOGO TÉCNICO OFICIAL</div>
+        <div class="continuity-right">PARTE 1 DE 2 • SIGUE EN PÁGINA SIGUIENTE ➔</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

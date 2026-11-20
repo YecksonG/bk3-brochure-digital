@@ -4,7 +4,37 @@
    Fiel al Brochure Oficial & Manual de Marca BK3
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700&family=Montserrat:wght@300;400;500;600;700;800&family=Chakra+Petch:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Chakra+Petch:wght@500;600;700&display=swap');
+
+/* ==========================================================================
+   TIPOGRAFÍAS OFICIALES BK3 (Manual de Identidad Páginas 20-21)
+   - Títulos de impacto: Vogie Black (en web: fallback Google Fonts Montserrat 900 Black)
+   - Textos y etiquetas: Expressway (en web: fallback Montserrat 600/700)
+   - Sellos y badges técnicos: Chakra Petch (estilo automotriz mono)
+   ========================================================================== */
+@font-face {
+  font-family: 'Vogie Black';
+  src: local('Vogie Black'), local('Vogie-Black');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Expressway';
+  src: local('Expressway'), local('Expressway-Regular');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nexa Rust Sans';
+  src: url('../assets/fonts/NexaRustSansDemo-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Paleta Corporativa Oficial */
@@ -27,9 +57,9 @@
   --text-muted: #94a3b8;
   --text-dim: #64748b;
 
-  /* Tipografías Profesionales: Alta Definición y 100% Soporte UTF-8 Móvil/iOS */
-  --font-display: 'Barlow Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Tipografías Profesionales: Prioridad Vogie Black si está instalada, fallback Montserrat 900 Black */
+  --font-display: 'Vogie Black', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Expressway', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Chakra Petch', 'Montserrat', monospace;
 }
 
@@ -421,7 +451,7 @@ html, body {
   align-items: center;
   justify-content: center;
   background-color: #12161c;
-  background-image: url('../assets/bk3_pattern_bg.webp');
+  background-image: url('../assets/bk3_pattern_bg.webp?v=20261118_v21_new_bg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -792,120 +822,27 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   INTERACCIÓN Y ANIMACIÓN DE ILUMINACIÓN EN LOS 5 PRODUCTOS DE PÁGINA 11
-   Posicionamiento absoluto desacoplado para alineación y altura idéntica
+   INTERACCIÓN EN LOS 5 PRODUCTOS DE BENEFICIOS (PÁGINA 11 / PARTE 1)
+   Hitboxes calibrados con feedback visual elegante al hover/touch
    -------------------------------------------------------------------------- */
 .benefit-product-spot {
   position: absolute;
   z-index: 10;
-  transform: translateX(-50%);
   cursor: pointer;
   pointer-events: auto;
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.benefit-spot-img {
-  position: absolute;
-  top: 1.5%;
-  left: 0;
-  width: 100%;
-  height: 79%;
-  object-fit: contain;
-  object-position: bottom center;
-  opacity: 0;
-  transform: translateY(0) scale(1);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.3s ease;
-  transform-origin: bottom center;
-}
-
-.benefit-spot-label {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #17202d;
-  font-family: 'Montserrat', var(--font-body), sans-serif;
-  font-size: 0.55rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 1;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.spot-cetane .benefit-spot-label {
-  font-size: 0.55rem;
-  letter-spacing: -0.1px;
-}
-
-.spot-marine .benefit-spot-label {
-  font-size: 0.55rem;
-  letter-spacing: -0.3px;
-}
-
-.benefit-product-spot:hover .benefit-spot-img,
-.benefit-product-spot.touch-active .benefit-spot-img {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.benefit-product-spot:hover .benefit-spot-label,
-.benefit-product-spot.touch-active .benefit-spot-label {
-  transform: translateX(-50%) translateY(0);
-}
-
-.benefit-product-spot.spot-moto:hover .benefit-spot-img,
-.benefit-product-spot.spot-moto.touch-active .benefit-spot-img {
-  filter: drop-shadow(0 0 16px rgba(241, 72, 37, 0.95)) drop-shadow(0 0 32px rgba(241, 72, 37, 0.6)) brightness(1.08);
-}
-.benefit-product-spot.spot-moto:hover .benefit-spot-label,
-.benefit-product-spot.spot-moto.touch-active .benefit-spot-label {
-  color: var(--color-moto);
-  text-shadow: 0 0 10px rgba(241, 72, 37, 0.8);
-}
-
-.benefit-product-spot.spot-clasico:hover .benefit-spot-img,
-.benefit-product-spot.spot-clasico.touch-active .benefit-spot-img {
-  filter: drop-shadow(0 0 16px rgba(98, 195, 49, 0.95)) drop-shadow(0 0 32px rgba(98, 195, 49, 0.6)) brightness(1.08);
-}
-.benefit-product-spot.spot-clasico:hover .benefit-spot-label,
-.benefit-product-spot.spot-clasico.touch-active .benefit-spot-label {
-  color: var(--color-clasico);
-  text-shadow: 0 0 10px rgba(98, 195, 49, 0.8);
-}
-
-.benefit-product-spot.spot-racing:hover .benefit-spot-img,
-.benefit-product-spot.spot-racing.touch-active .benefit-spot-img {
-  filter: drop-shadow(0 0 16px rgba(237, 28, 36, 0.95)) drop-shadow(0 0 32px rgba(237, 28, 36, 0.6)) brightness(1.08);
-}
-.benefit-product-spot.spot-racing:hover .benefit-spot-label,
-.benefit-product-spot.spot-racing.touch-active .benefit-spot-label {
-  color: var(--color-racing);
-  text-shadow: 0 0 10px rgba(237, 28, 36, 0.8);
-}
-
-.benefit-product-spot.spot-cetane:hover .benefit-spot-img,
-.benefit-product-spot.spot-cetane.touch-active .benefit-spot-img {
-  filter: drop-shadow(0 0 16px rgba(253, 185, 19, 0.95)) drop-shadow(0 0 32px rgba(253, 185, 19, 0.6)) brightness(1.08);
-}
-.benefit-product-spot.spot-cetane:hover .benefit-spot-label,
-.benefit-product-spot.spot-cetane.touch-active .benefit-spot-label {
-  color: var(--color-cetane);
-  text-shadow: 0 0 10px rgba(253, 185, 19, 0.8);
-}
-
-.benefit-product-spot.spot-marine:hover .benefit-spot-img,
-.benefit-product-spot.spot-marine.touch-active .benefit-spot-img {
-  filter: drop-shadow(0 0 16px rgba(14, 135, 210, 0.95)) drop-shadow(0 0 32px rgba(14, 135, 210, 0.6)) brightness(1.08);
-}
-.benefit-product-spot.spot-marine:hover .benefit-spot-label,
-.benefit-product-spot.spot-marine.touch-active .benefit-spot-label {
-  color: var(--color-marine);
-  text-shadow: 0 0 10px rgba(14, 135, 210, 0.8);
+.benefit-product-spot:hover,
+.benefit-product-spot:focus-visible,
+.benefit-product-spot.touch-active {
+  background: rgba(241, 72, 37, 0.08);
+  box-shadow: 0 0 16px rgba(241, 72, 37, 0.35);
+  outline: none;
 }
 
 /* ==========================================================================
@@ -948,24 +885,23 @@ html, body {
 .index-badge {
   font-family: var(--font-body);
   font-size: 0.76rem;
-  letter-spacing: 1.8px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--color-clasico);
-  background: rgba(98, 195, 49, 0.15);
-  border: 1px solid rgba(98, 195, 49, 0.45);
+  color: #ffffff;
+  background: var(--color-moto);
   padding: 3px 12px;
   border-radius: 4px;
   margin-bottom: 5px;
 }
 
 .index-main-title {
-  font-family: var(--font-display);
-  font-size: 2.25rem;
+  font-family: 'Nexa Rust Sans', var(--font-display);
+  font-size: 2.15rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: #ffffff;
+  color: var(--color-clasico);
   line-height: 1.05;
   text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
   margin: 3px 0;
@@ -974,7 +910,7 @@ html, body {
 .index-main-desc {
   font-family: var(--font-body);
   font-size: 0.88rem;
-  color: #cbd5e1;
+  color: #ffffff;
   max-width: 460px;
   line-height: 1.3;
   margin-top: 2px;
@@ -1114,12 +1050,12 @@ html, body {
 
 .cat-title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.12rem;
+  font-weight: 900;
   text-transform: uppercase;
   color: #0f172a;
   line-height: 1.1;
-  letter-spacing: 0.3px;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1151,16 +1087,23 @@ html, body {
   align-items: center;
   justify-content: space-between;
   margin-top: 5px;
+  gap: 8px;
+  min-width: 0;
 }
 
 .cat-pill {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 800;
   padding: 3px 8px;
-  border-radius: 4px;
+  border-radius: 3px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
+  white-space: normal;
+  line-height: 1.2;
+  flex: 1 1 auto;
+  min-width: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .cat-vol-tag {
@@ -1168,13 +1111,16 @@ html, body {
   font-size: 0.75rem;
   color: #64748b;
   font-weight: 600;
+  white-space: nowrap;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
-.cat-moto .cat-pill { background: rgba(241, 72, 37, 0.12); color: var(--color-moto); }
-.cat-clasico .cat-pill { background: rgba(98, 195, 49, 0.15); color: #3d8b17; }
-.cat-racing .cat-pill { background: rgba(237, 28, 36, 0.12); color: var(--color-racing); }
-.cat-cetane .cat-pill { background: rgba(253, 185, 19, 0.18); color: #b45309; }
-.cat-marine .cat-pill { background: rgba(14, 135, 210, 0.15); color: var(--color-marine); }
+.cat-moto .cat-pill { background: var(--color-moto); color: #ffffff; }
+.cat-clasico .cat-pill { background: var(--color-clasico); color: #ffffff; }
+.cat-racing .cat-pill { background: #b91016; color: #ffffff; }
+.cat-cetane .cat-pill { background: var(--color-cetane); color: #ffffff; }
+.cat-marine .cat-pill { background: #0a6ca8; color: #ffffff; }
 
 .index-footer-strip {
   margin-top: 6px;
@@ -1824,104 +1770,199 @@ html, body {
   }
 
   .index-top-section {
-    padding: 8px 10px 4px 10px;
+    padding: 10px 12px 6px 12px;
   }
 
   .index-badge {
-    font-size: 0.54rem;
-    padding: 1px 7px;
-    margin-bottom: 2px;
+    font-size: 0.62rem;
+    letter-spacing: 1.2px;
+    padding: 2px 8px;
+    margin-bottom: 3px;
   }
 
   .index-main-title {
     font-size: 1.15rem;
-    letter-spacing: 0.2px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    margin: 2px 0;
   }
 
   .index-main-desc {
-    font-size: 0.58rem;
-    line-height: 1.2;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .index-packshot-strip {
-    height: 48px;
-    margin-top: 4px;
-    gap: 8px;
-  }
-
-  .packshot-bottle {
-    max-height: 48px;
+    font-size: 0.72rem;
+    color: #cbd5e1;
+    line-height: 1.25;
+    margin-top: 1px;
+    display: block;
   }
 
   .index-satin-panel {
-    padding: 8px 12px 10px 12px;
-    border-radius: 12px 12px 0 0;
-    margin-bottom: 0; /* Sin recorte ni hueco inferior: página blanca continua y completa */
+    padding: 10px 14px 20px 14px;
+    border-radius: 14px 14px 0 0;
+    margin-bottom: 0;
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
+    position: relative;
   }
 
   .catalog-cards-list {
-    flex: 0 0 auto;
-    gap: 5px;
-    margin-bottom: 6px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding-right: 4px;
   }
 
   .cat-item-card {
-    flex: 0 0 auto;
-    height: 44px;
-    max-height: 44px;
-    padding: 3px 8px;
-    gap: 8px;
-    border-radius: 6px;
+    flex: 1;
+    min-height: 52px;
+    max-height: 62px;
+    padding: 4px 10px;
+    gap: 10px;
+    border-radius: 8px;
     margin: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
 
   .cat-thumb-box {
-    width: 22px;
-    height: 34px;
+    width: 32px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .cat-thumb-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
   }
 
   .cat-title {
-    font-size: 0.74rem;
-    line-height: 1.1;
+    font-size: clamp(0.66rem, 2.5vw, 0.78rem);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
   }
 
   .cat-jump-pill {
-    font-size: 0.58rem;
-    padding: 1px 5px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #f1f5f9;
   }
 
   .cat-spec-line {
-    margin-top: 1px;
-    gap: 4px;
+    margin-top: 3px;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
   }
 
   .cat-pill {
-    font-size: 0.48rem;
-    padding: 1px 4px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.2px;
+    white-space: normal;
+    line-height: 1.15;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .cat-vol-tag {
-    font-size: 0.50rem;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #64748b;
+    white-space: nowrap;
+    min-width: 0;
+    flex-shrink: 0;
+    margin-left: 6px;
+    align-self: center;
   }
 
   .cat-summary {
-    font-size: 0.56rem;
+    font-size: 0.62rem;
   }
 
   .index-footer-strip {
-    font-size: 0.52rem;
+    font-size: 0.58rem;
     margin-top: auto;
     padding-top: 6px;
     padding-bottom: 4px;
+    padding-right: 4px;
     border-top: 1px solid rgba(226, 232, 240, 0.7);
+  }
+
+  /* Micro-pantallas y pantallas apaisadas (≤340px o altura ≤520px) */
+  @media (max-height: 520px), (max-width: 340px) {
+    .index-top-section {
+      padding: 6px 10px 4px 10px;
+    }
+    .index-badge {
+      font-size: 0.54rem;
+      padding: 1px 6px;
+      margin-bottom: 2px;
+    }
+    .index-main-title {
+      font-size: 0.95rem;
+      margin: 1px 0;
+    }
+    .index-main-desc {
+      display: none;
+    }
+    .index-satin-panel {
+      padding: 6px 8px 14px 8px;
+      overflow-y: auto;
+    }
+    .catalog-cards-list {
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .cat-item-card {
+      min-height: 42px;
+      max-height: 48px;
+      padding: 2px 6px;
+      gap: 6px;
+    }
+    .cat-thumb-box {
+      width: 22px;
+      height: 34px;
+    }
+    .cat-title {
+      font-size: 0.60rem;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      line-height: 1.1;
+      max-height: 2.3em;
+    }
+    .cat-spec-line {
+      margin-top: 1px;
+      gap: 4px;
+    }
+    .cat-pill {
+      font-size: 0.48rem;
+      padding: 1px 4px;
+    }
+    .cat-vol-tag {
+      font-size: 0.50rem;
+      margin-left: 2px;
+    }
+    .cat-jump-pill {
+      font-size: 0.54rem;
+      padding: 1px 4px;
+    }
   }
 
   /* Marine Page 10 Mobile Adjustments */
@@ -2017,17 +2058,4 @@ html, body {
     padding-top: 3px;
   }
 
-  /* Page 11 Benefits Hotspot Labels on Mobile */
-  .benefit-spot-label {
-    font-size: 0.42rem;
-    letter-spacing: 0.1px;
-  }
-  .spot-cetane .benefit-spot-label {
-    font-size: 0.38rem;
-    letter-spacing: -0.1px;
-  }
-  .spot-marine .benefit-spot-label {
-    font-size: 0.33rem;
-    letter-spacing: -0.2px;
-  }
 }

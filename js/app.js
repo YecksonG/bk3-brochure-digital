@@ -612,17 +612,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.addEventListener('touchend', (e) => {
       if (e.changedTouches && e.changedTouches[0]) {
-        const deltaX = Math.abs(e.changedTouches[0].clientX - cardTouchStartX);
-        const deltaY = Math.abs(e.changedTouches[0].clientY - cardTouchStartY);
+        const touch = e.changedTouches[0];
+        const deltaX = Math.abs(touch.clientX - cardTouchStartX);
+        const deltaY = Math.abs(touch.clientY - cardTouchStartY);
         // Si el usuario deslizó el dedo para cambiar de página, no navegar
         if (deltaX > 15 || deltaY > 15) {
           return;
+        }
+
+        // Zona segura anti-missclick: toques cerca de la esquina inferior derecha pasan de página (solo en móvil)
+        if (window.innerWidth <= 768) {
+          const pageEl = card.closest('.page-index-custom');
+          if (pageEl) {
+            const pageRect = pageEl.getBoundingClientRect();
+            const distFromRight = pageRect.right - touch.clientX;
+            const distFromBottom = pageRect.bottom - touch.clientY;
+            if (distFromRight < 65 && distFromBottom < 65) {
+              if (e.cancelable) e.preventDefault();
+              e.stopPropagation();
+              const now = Date.now();
+              if (now - lastCardNavTime < 350) return;
+              lastCardNavTime = now;
+              safeFlipNext();
+              return;
+            }
+          }
         }
       }
       handleCardNav(e);
     });
 
     card.addEventListener('click', (e) => {
+      // Zona segura anti-missclick para clicks táctiles sintéticos en esquina (solo en móvil)
+      if (window.innerWidth <= 768) {
+        const pageEl = card.closest('.page-index-custom');
+        if (pageEl && e.clientX && e.clientY) {
+          const pageRect = pageEl.getBoundingClientRect();
+          const distFromRight = pageRect.right - e.clientX;
+          const distFromBottom = pageRect.bottom - e.clientY;
+          if (distFromRight < 65 && distFromBottom < 65) {
+            if (e.cancelable) e.preventDefault();
+            e.stopPropagation();
+            const now = Date.now();
+            if (now - lastCardNavTime < 350) return;
+            lastCardNavTime = now;
+            safeFlipNext();
+            return;
+          }
+        }
+      }
       // En desktop o mouse click limpio
       handleCardNav(e);
     });
@@ -714,9 +752,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('click', (e) => {
     if (thumbsDrawer && thumbsDrawer.classList.contains('open')) {
-      if (!thumbsDrawer.contains(e.target) &&
-          e.target !== btnThumbs && !btnThumbs.contains(e.target) &&
-          e.target !== btnFooterThumbs && !btnFooterThumbs.contains(e.target)) {
+      const isTriggerClick = (btnThumbs && (e.target === btnThumbs || btnThumbs.contains(e.target))) ||
+                             (btnFooterThumbs && (e.target === btnFooterThumbs || btnFooterThumbs.contains(e.target)));
+      if (!thumbsDrawer.contains(e.target) && !isTriggerClick) {
         thumbsDrawer.classList.remove('open');
       }
     }
