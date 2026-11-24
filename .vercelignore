@@ -13,3 +13,7 @@ assets/proof/
 generate_*.html
 preview.png
 *.log
+previews/
+verify_full_brochure.cjs
+HANDOFF_NEXT_SESSION.md
+
