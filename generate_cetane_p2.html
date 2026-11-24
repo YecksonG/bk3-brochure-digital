@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>BK3 Cetanium Booster - Modo de Empleo y Dosificación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Benniter';
+      src: url('assets/fonts/BenniterTrialVersion-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_102.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'NeueRegrade';
+      src: url('assets/fonts/NeueRegrade_106.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1700px;
+      height: 2200px;
+      background: #ffffff;
+      overflow: hidden;
+      font-family: 'Montserrat', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page-canvas {
+      width: 1700px;
+      height: 2200px;
+      position: relative;
+      background: #ffffff;
+    }
+
+    /* 1. Header de Asfalto Carbón */
+    .top-asphalt-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1700px;
+      height: 540px;
+      background: #14171a url('assets/asphalt_texture.webp') repeat center / 340px;
+      z-index: 1;
+      padding: 65px 100px 0 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .top-asphalt-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #FDB913 0%, #62C331 50%, #F14825 100%);
+    }
+
+    .slogan-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .slogan-pill {
+      font-family: 'NeueRegrade', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #FDB913;
+      background: rgba(253, 185, 19, 0.15);
+      border: 1.5px solid rgba(253, 185, 19, 0.5);
+      padding: 6px 22px;
+      border-radius: 6px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .main-title-yellow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 110px;
+      font-weight: 900;
+      line-height: 0.95;
+      color: #FDB913;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.8);
+    }
+
+    .main-title-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 70px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .header-desc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      color: #e2e8f0;
+      line-height: 1.35;
+      max-width: 1350px;
+      margin-top: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    /* 2. Cuerpo Principal Blanco */
+    .bottom-white-body {
+      position: absolute;
+      top: 540px;
+      left: 0;
+      width: 1700px;
+      height: 1660px;
+      background: #ffffff;
+      z-index: 2;
+      padding: 55px 100px 45px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 4px solid #FDB913;
+      padding-bottom: 14px;
+      margin-bottom: 30px;
+    }
+
+    .section-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: #17202d;
+      background: #FDB913;
+      padding: 6px 18px;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: #17202d;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Tarjetas de Beneficios */
+    .benefits-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 35px;
+    }
+
+    .benefit-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-left: 8px solid #FDB913;
+      border-radius: 12px;
+      padding: 24px 30px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .benefit-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: #FDB913;
+      line-height: 0.9;
+      flex-shrink: 0;
+    }
+
+    .benefit-info {
+      flex: 1;
+    }
+
+    .benefit-head {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #17202d;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .benefit-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      color: #334155;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    /* Módulo de Modo de Empleo y Dosificación */
+    .dosage-wrapper {
+      background: #17202d;
+      border-radius: 14px;
+      padding: 34px 40px;
+      color: #ffffff;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      border: 1.5px solid #334155;
+    }
+
+    .dosage-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: #FDB913;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dosage-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .dosage-box {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(253, 185, 19, 0.35);
+      border-radius: 10px;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .dosage-box-vol {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      color: #FDB913;
+      line-height: 0.9;
+      flex-shrink: 0;
+    }
+
+    .dosage-box-text h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .dosage-box-text p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      color: #cbd5e1;
+      line-height: 1.35;
+    }
+
+    /* Footer Strip */
+    .footer-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-canvas">
+    <!-- 1. Header de Asfalto -->
+    <div class="top-asphalt-header">
+      <div class="slogan-badge-row">
+        <span class="slogan-pill">TECNOLOGÍA DIESEL PROFESIONAL</span>
+      </div>
+      <h1 class="main-title-yellow">BK3 CETANIUM BOOSTER</h1>
+      <h2 class="main-title-sub">MODO DE EMPLEO & DOSIFICACIÓN</h2>
+      <p class="header-desc">Formulación concentrada para motores diésel de inyección directa, Common Rail y sistemas pesados de transporte e industria.</p>
+    </div>
+
+    <!-- 2. Cuerpo Principal -->
+    <div class="bottom-white-body">
+      <!-- Sección Beneficios Técnicos -->
+      <div>
+        <div class="section-header">
+          <span class="section-badge">TECNOLOGÍA</span>
+          <h3 class="section-title">VENTAJAS DE LA COMBUSTIÓN CON CETANIUM</h3>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-num">01</div>
+            <div class="benefit-info">
+              <h4 class="benefit-head">+10 PUNTOS DE CETANO CERTIFICADOS</h4>
+              <p class="benefit-text">Incrementa sustancialmente el índice de cetano, reduciendo el retardo de ignición y garantizando un arranque en frío rápido y suave sin vibraciones.</p>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-num">02</div>
+            <div class="benefit-info">
+              <h4 class="benefit-head">RECUPERACIÓN DE LUBRICIDAD CRÍTICA</h4>
+              <p class="benefit-text">Restaura la película lubricante perdida en diésel de bajo azufre, blindando bombas de alta presión e inyectores ante la fricción y el desgaste corrosivo.</p>
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-num">03</div>
+            <div class="benefit-info">
+              <h4 class="benefit-head">DISOCIACIÓN DE AGUA Y CERO SEDIMENTOS</h4>
+              <p class="benefit-text">Pulveriza depósitos de sedimento y lodo en el tanque, dispersando microgotas de agua para evitar la proliferación de algas y el bloqueo de filtros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Módulo de Dosificación -->
+      <div>
+        <div class="dosage-wrapper">
+          <div class="dosage-title">
+            <span>&#9881;</span> TABLA DE DOSIFICACIÓN OFICIAL
+          </div>
+          <div class="dosage-cards">
+            <div class="dosage-box">
+              <div class="dosage-box-vol">1L</div>
+              <div class="dosage-box-text">
+                <h5>CAMIONETAS & PICK-UPS</h5>
+                <p>Aplicar 1 Litro de BK3 Cetanium por cada 60 a 100 Litros de diésel. Medida perfecta para uso continuo en carretera y ciudad.</p>
+              </div>
+            </div>
+
+            <div class="dosage-box">
+              <div class="dosage-box-vol">5L</div>
+              <div class="dosage-box-text">
+                <h5>CARGA PESADA & MAQUINARIA</h5>
+                <p>Formato galón para camiones, gandolas, plantas eléctricas y maquinaria pesada con tanques de 300 a 500 Litros de diésel.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-strip">
+          <span>BK3 SOLUTIONS C.A. • LÍNEA CETANIUM BOOSTER</span>
+          <span>PÁGINA 11</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
