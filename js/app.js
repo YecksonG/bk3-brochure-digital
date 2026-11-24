@@ -183,12 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Cuando se muestra la Página 10 (BK3 Performance Marine • 7 Beneficios)
-    if (pageIndex === 9 || (window.innerWidth > 768 && (pageIndex === 8 || pageIndex === 9))) {
+    // Animaciones opcionales para elementos marinos si existen
+    if (document.querySelector('.marine-hero-img')) {
       gsap.fromTo('.marine-hero-img',
         { scale: 0.88, opacity: 0, y: -12 },
         { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: 'back.out(1.5)', clearProps: 'transform' }
       );
+    }
+    if (document.querySelector('.marine-benefit-item')) {
       gsap.fromTo('.marine-benefit-item',
         { x: 16, opacity: 0 },
         { x: 0, opacity: 1, duration: 0.4, stagger: 0.035, ease: 'power2.out', clearProps: 'transform' }
@@ -245,7 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Actualizar thumbnails activas y auto-scroll en drawer
     thumbItems.forEach(thumb => {
-      const target = parseInt(thumb.getAttribute('data-page'), 10);
+      const anchor = thumb.getAttribute('data-target-anchor');
+      const target = anchor ? getPageIndexByAnchor(anchor) : parseInt(thumb.getAttribute('data-page'), 10);
       if (isPageVisible(target)) {
         thumb.classList.add('active');
         // Mantener la miniatura visible en la tira horizontal si el drawer está abierto
@@ -392,7 +395,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --------------------------------------------------------------------------
+  // MAPEADOR DINÁMICO DE ANCLAS DE PÁGINA (CERO NÚMEROS DUROS)
+  // --------------------------------------------------------------------------
+  function getPageIndexByAnchor(anchorOrIndex) {
+    if (typeof anchorOrIndex === 'number') return anchorOrIndex;
+    if (!anchorOrIndex) return 0;
+
+    const parsed = parseInt(anchorOrIndex, 10);
+    if (!isNaN(parsed) && String(parsed) === String(anchorOrIndex).trim()) {
+      return parsed;
+    }
+
+    const targetEl = document.querySelector(`.page[data-anchor="${anchorOrIndex}"]`);
+    if (targetEl) {
+      const allPages = Array.from(document.querySelectorAll('.page'));
+      const idx = allPages.indexOf(targetEl);
+      if (idx !== -1) return idx;
+    }
+    return 0;
+  }
+
+  function goToAnchor(anchorOrIndex) {
+    const pageIndex = getPageIndexByAnchor(anchorOrIndex);
+    goToPage(pageIndex);
+  }
+
   function goToPage(targetPage) {
+    if (typeof targetPage === 'string') {
+      targetPage = getPageIndexByAnchor(targetPage);
+    }
     if (isNaN(targetPage) || targetPage < 0 || targetPage >= totalPages) return;
     const current = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
     const isMobile = window.innerWidth <= 768;
@@ -596,8 +628,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (now - lastCardNavTime < 350) return; // Dedupe entre touchend y click sintético
       lastCardNavTime = now;
       dismissGuide();
-      const targetPage = parseInt(card.getAttribute('data-target-page'), 10);
-      goToPage(targetPage);
+      // Feedback táctil visual & auditivo en la tarjeta
+      card.classList.add('card-jumping');
+      playPaperTurnSound();
+
+      const targetAnchor = card.getAttribute('data-target-anchor') || card.getAttribute('data-target-page');
+      const targetPage = getPageIndexByAnchor(targetAnchor);
+
+      setTimeout(() => {
+        card.classList.remove('card-jumping');
+        goToPage(targetPage);
+      }, 130);
     };
 
     // Permitir gestos de paso de página: solo activar navegación si fue un tap limpio (no swipe)
@@ -682,8 +723,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Hotspots interactivos de productos en Página 11 (Los 7 Beneficios)
-  const benefitSpots = document.querySelectorAll('.benefit-product-spot');
+  // Hotspots interactivos de productos en Página 14 (Los 7 Beneficios)
+  const benefitSpots = document.querySelectorAll('.benefit-product-spot, .benefit-label-spot');
   benefitSpots.forEach(spot => {
     const handleSpotNav = (e) => {
       if (e) {
@@ -691,7 +732,8 @@ document.addEventListener('DOMContentLoaded', () => {
         e.stopPropagation();
       }
       dismissGuide();
-      const targetPage = parseInt(spot.getAttribute('data-target-page'), 10);
+      const targetAnchor = spot.getAttribute('data-target-anchor') || spot.getAttribute('data-target-page');
+      const targetPage = getPageIndexByAnchor(targetAnchor);
       goToPage(targetPage);
     };
 
@@ -699,12 +741,20 @@ document.addEventListener('DOMContentLoaded', () => {
       spot.addEventListener(evt, (e) => {
         e.stopPropagation();
         spot.classList.add('touch-active');
+        const anchor = spot.getAttribute('data-target-anchor');
+        const matchingBot = document.querySelector(`.benefit-product-spot[data-target-anchor="${anchor}"]`);
+        if (matchingBot && matchingBot !== spot) matchingBot.classList.add('touch-active');
       }, { passive: true });
     });
 
     ['pointerup', 'mouseup', 'touchend', 'touchcancel'].forEach(evt => {
       spot.addEventListener(evt, () => {
-        setTimeout(() => spot.classList.remove('touch-active'), 400);
+        setTimeout(() => {
+          spot.classList.remove('touch-active');
+          const anchor = spot.getAttribute('data-target-anchor');
+          const matchingBot = document.querySelector(`.benefit-product-spot[data-target-anchor="${anchor}"]`);
+          if (matchingBot) matchingBot.classList.remove('touch-active');
+        }, 400);
       }, { passive: true });
     });
 
@@ -715,6 +765,17 @@ document.addEventListener('DOMContentLoaded', () => {
         handleSpotNav(e);
       }
     });
+  });
+
+  // Vinculación hover de las etiquetas inferiores hacia las botellas 3D
+  const labelSpots = document.querySelectorAll('.benefit-label-spot');
+  labelSpots.forEach(label => {
+    const anchor = label.getAttribute('data-target-anchor');
+    const matchingBot = document.querySelector(`.benefit-product-spot[data-target-anchor="${anchor}"]`);
+    if (matchingBot) {
+      label.addEventListener('mouseenter', () => matchingBot.classList.add('touch-active'));
+      label.addEventListener('mouseleave', () => matchingBot.classList.remove('touch-active'));
+    }
   });
 
   // Thumbnails Slide-Up Drawer
@@ -744,11 +805,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   thumbItems.forEach(thumb => {
     thumb.addEventListener('click', () => {
-      const targetPage = parseInt(thumb.getAttribute('data-page'), 10);
+      const targetAnchor = thumb.getAttribute('data-target-anchor');
+      const targetPage = targetAnchor ? getPageIndexByAnchor(targetAnchor) : parseInt(thumb.getAttribute('data-page'), 10);
       goToPage(targetPage);
       if (thumbsDrawer) thumbsDrawer.classList.remove('open');
     });
   });
+
+  // Botón CTA en Manifiesto Tecnológico (Página 3)
+  const manifestoBtns = document.querySelectorAll('.manifesto-cta-btn');
+  manifestoBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (e) e.preventDefault();
+      const targetAnchor = btn.getAttribute('data-target-anchor') || 'moto';
+      playPaperTurnSound();
+      goToPage(getPageIndexByAnchor(targetAnchor));
+    });
+  });
+
+  // Sincronizar dinámicamente números de página en los pills de salto del índice
+  function syncIndexPills() {
+    const allPages = Array.from(document.querySelectorAll('.page'));
+    productCards.forEach(card => {
+      const anchor = card.getAttribute('data-target-anchor');
+      if (anchor) {
+        const targetEl = document.querySelector(`.page[data-anchor="${anchor}"]`);
+        if (targetEl) {
+          const idx = allPages.indexOf(targetEl);
+          if (idx !== -1) {
+            const pill = card.querySelector('.cat-jump-pill');
+            if (pill) {
+              const pageNumStr = String(idx + 1).padStart(2, '0');
+              pill.innerHTML = `PÁG. ${pageNumStr} &#10148;`;
+            }
+          }
+        }
+      }
+    });
+  }
+  syncIndexPills();
 
   document.addEventListener('click', (e) => {
     if (thumbsDrawer && thumbsDrawer.classList.contains('open')) {

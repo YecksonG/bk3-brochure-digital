@@ -665,28 +665,46 @@ html, body {
   bottom: 30%; height: 50px;
 }
 
-.hotspot-tiktok {
-  left: 18%;
-  right: 18%;
-  top: 63%;
-  height: 5.5%;
+/* Hotspot Interactivo Web Oficial BK3: Somos Nosotros */
+.hotspot-web-somos {
+  position: absolute;
+  left: 22%;
+  top: 68.8%;
+  width: 56%;
+  height: 3.5%;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  z-index: 28;
   text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
-.hotspot-tiktok:hover {
-  background: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 0 16px rgba(255, 0, 80, 0.35);
+.hotspot-web-somos:hover,
+.hotspot-web-somos:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+
+.hotspot-web-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+
+.hotspot-web-somos:hover .hotspot-web-pulse {
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 /* Botón de WhatsApp dinámico y animado en la contraportada (Paleta Oficial BK3) */
 .backcover-whatsapp-wrapper {
   position: absolute;
   left: 50%;
-  top: 72%;
+  top: 75.2%;
   transform: translateX(-50%);
   width: 72%;
   max-width: 320px;
@@ -708,16 +726,16 @@ html, body {
   color: #ffffff;
   text-decoration: none;
   border-radius: 50px;
-  border: 1.5px solid #62C331;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(98, 195, 49, 0.35);
+  border: 1.5px solid #F14825;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), 0 0 16px rgba(241, 72, 37, 0.35);
   position: relative;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .backcover-wsp-button:hover {
   transform: scale(1.03) translateY(-2px);
-  border-color: #7efc3f;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.8), 0 0 24px rgba(98, 195, 49, 0.55);
+  border-color: #ff6442;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.8), 0 0 24px rgba(241, 72, 37, 0.55);
 }
 
 .backcover-wsp-button svg {
@@ -753,19 +771,19 @@ html, body {
   margin-top: 1px;
 }
 
-/* Anillo de pulso tipo faro/beacon en color BK3 Green */
+/* Anillo de pulso tipo faro/beacon en color BK3 Naranja */
 .wsp-beacon-ring {
   position: absolute;
   inset: -5px;
   border-radius: 50px;
-  border: 2px solid rgba(98, 195, 49, 0.7);
+  border: 2px solid rgba(241, 72, 37, 0.75);
   animation: wspPulseBeacon 2.2s infinite ease-out;
   pointer-events: none;
 }
 
 @keyframes wspPulseBeacon {
-  0% { transform: scale(0.96); opacity: 1; }
-  60% { transform: scale(1.15); opacity: 0; }
+  0% { transform: scale(0.96); opacity: 1; box-shadow: 0 0 0 0 rgba(241, 72, 37, 0.65); }
+  60% { transform: scale(1.15); opacity: 0; box-shadow: 0 0 22px 10px rgba(241, 72, 37, 0); }
   100% { transform: scale(1.15); opacity: 0; }
 }
 
@@ -783,7 +801,7 @@ html, body {
 .product-3d-spot .spot-bottle-img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: contain;
   opacity: 0;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.35s ease;
   transform-origin: center center;
@@ -793,7 +811,17 @@ html, body {
 .product-3d-spot.touch-active .spot-bottle-img {
   opacity: 1;
   transform: translateY(-8px) scale(1.06);
+  animation: productPulseGlow 2.4s infinite ease-in-out;
   will-change: transform, filter, opacity;
+}
+
+@keyframes productPulseGlow {
+  0%, 100% {
+    transform: translateY(-8px) scale(1.06);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.085);
+  }
 }
 
 .spot-moto:hover .spot-bottle-img,
@@ -822,8 +850,13 @@ html, body {
 }
 
 /* --------------------------------------------------------------------------
-   INTERACCIÓN EN LOS 5 PRODUCTOS DE BENEFICIOS (PÁGINA 11 / PARTE 1)
+   INTERACCIÓN EN LOS 5 PRODUCTOS DE BENEFICIOS (PÁGINA 14 / PARTE 1)
    Hitboxes calibrados con feedback visual elegante al hover/touch
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   INTERACCIÓN 3D EN LOS 5 PRODUCTOS DE BENEFICIOS (PÁGINA 14 / PARTE 1)
+   Pop-out tridimensional auténtico pixel-perfect idéntico a páginas individuales
+   Cero marcos ni cajas genéricas: solo la botella elevándose con su resplandor BK3
    -------------------------------------------------------------------------- */
 .benefit-product-spot {
   position: absolute;
@@ -833,23 +866,154 @@ html, body {
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  border-radius: 8px;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.benefit-product-spot:hover,
-.benefit-product-spot:focus-visible,
-.benefit-product-spot.touch-active {
-  background: rgba(241, 72, 37, 0.08);
-  box-shadow: 0 0 16px rgba(241, 72, 37, 0.35);
-  outline: none;
+.benefit-product-spot .spot-bottle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.35s ease;
+  transform-origin: center bottom;
+}
+
+.benefit-product-spot:hover .spot-bottle-img,
+.benefit-product-spot.touch-active .spot-bottle-img {
+  opacity: 1;
+  transform: translateY(-10px) scale(1.06);
+  animation: productPulseGlow 2.4s infinite ease-in-out;
+  will-change: transform, filter, opacity;
+}
+
+.benefit-product-spot.spot-moto:hover .spot-bottle-img,
+.benefit-product-spot.spot-moto.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 18px 28px rgba(241, 72, 37, 0.85));
+}
+.benefit-product-spot.spot-clasico:hover .spot-bottle-img,
+.benefit-product-spot.spot-clasico.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 18px 28px rgba(98, 195, 49, 0.85));
+}
+.benefit-product-spot.spot-racing:hover .spot-bottle-img,
+.benefit-product-spot.spot-racing.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 18px 28px rgba(237, 28, 36, 0.85));
+}
+.benefit-product-spot.spot-cetane:hover .spot-bottle-img,
+.benefit-product-spot.spot-cetane.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 18px 28px rgba(253, 185, 19, 0.85));
+}
+.benefit-product-spot.spot-marine:hover .spot-bottle-img,
+.benefit-product-spot.spot-marine.touch-active .spot-bottle-img {
+  filter: drop-shadow(0 18px 28px rgba(14, 135, 210, 0.85));
+}
+
+/* Hotspots de etiquetas inferiores en el podio de beneficios */
+.benefit-label-spot {
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease;
+}
+
+.benefit-label-spot:hover,
+.benefit-label-spot.touch-active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
+   PÁGINAS 2 Y 3: CATÁLOGO ÍNDICE & MANIFIESTO TECNOLÓGICO (PLIEGO 1)
    Diseño de alta fidelidad: Asfalto texturizado + Papel satinado mineral
-   Ajuste 100% responsive sin cortes en pantallas móviles o escritorio
    ========================================================================== */
+.page-index-art,
+.page-manifesto-art {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-index-art .cat-item-card {
+  position: absolute;
+  z-index: 20;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 12px;
+  background: transparent !important;
+  border: 1.5px solid transparent !important;
+  box-shadow: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.page-index-art .cat-item-card::before {
+  display: none !important;
+}
+
+.page-index-art .cat-item-card:hover,
+.page-index-art .cat-item-card:focus-visible,
+.page-index-art .cat-item-card.touch-active {
+  outline: none;
+  animation: indexCardPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes indexCardPulse {
+  0%, 100% {
+    transform: translateX(4px) scale(1);
+  }
+  50% {
+    transform: translateX(7px) scale(1.008);
+  }
+}
+
+.page-index-art .cat-item-card.cat-moto:hover {
+  background: rgba(241, 72, 37, 0.08) !important;
+  border-color: rgba(241, 72, 37, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(241, 72, 37, 0.3) !important;
+  transform: translateX(4px);
+}
+.page-index-art .cat-item-card.cat-clasico:hover {
+  background: rgba(98, 195, 49, 0.08) !important;
+  border-color: rgba(98, 195, 49, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(98, 195, 49, 0.3) !important;
+  transform: translateX(4px);
+}
+.page-index-art .cat-item-card.cat-racing:hover {
+  background: rgba(237, 28, 36, 0.08) !important;
+  border-color: rgba(237, 28, 36, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(237, 28, 36, 0.3) !important;
+  transform: translateX(4px);
+}
+.page-index-art .cat-item-card.cat-cetane:hover {
+  background: rgba(253, 185, 19, 0.08) !important;
+  border-color: rgba(253, 185, 19, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(253, 185, 19, 0.3) !important;
+  transform: translateX(4px);
+}
+.page-index-art .cat-item-card.cat-marine:hover {
+  background: rgba(14, 135, 210, 0.08) !important;
+  border-color: rgba(14, 135, 210, 0.65) !important;
+  box-shadow: 0 4px 20px rgba(14, 135, 210, 0.3) !important;
+  transform: translateX(4px);
+}
+
+.page-index-art .cat-item-card:active,
+.page-index-art .cat-item-card.card-jumping {
+  transform: scale(0.985);
+  background: rgba(245, 158, 11, 0.1) !important;
+  border-color: #f59e0b !important;
+}
 
 .page-index-custom {
   background: #14171a url('../assets/asphalt_texture.webp') repeat;
@@ -1133,6 +1297,297 @@ html, body {
   color: #64748b;
   font-family: var(--font-mono);
   flex-shrink: 0;
+}
+
+/* Animación táctil de salto en tarjeta del índice */
+.cat-item-card.card-jumping {
+  transform: scale(0.96) translateX(6px) !important;
+  box-shadow: 0 0 18px rgba(241, 72, 37, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.9) !important;
+  border-color: var(--color-moto) !important;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.12s ease !important;
+}
+
+.cat-item-card.card-jumping .cat-jump-pill {
+  background: var(--brand-navy) !important;
+  color: #ffffff !important;
+  transform: translateX(4px) !important;
+}
+
+/* ==========================================================================
+   PÁGINA 3: MANIFIESTO BK3 SOLUTIONS (PLIEGO DE APERTURA COMPAÑERO DEL ÍNDICE)
+   ========================================================================== */
+.page-manifesto-custom {
+  background: #14171a url('../assets/asphalt_texture.webp') repeat;
+  background-size: 320px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.manifesto-scroll-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.manifesto-top-section {
+  padding: 24px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  flex-shrink: 0;
+  min-height: 140px;
+}
+
+.manifesto-badge {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #ffffff;
+  background: var(--color-moto);
+  padding: 3px 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.manifesto-main-title {
+  font-family: 'Nexa Rust Sans', var(--font-display);
+  font-size: 1.62rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+  line-height: 1.15;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+  margin: 0;
+  max-width: 480px;
+}
+
+.manifesto-main-title .highlight-orange {
+  color: var(--color-moto);
+}
+
+.manifesto-main-title .highlight-green {
+  color: var(--color-clasico);
+}
+
+.manifesto-satin-panel {
+  flex: 1;
+  min-height: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
+  border-radius: 12px 12px 0 0;
+  padding: 12px 16px 8px 16px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 5;
+}
+
+.manifesto-satin-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.manifesto-pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+  min-height: 0;
+  justify-content: space-evenly;
+}
+
+.manifesto-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-left: 4px solid var(--color-clasico);
+  border-radius: 8px;
+  padding: 7px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.manifesto-card:nth-child(2) {
+  border-left-color: var(--color-moto);
+}
+
+.manifesto-card:nth-child(3) {
+  border-left-color: var(--color-racing);
+}
+
+.manifesto-card-num {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #17202d;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.manifesto-card-content h4 {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #17202d;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.manifesto-card-content p {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  color: #475569;
+  line-height: 1.25;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Sellos Técnicos y Garantías de Formulación (Rejilla 2x2) */
+.manifesto-tech-seals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px 10px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  margin-top: 4px;
+}
+
+.tech-seal-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.tech-seal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tech-seal-dot.dot-orange { background: var(--color-moto); }
+.tech-seal-dot.dot-green { background: var(--color-clasico); }
+.tech-seal-dot.dot-yellow { background: var(--color-cetane); }
+.tech-seal-dot.dot-blue { background: var(--color-marine); }
+
+.tech-seal-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.tech-seal-text strong {
+  font-family: var(--font-body);
+  font-size: 0.60rem;
+  color: #1e293b;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.tech-seal-text span {
+  font-family: var(--font-body);
+  font-size: 0.52rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Lema Oficial Destacado */
+.manifesto-slogan-strip {
+  text-align: center;
+  padding: 5px 8px;
+  background: rgba(241, 72, 37, 0.07);
+  border: 1px dashed rgba(241, 72, 37, 0.35);
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+.manifesto-slogan-strip span {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 900;
+  color: var(--color-moto);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.manifesto-cta-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #17202d;
+  border-radius: 8px;
+  padding: 7px 12px;
+  margin-top: 4px;
+  gap: 8px;
+}
+
+.manifesto-guarantee-text {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.manifesto-cta-btn {
+  background: linear-gradient(135deg, var(--color-moto) 0%, #d83a18 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  box-shadow: 0 3px 8px rgba(241, 72, 37, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.manifesto-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(241, 72, 37, 0.45);
+}
+
+.manifesto-footer-strip {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: #94a3b8;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
 }
 
 /* ==========================================================================
@@ -2058,4 +2513,379 @@ html, body {
     padding-top: 3px;
   }
 
+}
+
+/* ==========================================================================
+   PÁGINAS DE PRODUCTO EN CÓDIGO VIVO (DOM REAL HTML5 + CSS3)
+   100% Inspeccionable con F12 • Ajuste tipográfico inmediato • Cero WebP
+   ========================================================================== */
+
+.page-product-custom {
+  background: #ffffff;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.page-product-custom.page-moto-p1,
+.page-product-custom.page-moto-p2 {
+  --accent: var(--color-moto);
+}
+
+.page-product-custom.page-cetane-p1,
+.page-product-custom.page-cetane-p2 {
+  --accent: var(--color-cetane);
+}
+
+.product-page-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* 1. Header de Asfalto Texturizado */
+.prod-top-header {
+  position: relative;
+  background: #14171a url('../assets/asphalt_texture.webp') repeat center / 320px;
+  padding: 18px 24px 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+  border-bottom: 3px solid var(--accent);
+}
+
+.prod-bottle-col {
+  position: relative;
+  width: 110px;
+  height: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.prod-hero-bottle {
+  max-height: 165px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.75));
+  transition: transform 0.3s ease;
+}
+
+.prod-bottle-col:hover .prod-hero-bottle {
+  transform: scale(1.05) translateY(-3px);
+}
+
+.prod-badge-neto {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #17202D;
+  border: 1.5px solid var(--accent);
+  color: #ffffff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.70rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.prod-badge-neto span {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.prod-header-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.prod-title-display {
+  font-family: 'Barlow Condensed', 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 2.15rem;
+  line-height: 0.95;
+  color: var(--color-clasico);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.85);
+}
+
+.prod-sub-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prod-pill-accent {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--accent);
+  color: #14171a;
+  font-weight: 900;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 0.70rem;
+}
+
+/* Header Compacto para Parte 2 */
+.prod-top-header.compact {
+  padding: 16px 24px;
+  justify-content: space-between;
+}
+
+.prod-top-header.compact .prod-title-display {
+  font-size: 1.85rem;
+}
+
+.prod-sub-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prod-pill-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 0.80rem;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #17202D;
+  border: 2px solid var(--accent);
+  border-radius: 20px;
+  padding: 3px 12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.prod-pill-tag strong {
+  color: var(--accent);
+}
+
+/* 2. Cuerpo Blanco Editorial */
+.prod-body-white {
+  flex: 1;
+  min-height: 0;
+  background: #ffffff;
+  padding: 16px 24px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.prod-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.prod-sec-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 0.72rem;
+  color: #ffffff;
+  background: var(--accent);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.prod-sec-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+}
+
+.prod-sec-dark {
+  color: #17202D;
+}
+
+/* Lista de Beneficios */
+.prod-items-list {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 8px;
+}
+
+.prod-item-row {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: flex-start;
+  column-gap: 8px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 6px;
+}
+
+.prod-item-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.prod-item-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.85rem;
+  line-height: 0.9;
+  color: var(--accent);
+}
+
+.prod-item-info h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  color: #17202D;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.prod-item-info p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: #334155;
+}
+
+.prod-item-info p strong {
+  font-weight: 800;
+  color: #17202D;
+}
+
+/* Módulo de Modo de Empleo */
+.prod-modo-box {
+  background: #f8fafc;
+  border-left: 6px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+}
+
+.prod-modo-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.prod-modo-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prod-modo-row {
+  display: grid;
+  grid-template-columns: 85px 35px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.prod-modo-veh {
+  width: 85px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.prod-modo-bot {
+  height: 42px;
+  width: auto;
+  justify-self: center;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25));
+}
+
+.prod-modo-tag {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 0.70rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1px;
+}
+
+.prod-modo-text p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  color: #17202D;
+  font-weight: 500;
+}
+
+.prod-modo-text p strong {
+  font-weight: 800;
+}
+
+/* Pie Editorial */
+.prod-footer-strip {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #17202D;
+  flex-shrink: 0;
+}
+
+.prod-footer-accent {
+  color: var(--accent);
+}
+
+.prod-footer-part {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }

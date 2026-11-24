@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261118_v27_moto_phase2">
+  <link rel="stylesheet" href="css/style.css?v=20261123_bk3_3d_benefits_clean_capsules">
   <link rel="icon" type="image/png" href="assets/logos/BK3_solo_nombre_transparente.png">
 </head>
 <body>
@@ -112,7 +112,7 @@
         <!-- ==================================================================
              PÁGINA 1: PORTADA OFICIAL (BROCHURE ORIGINAL)
              ================================================================== -->
-        <div class="page page-art page-cover" data-density="soft">
+        <div class="page page-art page-cover" data-density="soft" data-anchor="portada">
           <img src="assets/pages_webp/page-01.webp?v=20261118_v27_octane_text_scaled" alt="BK3 Octane Booster Portada" class="page-art-img" loading="eager">
           <button id="btnOpenCatalog" class="cover-open-btn" title="Abrir Revista">
             <span>ABRIR REVISTA</span>
@@ -124,121 +124,36 @@
         <!-- ==================================================================
              PÁGINA 2: APARTADO GENERAL DE TODOS LOS PRODUCTOS (ÍNDICE EDITORIAL)
              ================================================================== -->
-        <div class="page page-index-custom" data-density="soft">
-          <div class="index-scroll-wrapper">
-            <!-- Mitad superior: Textura de asfalto con vitrina editorial de bienvenida -->
-            <div class="index-top-section">
-              <span class="index-badge">LÍNEA BK3 OCTANE BOOSTER</span>
-              <h2 class="index-main-title">TODOS LOS PRODUCTOS</h2>
-              <p class="index-main-desc">FORMULAS EXACTAS, POTENCIA REAL</p>
-            </div>
-
-            <!-- Mitad inferior: Panel blanco satinado con tarjetas de producto -->
-            <div class="index-satin-panel">
-              <div class="catalog-cards-list">
-                <!-- 1. BK3 Octane Booster Moto -> Salta a página 3 (index 2) -->
-                <div class="cat-item-card cat-moto" data-target-page="2" role="button" tabindex="0">
-                  <div class="cat-thumb-box">
-                    <img src="assets/products/spot_moto.png" alt="BK3 Octane Booster Moto">
-                  </div>
-                  <div class="cat-details">
-                    <div class="cat-header-line">
-                      <h3 class="cat-title">BK3 OCTANE BOOSTER MOTO</h3>
-                      <span class="cat-jump-pill">PÁG. 03 &#10148;</span>
-                    </div>
-                    <div class="cat-spec-line">
-                      <span class="cat-pill">Motos Baja Cilindrada</span>
-                      <span class="cat-vol-tag">250 ml</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 2. BK3 Octane Booster Clásico -> Salta a página 5 (index 4) -->
-                <div class="cat-item-card cat-clasico" data-target-page="4" role="button" tabindex="0">
-                  <div class="cat-thumb-box">
-                    <img src="assets/products/spot_clasico.png" alt="BK3 Octane Booster Clásico">
-                  </div>
-                  <div class="cat-details">
-                    <div class="cat-header-line">
-                      <h3 class="cat-title">BK3 OCTANE BOOSTER CLÁSICO</h3>
-                      <span class="cat-jump-pill">PÁG. 05 &#10148;</span>
-                    </div>
-                    <div class="cat-spec-line">
-                      <span class="cat-pill">Uso Diario y Media Gama</span>
-                      <span class="cat-vol-tag">500ml • 1L • 5L</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 3. BK3 Octane Booster Racing -> Salta a página 7 (index 6) -->
-                <div class="cat-item-card cat-racing" data-target-page="6" role="button" tabindex="0">
-                  <div class="cat-thumb-box">
-                    <img src="assets/products/spot_racing.png" alt="BK3 Octane Booster Racing">
-                  </div>
-                  <div class="cat-details">
-                    <div class="cat-header-line">
-                      <h3 class="cat-title">BK3 OCTANE BOOSTER RACING</h3>
-                      <span class="cat-jump-pill">PÁG. 07 &#10148;</span>
-                    </div>
-                    <div class="cat-spec-line">
-                      <span class="cat-pill">Alta Gama, Turbo y Competición</span>
-                      <span class="cat-vol-tag">1 Litro</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 4. BK3 Cetanium Booster -> Salta a página 9 (index 8) -->
-                <div class="cat-item-card cat-cetane" data-target-page="8" role="button" tabindex="0">
-                  <div class="cat-thumb-box">
-                    <img src="assets/products/spot_cetane.png" alt="BK3 Cetanium Booster">
-                  </div>
-                  <div class="cat-details">
-                    <div class="cat-header-line">
-                      <h3 class="cat-title">BK3 CETANIUM BOOSTER</h3>
-                      <span class="cat-jump-pill">PÁG. 09 &#10148;</span>
-                    </div>
-                    <div class="cat-spec-line">
-                      <span class="cat-pill">Motores Diésel</span>
-                      <span class="cat-vol-tag">1L • 5L</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 5. BK3 Performance Marine -> Salta a página 10 (index 9) -->
-                <div class="cat-item-card cat-marine" data-target-page="9" role="button" tabindex="0">
-                  <div class="cat-thumb-box">
-                    <img src="assets/products/spot_marine.png" alt="BK3 Performance Marine">
-                  </div>
-                  <div class="cat-details">
-                    <div class="cat-header-line">
-                      <h3 class="cat-title">BK3 PERFORMANCE MARINE</h3>
-                      <span class="cat-jump-pill">PÁG. 10 &#10148;</span>
-                    </div>
-                    <div class="cat-spec-line">
-                      <span class="cat-pill">Náutica & Embarcaciones</span>
-                      <span class="cat-vol-tag">5 Litros</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="index-footer-strip">
-                <span>BK3 SOLUTIONS C.A. • CATÁLOGO INTERACTIVO</span>
-                <span>PÁGINA 02</span>
-              </div>
-            </div>
-          </div>
+        <div class="page page-art page-index-art" data-density="soft" data-anchor="catalogo">
+          <img src="assets/pages_webp/page-catalogo.webp?v=1795400000" alt="Línea BK3 Octane Booster - Catálogo Completo" class="page-art-img" loading="lazy">
+          
+          <!-- Hotspots interactivos táctiles y accesibles calibrados sobre cada tarjeta de producto hacia sus anclas -->
+          <div class="cat-item-card cat-moto" style="left: 4.71%; top: 17.27%; width: 90.59%; height: 10.64%;" data-target-anchor="moto" role="button" tabindex="0" title="Ver BK3 Octane Booster Moto" aria-label="Ver BK3 Octane Booster Moto"></div>
+          <div class="cat-item-card cat-clasico" style="left: 4.71%; top: 28.73%; width: 90.59%; height: 10.64%;" data-target-anchor="clasico" role="button" tabindex="0" title="Ver BK3 Octane Booster Clásico" aria-label="Ver BK3 Octane Booster Clásico"></div>
+          <div class="cat-item-card cat-racing" style="left: 4.71%; top: 40.18%; width: 90.59%; height: 10.64%;" data-target-anchor="racing" role="button" tabindex="0" title="Ver BK3 Octane Booster Racing" aria-label="Ver BK3 Octane Booster Racing"></div>
+          <div class="cat-item-card cat-cetane" style="left: 4.71%; top: 51.64%; width: 90.59%; height: 10.64%;" data-target-anchor="cetane" role="button" tabindex="0" title="Ver BK3 Cetanium Booster" aria-label="Ver BK3 Cetanium Booster"></div>
+          <div class="cat-item-card cat-marine" style="left: 4.71%; top: 63.09%; width: 90.59%; height: 10.64%;" data-target-anchor="marine" role="button" tabindex="0" title="Ver BK3 Performance Marine" aria-label="Ver BK3 Performance Marine"></div>
 
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 3: BK3 MOTO - PARTE 1 (PÁGINA 2A DEL BROCHURE)
+             PÁGINA 3: MANIFIESTO BK3 SOLUTIONS (PLIEGO DE APERTURA COMPAÑERO DEL ÍNDICE)
              ================================================================== -->
-        <div class="page page-art page-moto page-moto-part1" data-density="soft">
-          <img src="assets/pages_webp/page-moto-01.webp?v=20261118_v1" alt="BK3 Moto - Potenciador de Octanaje Motos Baja Cilindrada" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-moto" style="left: 6.47%; top: 3.18%; width: 30.0%; height: 40.91%;" title="Toca o pasa el cursor para ver BK3 Moto 3D">
+        <div class="page page-art page-manifesto-art" data-density="soft" data-anchor="manifiesto">
+          <img src="assets/pages_webp/page-manifiesto.webp?v=1795400000" alt="No es química simple, es tecnología química de vanguardia - Manifiesto BK3" class="page-art-img" loading="lazy">
+          
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 4: BK3 MOTO - PARTE 1 (PÁGINA 2A DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art page-moto page-moto-part1" data-density="soft" data-anchor="moto">
+          <img src="assets/pages_webp/page-moto-01.webp?v=capsula_10_10" alt="BK3 Moto - Potenciador de Octanaje Motos Baja Cilindrada" class="page-art-img" loading="lazy">
+          <div class="product-3d-spot spot-moto" style="left: 9.95%; top: 19.32%; width: 14.22%; height: 19.09%;" title="Toca o pasa el cursor para ver BK3 Moto 3D">
             <img src="assets/products/spot_moto.png" alt="BK3 Moto 3D" class="spot-bottle-img">
           </div>
           <div class="page-satin-sheen"></div>
@@ -246,20 +161,20 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 4: BK3 MOTO - PARTE 2: MODO DE EMPLEO (PÁGINA 2B DEL BROCHURE)
+             PÁGINA 5: BK3 MOTO - PARTE 2: MODO DE EMPLEO (PÁGINA 2B DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-moto page-moto-part2" data-density="soft">
-          <img src="assets/pages_webp/page-moto-02.webp?v=20261118_v1" alt="BK3 Moto - Respuesta Dinámica y Modo de Empleo" class="page-art-img" loading="lazy">
+        <div class="page page-art page-moto page-moto-part2" data-density="soft" data-anchor="moto-2">
+          <img src="assets/pages_webp/page-moto-02.webp?v=capsula_10_10" alt="BK3 Moto - Respuesta Dinámica y Modo de Empleo" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 4: BK3 CLÁSICO (PÁGINA 3 DEL BROCHURE)
+             PÁGINA 6: BK3 CLÁSICO - PARTE 1 (PÁGINA 3 DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-clasico" data-density="soft">
-          <img src="assets/pages_webp/page-03.webp" alt="BK3 Clásico - Uso Diario y Alta Cilindrada" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-clasico" style="left: 4.26%; top: 0%; width: 37.34%; height: 49.83%;" title="Toca o pasa el cursor para ver BK3 Clásico 3D">
+        <div class="page page-art page-clasico page-clasico-part1" data-density="soft" data-anchor="clasico">
+          <img src="assets/pages_webp/page-clasico-01.webp?v=capsula_clean_v2" alt="BK3 Clásico - Uso Diario y Alta Cilindrada" class="page-art-img" loading="lazy">
+          <div class="product-3d-spot spot-clasico" style="left: 9.90%; top: 20.47%; width: 14.32%; height: 19.09%;" title="Toca o pasa el cursor para ver BK3 Clásico 3D">
             <img src="assets/products/spot_clasico.png" alt="BK3 Clásico 3D" class="spot-bottle-img">
           </div>
           <div class="page-satin-sheen"></div>
@@ -267,20 +182,20 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 5: DEMOSTRACIÓN LABORATORIO CLÁSICO (PÁGINA 4 DEL BROCHURE)
+             PÁGINA 7: BK3 CLÁSICO - PARTE 2: DOSIFICACIÓN & MODO DE EMPLEO
              ================================================================== -->
-        <div class="page page-art" data-density="soft">
-          <img src="assets/pages_webp/page-04.webp" alt="Pruebas de Laboratorio BK3" class="page-art-img" loading="lazy">
+        <div class="page page-art page-clasico page-clasico-part2" data-density="soft" data-anchor="clasico-lab">
+          <img src="assets/pages_webp/page-clasico-02.webp?v=capsula_10_10" alt="BK3 Clásico - Rendimiento y Modo de Empleo" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 6: BK3 RACING (PÁGINA 5 DEL BROCHURE)
+             PÁGINA 8: BK3 RACING - PARTE 1 (PÁGINA 5 DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-racing" data-density="soft">
-          <img src="assets/pages_webp/page-05.webp" alt="BK3 Racing - Turbo y Blindados" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-racing" style="left: 11.99%; top: 3.81%; width: 23.60%; height: 43.75%;" title="Toca o pasa el cursor para ver BK3 Racing 3D">
+        <div class="page page-art page-racing page-racing-part1" data-density="soft" data-anchor="racing">
+          <img src="assets/pages_webp/page-racing-01.webp?v=capsula_10_10" alt="BK3 Racing - Turbo y Blindados" class="page-art-img" loading="lazy">
+          <div class="product-3d-spot spot-racing" style="left: 11.91%; top: 20.47%; width: 10.30%; height: 19.09%;" title="Toca o pasa el cursor para ver BK3 Racing 3D">
             <img src="assets/products/spot_racing.png" alt="BK3 Racing 3D" class="spot-bottle-img">
           </div>
           <div class="page-satin-sheen"></div>
@@ -288,20 +203,20 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 7: DEMOSTRACIÓN LABORATORIO RACING (PÁGINA 6 DEL BROCHURE)
+             PÁGINA 9: BK3 RACING - PARTE 2: DOSIFICACIÓN & MODO DE EMPLEO
              ================================================================== -->
-        <div class="page page-art" data-density="soft">
-          <img src="assets/pages_webp/page-06.webp" alt="Demostración de Lubricidad BK3" class="page-art-img" loading="lazy">
+        <div class="page page-art page-racing page-racing-part2" data-density="soft" data-anchor="racing-lab">
+          <img src="assets/pages_webp/page-racing-02.webp?v=capsula_10_10" alt="BK3 Racing - Rendimiento y Modo de Empleo" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 8: BK3 CETANIUM BOOSTER (PÁGINA 7 DEL BROCHURE)
+             PÁGINA 10: BK3 CETANIUM BOOSTER (PÁGINA 7 DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-cetane" data-density="soft">
-          <img src="assets/pages_webp/page-07.webp" alt="BK3 Cetanium Booster Diésel" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-cetane" style="left: 8.26%; top: 3.85%; width: 23.88%; height: 43.66%;" title="Toca o pasa el cursor para ver BK3 Cetanium 3D">
+        <div class="page page-art page-cetane page-cetane-part1" data-density="soft" data-anchor="cetane">
+          <img src="assets/pages_webp/page-cetane-01.webp?v=capsula_clean_v2" alt="BK3 Cetanium Booster Diésel" class="page-art-img" loading="lazy">
+          <div class="product-3d-spot spot-cetane" style="left: 11.83%; top: 22.11%; width: 10.45%; height: 19.09%;" title="Toca o pasa el cursor para ver BK3 Cetanium 3D">
             <img src="assets/products/spot_cetane.png" alt="BK3 Cetanium 3D" class="spot-bottle-img">
           </div>
           <div class="page-satin-sheen"></div>
@@ -309,11 +224,20 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 9: BK3 PERFORMANCE MARINE (PÁGINA 8 DEL BROCHURE)
+             PÁGINA 11: BK3 CETANIUM BOOSTER - PARTE 2: DOSIFICACIÓN & MODO DE EMPLEO
              ================================================================== -->
-        <div class="page page-art page-marine" data-density="soft">
-          <img src="assets/pages_webp/page-08.webp" alt="BK3 Performance Marine Línea Náutica" class="page-art-img" loading="lazy">
-          <div class="product-3d-spot spot-marine" style="left: 5.84%; top: 3.53%; width: 30.49%; height: 45.96%;" title="Toca o pasa el cursor para ver BK3 Marine 3D">
+        <div class="page page-art page-cetane page-cetane-part2" data-density="soft" data-anchor="cetane-lab">
+          <img src="assets/pages_webp/page-cetane-02.webp?v=capsula_10_10" alt="BK3 Cetanium Booster - Modo de Empleo y Dosificación" class="page-art-img" loading="lazy">
+          <div class="page-satin-sheen"></div>
+          <div class="page-satin-spine"></div>
+        </div>
+
+        <!-- ==================================================================
+             PÁGINA 12: BK3 PERFORMANCE MARINE - PARTE 1 (PÁGINA 8 DEL BROCHURE)
+             ================================================================== -->
+        <div class="page page-art page-marine page-marine-part1" data-density="soft" data-anchor="marine">
+          <img src="assets/pages_webp/page-marine-01.webp?v=capsula_10_10" alt="BK3 Performance Marine Línea Náutica" class="page-art-img" loading="lazy">
+          <div class="product-3d-spot spot-marine" style="left: 10.73%; top: 19.91%; width: 12.66%; height: 19.09%;" title="Toca o pasa el cursor para ver BK3 Marine 3D">
             <img src="assets/products/spot_marine.png" alt="BK3 Marine 3D" class="spot-bottle-img">
           </div>
           <div class="page-satin-sheen"></div>
@@ -321,49 +245,68 @@
         </div>
 
         <!-- ==================================================================
-             PÁGINA 10: DEMOSTRACIÓN LABORATORIO MARINE (PÁGINA 9 DEL BROCHURE)
+             PÁGINA 13: BK3 PERFORMANCE MARINE - PARTE 2: DOSIFICACIÓN & MODO DE EMPLEO
              ================================================================== -->
-        <div class="page page-art" data-density="soft">
-          <img src="assets/pages_webp/page-09.webp" alt="Pruebas de Calidad Marina BK3" class="page-art-img" loading="lazy">
+        <div class="page page-art page-marine page-marine-part2" data-density="soft" data-anchor="marine-lab">
+          <img src="assets/pages_webp/page-marine-02.webp?v=capsula_10_10" alt="BK3 Performance Marine - Modo de Empleo y Dosificación" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 11: LOS 7 BENEFICIOS • PARTE 1 (RENDIMIENTO & POTENCIA)
+             PÁGINA 14: LOS 7 BENEFICIOS • PARTE 1 (RENDIMIENTO & POTENCIA)
              Página maestra de tecnología compartida para toda la gama BK3
              ================================================================== -->
-        <div class="page page-art page-7-benefits page-7-benefits-part1" data-density="soft">
-          <img src="assets/pages_webp/page-beneficios-01.webp?v=20261118_v2" alt="Los 7 Beneficios Oficiales BK3 Solutions - Parte 1: Rendimiento & Potencia" class="page-art-img" loading="lazy">
+        <div class="page page-art page-7-benefits page-7-benefits-part1" data-density="soft" data-anchor="beneficios-1">
+          <img src="assets/pages_webp/page-beneficios-01.webp?v=single_clasico_1l_v4" alt="Los 7 Beneficios Oficiales BK3 Solutions - Parte 1: Plataforma Tecnológica y Showroom" class="page-art-img" loading="lazy">
           
-          <!-- Hotspots interactivos transparentes calibrados exactamente sobre cada botella (Fase 1) -->
-          <div class="benefit-product-spot spot-moto" style="left: 8.5%; top: 22.3%; width: 13.0%; height: 18.2%;" data-target-page="2" role="button" tabindex="0" title="Ver BK3 Moto" aria-label="Ver BK3 Moto"></div>
-          <div class="benefit-product-spot spot-clasico" style="left: 27.5%; top: 22.3%; width: 13.5%; height: 18.2%;" data-target-page="4" role="button" tabindex="0" title="Ver BK3 Clásico" aria-label="Ver BK3 Clásico"></div>
-          <div class="benefit-product-spot spot-racing" style="left: 45.5%; top: 22.3%; width: 13.0%; height: 18.2%;" data-target-page="6" role="button" tabindex="0" title="Ver BK3 Racing" aria-label="Ver BK3 Racing"></div>
-          <div class="benefit-product-spot spot-cetane" style="left: 62.0%; top: 22.3%; width: 13.0%; height: 18.2%;" data-target-page="8" role="button" tabindex="0" title="Ver BK3 Cetanium" aria-label="Ver BK3 Cetanium"></div>
-          <div class="benefit-product-spot spot-marine" style="left: 79.0%; top: 22.3%; width: 13.5%; height: 18.2%;" data-target-page="9" role="button" tabindex="0" title="Ver BK3 Performance Marine" aria-label="Ver BK3 Performance Marine"></div>
+          <!-- Hotspots interactivos 3D calibrados sobre cada producto en el podio (escalas reales y espaciado equidistante) hacia sus anclas -->
+          <div class="benefit-product-spot spot-moto" style="left: 5.81%; top: 41.59%; width: 13.98%; height: 19.09%;" data-target-anchor="moto" role="button" tabindex="0" title="Ver BK3 Moto" aria-label="Ver BK3 Moto">
+            <img src="assets/products/spot_moto_showcase.png" alt="BK3 Moto 3D" class="spot-bottle-img">
+          </div>
+          <div class="benefit-product-spot spot-clasico" style="left: 23.96%; top: 34.32%; width: 12.53%; height: 26.36%;" data-target-anchor="clasico" role="button" tabindex="0" title="Ver BK3 Clásico" aria-label="Ver BK3 Clásico">
+            <img src="assets/products/spot_clasico_showcase.png?v=single1l" alt="BK3 Clásico 3D" class="spot-bottle-img">
+          </div>
+          <div class="benefit-product-spot spot-racing" style="left: 40.79%; top: 33.41%; width: 13.71%; height: 27.27%;" data-target-anchor="racing" role="button" tabindex="0" title="Ver BK3 Racing" aria-label="Ver BK3 Racing">
+            <img src="assets/products/spot_racing_showcase.png" alt="BK3 Racing 3D" class="spot-bottle-img">
+          </div>
+          <div class="benefit-product-spot spot-cetane" style="left: 58.47%; top: 34.32%; width: 13.20%; height: 26.36%;" data-target-anchor="cetane" role="button" tabindex="0" title="Ver BK3 Cetanium" aria-label="Ver BK3 Cetanium">
+            <img src="assets/products/spot_cetane_showcase.png" alt="BK3 Cetanium 3D" class="spot-bottle-img">
+          </div>
+          <div class="benefit-product-spot spot-marine" style="left: 75.30%; top: 26.59%; width: 19.11%; height: 34.09%;" data-target-anchor="marine" role="button" tabindex="0" title="Ver BK3 Performance Marine" aria-label="Ver BK3 Performance Marine">
+            <img src="assets/products/marine_gallon_flawless.png" alt="BK3 Performance Marine 3D" class="spot-bottle-img">
+          </div>
+
+          <!-- Hotspots de etiquetas inferiores en el podio -->
+          <div class="benefit-label-spot" style="left: 4.71%; top: 62.55%; width: 16.18%; height: 5.25%;" data-target-anchor="moto" role="button" tabindex="0" title="Ver BK3 Moto" aria-label="Ver BK3 Moto"></div>
+          <div class="benefit-label-spot" style="left: 22.13%; top: 62.55%; width: 16.18%; height: 5.25%;" data-target-anchor="clasico" role="button" tabindex="0" title="Ver BK3 Clásico" aria-label="Ver BK3 Clásico"></div>
+          <div class="benefit-label-spot" style="left: 39.56%; top: 62.55%; width: 16.18%; height: 5.25%;" data-target-anchor="racing" role="button" tabindex="0" title="Ver BK3 Racing" aria-label="Ver BK3 Racing"></div>
+          <div class="benefit-label-spot" style="left: 56.99%; top: 62.55%; width: 16.18%; height: 5.25%;" data-target-anchor="cetane" role="button" tabindex="0" title="Ver BK3 Cetanium" aria-label="Ver BK3 Cetanium"></div>
+          <div class="benefit-label-spot" style="left: 74.41%; top: 62.55%; width: 20.88%; height: 5.25%;" data-target-anchor="marine" role="button" tabindex="0" title="Ver BK3 Performance Marine" aria-label="Ver BK3 Performance Marine"></div>
 
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 12: LOS 7 BENEFICIOS • PARTE 2 (BLINDAJE & CUIDADO)
+             PÁGINA 15: LOS 7 BENEFICIOS • PARTE 2 (MATRIZ MODULAR DE BLINDAJE)
              ================================================================== -->
-        <div class="page page-art page-7-benefits page-7-benefits-part2" data-density="soft">
-          <img src="assets/pages_webp/page-beneficios-02.webp?v=20261118_v2" alt="Los 7 Beneficios Oficiales BK3 Solutions - Parte 2: Blindaje & Cuidado" class="page-art-img" loading="lazy">
+        <div class="page page-art page-7-benefits page-7-benefits-part2" data-density="soft" data-anchor="beneficios-2">
+          <img src="assets/pages_webp/page-beneficios-02.webp?v=balanced_titles_v5_gold_bold" alt="Los 7 Beneficios Oficiales BK3 Solutions - Parte 2: Matriz Modular de los 7 Beneficios" class="page-art-img" loading="lazy">
           <div class="page-satin-sheen"></div>
           <div class="page-satin-spine"></div>
         </div>
 
         <!-- ==================================================================
-             PÁGINA 13: CONTRAPORTADA OFICIAL (PÁGINA 10 DEL BROCHURE)
+             PÁGINA 16: CONTRAPORTADA OFICIAL (PÁGINA 10 DEL BROCHURE)
              ================================================================== -->
-        <div class="page page-art page-back-cover" data-density="soft">
-          <img src="assets/pages_webp/page-10.webp" alt="BK3 Contacto y Redes Oficiales" class="page-art-img" loading="lazy">
-          
-          <!-- Hotspot Interactivo a TikTok @octaneboostervenezuela -->
-          <a href="https://www.tiktok.com/@octaneboostervenezuela?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="hotspot-link hotspot-tiktok" title="Abrir TikTok @octaneboostervenezuela" aria-label="TikTok @octaneboostervenezuela"></a>
+        <div class="page page-art page-back-cover" data-density="soft" data-anchor="contacto">
+          <img src="assets/pages_webp/page-10.webp?v=purged_portada_v5" alt="BK3 Contacto y Redes Oficiales" class="page-art-img" loading="lazy">
+
+          <!-- Hotspot Interactivo Web Oficial BK3: Somos Nosotros -->
+          <a href="https://bk3octanebooster.com/somos-nosotros/" target="_blank" rel="noopener noreferrer" class="hotspot-link hotspot-web-somos" title="Conoce Nuestra Historia: bk3octanebooster.com/somos-nosotros" aria-label="Visitar portal web oficial de BK3 Solutions: Somos Nosotros">
+            <span class="hotspot-web-pulse"></span>
+          </a>
 
           <!-- Botón Dinámico de WhatsApp en la Contraportada -->
           <div id="backCoverWhatsAppBtn" class="backcover-whatsapp-wrapper">
@@ -393,7 +336,7 @@
       <button id="btnCloseThumbs" class="thumbs-close-btn" type="button" aria-label="Cerrar índice">&times;</button>
     </div>
     <div class="thumbs-scroll-strip">
-      <div class="thumb-item active" data-page="0">
+      <div class="thumb-item active" data-target-anchor="portada" data-page="0">
         <div class="thumb-img-wrapper">
           <img src="assets/pages_webp/page-01.webp?v=20261118_v27_octane_text_scaled" alt="Pág 1" loading="lazy">
           <span class="thumb-badge-num">01</span>
@@ -401,109 +344,122 @@
         <span class="thumb-card-title">Portada</span>
       </div>
 
-      <div class="thumb-item" data-page="1">
-        <div class="thumb-img-wrapper thumb-custom-bg">
-          <div class="thumb-mini-mosaic">
-            <span>BK3</span>
-            <small>TODOS</small>
-          </div>
+      <div class="thumb-item" data-target-anchor="catalogo" data-page="1">
+        <div class="thumb-img-wrapper">
+          <img src="assets/pages_webp/page-catalogo.webp?v=1795400000" alt="Pág 2" loading="lazy">
           <span class="thumb-badge-num">02</span>
         </div>
         <span class="thumb-card-title">Catálogo</span>
       </div>
 
-      <div class="thumb-item" data-page="2" style="--thumb-accent: var(--color-moto);">
+      <div class="thumb-item" data-target-anchor="manifiesto" data-page="2" style="--thumb-accent: #0369a1;">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-moto-01.webp" alt="Pág 3" loading="lazy">
+          <img src="assets/pages_webp/page-manifiesto.webp?v=1795400000" alt="Pág 3" loading="lazy">
           <span class="thumb-badge-num">03</span>
+        </div>
+        <span class="thumb-card-title">Manifiesto</span>
+      </div>
+
+      <div class="thumb-item" data-target-anchor="moto" data-page="3" style="--thumb-accent: var(--color-moto);">
+        <div class="thumb-img-wrapper">
+          <img src="assets/pages_webp/page-moto-01.webp?v=capsula_10_10" alt="Pág 4" loading="lazy">
+          <span class="thumb-badge-num">04</span>
         </div>
         <span class="thumb-card-title">Moto I</span>
       </div>
 
-      <div class="thumb-item" data-page="3" style="--thumb-accent: var(--color-moto);">
+      <div class="thumb-item" data-target-anchor="moto-2" data-page="4" style="--thumb-accent: var(--color-moto);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-moto-02.webp" alt="Pág 4" loading="lazy">
-          <span class="thumb-badge-num">04</span>
+          <img src="assets/pages_webp/page-moto-02.webp?v=capsula_10_10" alt="Pág 5" loading="lazy">
+          <span class="thumb-badge-num">05</span>
         </div>
         <span class="thumb-card-title">Moto II</span>
       </div>
 
-      <div class="thumb-item" data-page="4" style="--thumb-accent: var(--color-clasico);">
+      <div class="thumb-item" data-target-anchor="clasico" data-page="5" style="--thumb-accent: var(--color-clasico);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-03.webp" alt="Pág 5" loading="lazy">
-          <span class="thumb-badge-num">05</span>
+          <img src="assets/pages_webp/page-clasico-01.webp?v=capsula_clean_v2" alt="Pág 6" loading="lazy">
+          <span class="thumb-badge-num">06</span>
         </div>
         <span class="thumb-card-title">Clásico</span>
       </div>
 
-      <div class="thumb-item" data-page="5" style="--thumb-accent: var(--color-clasico);">
+      <div class="thumb-item" data-target-anchor="clasico-lab" data-page="6" style="--thumb-accent: var(--color-clasico);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-04.webp" alt="Pág 6" loading="lazy">
-          <span class="thumb-badge-num">06</span>
+          <img src="assets/pages_webp/page-clasico-02.webp?v=capsula_10_10" alt="Pág 7" loading="lazy">
+          <span class="thumb-badge-num">07</span>
         </div>
-        <span class="thumb-card-title">Demostración</span>
+        <span class="thumb-card-title">Dosificación</span>
       </div>
 
-      <div class="thumb-item" data-page="6" style="--thumb-accent: var(--color-racing);">
+      <div class="thumb-item" data-target-anchor="racing" data-page="7" style="--thumb-accent: var(--color-racing);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-05.webp" alt="Pág 7" loading="lazy">
-          <span class="thumb-badge-num">07</span>
+          <img src="assets/pages_webp/page-racing-01.webp?v=capsula_10_10" alt="Pág 8" loading="lazy">
+          <span class="thumb-badge-num">08</span>
         </div>
         <span class="thumb-card-title">Racing</span>
       </div>
 
-      <div class="thumb-item" data-page="7" style="--thumb-accent: var(--color-racing);">
+      <div class="thumb-item" data-target-anchor="racing-lab" data-page="8" style="--thumb-accent: var(--color-racing);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-06.webp" alt="Pág 8" loading="lazy">
-          <span class="thumb-badge-num">08</span>
+          <img src="assets/pages_webp/page-racing-02.webp?v=capsula_10_10" alt="Pág 9" loading="lazy">
+          <span class="thumb-badge-num">09</span>
         </div>
-        <span class="thumb-card-title">Demostración</span>
+        <span class="thumb-card-title">Dosificación</span>
       </div>
 
-      <div class="thumb-item" data-page="8" style="--thumb-accent: var(--color-cetane);">
+      <div class="thumb-item" data-target-anchor="cetane" data-page="9" style="--thumb-accent: var(--color-cetane);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-07.webp" alt="Pág 9" loading="lazy">
-          <span class="thumb-badge-num">09</span>
+          <img src="assets/pages_webp/page-cetane-01.webp?v=capsula_clean_v2" alt="Pág 10" loading="lazy">
+          <span class="thumb-badge-num">10</span>
         </div>
         <span class="thumb-card-title">Cetano</span>
       </div>
 
-      <div class="thumb-item" data-page="9" style="--thumb-accent: var(--color-marine);">
+      <div class="thumb-item" data-target-anchor="cetane-lab" data-page="10" style="--thumb-accent: var(--color-cetane);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-08.webp" alt="Pág 10" loading="lazy">
-          <span class="thumb-badge-num">10</span>
+          <img src="assets/pages_webp/page-cetane-02.webp?v=capsula_10_10" alt="Pág 11" loading="lazy">
+          <span class="thumb-badge-num">11</span>
+        </div>
+        <span class="thumb-card-title">Dosificación</span>
+      </div>
+
+      <div class="thumb-item" data-target-anchor="marine" data-page="11" style="--thumb-accent: var(--color-marine);">
+        <div class="thumb-img-wrapper">
+          <img src="assets/pages_webp/page-marine-01.webp?v=capsula_10_10" alt="Pág 12" loading="lazy">
+          <span class="thumb-badge-num">12</span>
         </div>
         <span class="thumb-card-title">Marine</span>
       </div>
 
-      <div class="thumb-item" data-page="10" style="--thumb-accent: var(--color-marine);">
+      <div class="thumb-item" data-target-anchor="marine-lab" data-page="12" style="--thumb-accent: var(--color-marine);">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-09.webp" alt="Pág 11" loading="lazy">
-          <span class="thumb-badge-num">11</span>
+          <img src="assets/pages_webp/page-marine-02.webp?v=capsula_10_10" alt="Pág 13" loading="lazy">
+          <span class="thumb-badge-num">13</span>
         </div>
-        <span class="thumb-card-title">Pruebas Lab</span>
+        <span class="thumb-card-title">Dosificación</span>
       </div>
 
-      <div class="thumb-item" data-page="11" style="--thumb-accent: #F14825;">
+      <div class="thumb-item" data-target-anchor="beneficios-1" data-page="13" style="--thumb-accent: #F59E0B;">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-beneficios-01.webp" alt="Pág 12" loading="lazy">
-          <span class="thumb-badge-num">12</span>
+          <img src="assets/pages_webp/page-beneficios-01.webp?v=single_clasico_1l_v4" alt="Pág 14" loading="lazy">
+          <span class="thumb-badge-num">14</span>
         </div>
         <span class="thumb-card-title">7 Beneficios I</span>
       </div>
 
-      <div class="thumb-item" data-page="12" style="--thumb-accent: #F14825;">
+      <div class="thumb-item" data-target-anchor="beneficios-2" data-page="14" style="--thumb-accent: #F59E0B;">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-beneficios-02.webp" alt="Pág 13" loading="lazy">
-          <span class="thumb-badge-num">13</span>
+          <img src="assets/pages_webp/page-beneficios-02.webp?v=balanced_titles_v5_gold_bold" alt="Pág 15" loading="lazy">
+          <span class="thumb-badge-num">15</span>
         </div>
         <span class="thumb-card-title">7 Beneficios II</span>
       </div>
 
-      <div class="thumb-item" data-page="13">
+      <div class="thumb-item" data-target-anchor="contacto" data-page="15">
         <div class="thumb-img-wrapper">
-          <img src="assets/pages_webp/page-10.webp" alt="Pág 14" loading="lazy">
-          <span class="thumb-badge-num">14</span>
+          <img src="assets/pages_webp/page-10.webp?v=purged_portada_v5" alt="Pág 16" loading="lazy">
+          <span class="thumb-badge-num">16</span>
         </div>
         <span class="thumb-card-title">Contacto</span>
       </div>
@@ -527,7 +483,7 @@
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
           </svg>
-          <span id="pageIndicator" class="page-indicator-text">Página 1 de 14</span>
+          <span id="pageIndicator" class="page-indicator-text">Página 1 de 16</span>
         </div>
         <div class="reading-progress-track">
           <div id="readingProgressBar" class="reading-progress-bar" style="width: 9%;"></div>
@@ -555,6 +511,6 @@
   <!-- Librerías Externas y Controlador Principal -->
   <script src="js/gsap.min.js"></script>
   <script src="js/page-flip.browser.js?v=20261118_v23_no_corner_hint"></script>
-  <script src="js/app.js?v=20261118_v23_no_corner_hint"></script>
+  <script src="js/app.js?v=20261120_v28_fase1_16pages"></script>
 </body>
 </html>
