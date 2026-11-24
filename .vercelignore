@@ -15,5 +15,7 @@ preview.png
 *.log
 previews/
 verify_full_brochure.cjs
+test_telemetry.cjs
+devtools_audit.cjs
 HANDOFF_NEXT_SESSION.md
 
