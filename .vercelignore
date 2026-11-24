@@ -23,6 +23,7 @@ previews
 verify_full_brochure.cjs
 test_telemetry.cjs
 test_telemetry_e2e.cjs
+run_devtools_memory_audit.cjs
 devtools_audit.cjs
 HANDOFF_NEXT_SESSION.md
 dns_override.cjs
