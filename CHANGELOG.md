@@ -5,6 +5,18 @@ All notable changes to the BK3 Brochure Digital project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-11-24
+
+### Added
+- **Client-Side Observability & Telemetry Engine (`BK3Telemetry`)**:
+  - Structured event streaming with stable JSON schema, session correlation IDs (`sessionId`), and entry-point attribution.
+  - Page-by-page dwell time tracking (`page_turned`) measuring reader velocity and completion funnel across all 16 pages.
+  - 3D product micro-interaction monitoring (`product_3d_interacted`) tracking hover and touch engagement per product line.
+  - Conversion intent tracking (`conversion_intent`) capturing WhatsApp CTA orders and official web history visits.
+  - Core Web Vitals passive monitoring (LCP, CLS) via standard browser `PerformanceObserver`.
+  - Resilient client exception boundary capturing runtime errors and unhandled rejections without crashing the magazine.
+- **Automated Telemetry Test Suite (`test_telemetry.cjs`)** verifying 7 operational telemetry assertions.
+
 ## [1.0.0] - 2026-11-24
 
 ### Added

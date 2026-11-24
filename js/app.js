@@ -512,6 +512,11 @@ document.addEventListener('DOMContentLoaded', () => {
       updateSpreadCentering(e.data);
       playPaperTurnSound();
       triggerPageAnimations(e.data);
+      if (window.BK3Telemetry) {
+        const activePageEl = pageElements[e.data];
+        const spreadAnchor = activePageEl ? activePageEl.getAttribute('data-anchor') : '';
+        window.BK3Telemetry.recordPageTurn(e.data, spreadAnchor || ('page_' + (e.data + 1)));
+      }
     });
 
     pageFlip.on('init', (e) => {
@@ -794,7 +799,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function toggleThumbsDrawer() {
-    if (thumbsDrawer) thumbsDrawer.classList.toggle('open');
+    if (thumbsDrawer) {
+      const willOpen = !thumbsDrawer.classList.contains('open');
+      thumbsDrawer.classList.toggle('open');
+      if (window.BK3Telemetry) {
+        window.BK3Telemetry.emit('thumbnail_drawer_toggled', { state: willOpen ? 'open' : 'closed' });
+      }
+    }
   }
 
   if (btnThumbs) btnThumbs.addEventListener('click', toggleThumbsDrawer);
@@ -916,4 +927,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, 150);
   });
+
+  // --------------------------------------------------------------------------
+  // TELEMETRÍA E INSTRUMENTACIÓN DE CONVERSIONES Y PRODUCTOS 3D
+  // --------------------------------------------------------------------------
+  if (window.BK3Telemetry) {
+    // Conversión: Click en botón de WhatsApp en la contraportada
+    const wspBtn = document.querySelector('.backcover-wsp-button');
+    if (wspBtn) {
+      wspBtn.addEventListener('click', () => {
+        window.BK3Telemetry.recordConversion('whatsapp_order', {
+          target: 'wa.me/584143418703',
+          label: 'PEDIR POR WHATSAPP'
+        });
+      });
+    }
+
+    // Conversión: Click en enlace web oficial (Somos Nosotros)
+    const webLinkBtn = document.querySelector('.hotspot-web-somos');
+    if (webLinkBtn) {
+      webLinkBtn.addEventListener('click', () => {
+        window.BK3Telemetry.recordConversion('official_website', {
+          target: 'bk3octanebooster.com/somos-nosotros/'
+        });
+      });
+    }
+
+    // Micro-interacción: Exploración táctil o hover de productos 3D
+    const all3dSpots = document.querySelectorAll('.product-3d-spot, .benefit-product-spot');
+    all3dSpots.forEach(spot => {
+      spot.addEventListener('mouseenter', () => {
+        const prod = spot.getAttribute('data-target-anchor') || (spot.className.match(/spot-([a-z0-9]+)/) || [])[1] || 'producto';
+        window.BK3Telemetry.recordProductInteraction(prod, 'hover');
+      });
+      spot.addEventListener('touchstart', () => {
+        const prod = spot.getAttribute('data-target-anchor') || (spot.className.match(/spot-([a-z0-9]+)/) || [])[1] || 'producto';
+        window.BK3Telemetry.recordProductInteraction(prod, 'touch');
+      }, { passive: true });
+    });
+  }
 });
